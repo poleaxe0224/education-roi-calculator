@@ -41,7 +41,7 @@ export async function initApp() {
   addRoute('/search', searchView);
   addRoute('/detail/:soc', detailView);
   addRoute('/calculator', calculatorView);
-  addRoute('/compare', compareView.render);
+  addRoute('/compare', compareView);
   setNotFound(notFound);
 
   // Init i18n (loads translations, applies to static DOM)

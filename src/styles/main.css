@@ -338,6 +338,112 @@ header nav .brand {
   box-shadow: var(--shadow-card);
 }
 
+/* ---- Compare view ---- */
+.compare-view {
+  padding: var(--space-lg) 0;
+}
+
+.compare-subtitle {
+  color: var(--pico-muted-color);
+  margin-bottom: var(--space-md);
+}
+
+.compare-selectors {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.compare-selector {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.compare-selector select {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.remove-btn {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+.compare-actions {
+  display: flex;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.compare-msg {
+  min-height: 1.5em;
+  margin-bottom: var(--space-md);
+}
+
+.compare-table-wrap {
+  overflow-x: auto;
+  margin-bottom: var(--space-md);
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table th,
+.compare-table td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.compare-table th:first-child,
+.compare-table td:first-child {
+  text-align: left;
+}
+
+.compare-table thead th {
+  font-weight: 700;
+  border-bottom: 2px solid var(--pico-muted-border-color);
+}
+
+.compare-table tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.compare-table .best-cell {
+  font-weight: 700;
+  position: relative;
+}
+
+.compare-table .best-cell::after {
+  content: " \2605";
+  color: var(--brand-accent);
+  font-size: 0.75em;
+}
+
+.compare-chart-wrap {
+  max-width: 700px;
+  margin: var(--space-lg) auto;
+  padding: var(--space-md);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 768px) {
+  .compare-selector {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .compare-actions {
+    flex-direction: column;
+  }
+}
+
 /* ---- Footer ---- */
 footer {
   margin-top: auto;

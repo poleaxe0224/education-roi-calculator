@@ -69,6 +69,9 @@ export function render() {
           <canvas id="chart-cumulative"></canvas>
         </div>
       </div>
+      <div id="calc-pdf-wrap" class="hidden" style="text-align:center; margin-top:var(--space-lg);">
+        <button type="button" id="calc-export-pdf" class="outline">${t('pdf.export')}</button>
+      </div>
     </section>
   `;
 }
@@ -232,10 +235,56 @@ function renderCharts(result) {
   }
 }
 
+async function exportPdf(contentEl) {
+  const btn = document.getElementById('calc-export-pdf');
+  const origText = btn.textContent;
+  btn.textContent = t('pdf.exporting');
+  btn.disabled = true;
+
+  try {
+    if (!window.html2pdf) {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    const header = document.createElement('div');
+    header.innerHTML = `
+      <h2 style="text-align:center;margin-bottom:4px;">${t('pdf.report_title')}</h2>
+      <p style="text-align:center;color:#666;font-size:12px;margin-bottom:16px;">
+        ${t('pdf.generated').replace('{date}', new Date().toLocaleDateString())} |
+        ${t('pdf.disclaimer')}
+      </p>
+    `;
+
+    const wrapper = document.createElement('div');
+    wrapper.appendChild(header);
+    wrapper.appendChild(contentEl.cloneNode(true));
+
+    await window.html2pdf().set({
+      margin: [10, 10],
+      filename: `education-roi-calculator-${Date.now()}.pdf`,
+      image: { type: 'jpeg', quality: 0.95 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    }).from(wrapper).save();
+  } catch (err) {
+    console.error('PDF export failed:', err);
+  } finally {
+    btn.textContent = origText;
+    btn.disabled = false;
+  }
+}
+
 export function afterRender() {
   const form = document.getElementById('calc-form');
   const resultsEl = document.getElementById('calc-results');
   const chartsEl = document.getElementById('calc-charts');
+  const pdfWrap = document.getElementById('calc-pdf-wrap');
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -259,6 +308,7 @@ export function afterRender() {
     resultsEl.classList.remove('hidden');
 
     chartsEl.classList.remove('hidden');
+    pdfWrap.classList.remove('hidden');
     renderCharts(result);
 
     resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -269,7 +319,11 @@ export function afterRender() {
     resultsEl.innerHTML = '';
     resultsEl.classList.add('hidden');
     chartsEl.classList.add('hidden');
+    pdfWrap.classList.add('hidden');
   });
+
+  // PDF export
+  document.getElementById('calc-export-pdf').addEventListener('click', () => exportPdf(resultsEl));
 
   // Auto-calculate if pre-filled from detail page
   const qp = getQueryParams();
