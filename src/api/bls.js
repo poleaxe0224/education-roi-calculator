@@ -93,13 +93,36 @@ export async function fetchSeries(seriesIds, startYear, endYear) {
 }
 
 /**
+ * Static wage data bundled at build time (BLS API doesn't support browser CORS).
+ * Regenerate with: node scripts/fetch-bls-wages.mjs
+ */
+let staticWages = null;
+async function getStaticWages() {
+  if (staticWages) return staticWages;
+  const mod = await import('../data/wages.json');
+  staticWages = mod.default;
+  return staticWages;
+}
+
+/**
  * Get annual wage percentiles + employment count for a SOC code.
+ * Uses bundled static data (primary) with live API fallback.
  * @param {string} socCode — e.g. '15-1252'
  * @param {number} [year] — defaults to last year
  * @returns {Promise<Record<string, number>>}
  */
 export async function getWageData(socCode, year) {
-  const targetYear = year || new Date().getFullYear() - 1;
+  // Primary: static bundled data (no CORS issues)
+  try {
+    const wages = await getStaticWages();
+    const entry = wages.careers?.[socCode];
+    if (entry?.annualMedian != null) {
+      return { ...entry, year: entry.year || wages._meta?.year };
+    }
+  } catch { /* fall through to live API */ }
+
+  // Fallback: live BLS API (works server-side or with CORS proxy)
+  const targetYear = year || new Date().getFullYear() - 2;
 
   const fields = [
     'annual10', 'annual25', 'annualMedian', 'annual75', 'annual90',

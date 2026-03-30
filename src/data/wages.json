@@ -1,0 +1,217 @@
+{
+  "_meta": {
+    "fetchedAt": "2026-03-30T17:03:40.140Z",
+    "year": 2024,
+    "source": "BLS OES National, All Industries"
+  },
+  "careers": {
+    "15-1252": {
+      "year": 2024,
+      "annual10": 133080,
+      "annual25": 169000,
+      "annualMedian": 211450,
+      "annualMean": 144570,
+      "employment": 1654440
+    },
+    "15-1211": {
+      "year": 2024,
+      "annual10": 103790,
+      "annual25": 132360,
+      "annualMedian": 166030,
+      "annualMean": 111960,
+      "employment": 497800
+    },
+    "15-1212": {
+      "year": 2024,
+      "annual10": 124910,
+      "annual25": 159600,
+      "annualMedian": 186420,
+      "annualMean": 127730,
+      "employment": 179430
+    },
+    "15-2051": {
+      "year": 2024,
+      "annual10": 112590,
+      "annual25": 155810,
+      "annualMedian": 194410,
+      "annualMean": 124590,
+      "employment": 233440
+    },
+    "29-1141": {
+      "year": 2024,
+      "annual10": 93600,
+      "annual25": 107960,
+      "annualMedian": 135320,
+      "annualMean": 98430,
+      "employment": 3282010
+    },
+    "29-1071": {
+      "year": 2024,
+      "annual10": 133260,
+      "annual25": 160160,
+      "annualMedian": 182200,
+      "annualMean": 136900,
+      "employment": 155540
+    },
+    "29-1021": {
+      "year": 2024,
+      "annual10": 79870,
+      "annual25": 122820,
+      "annualMean": 187130,
+      "employment": 115960,
+      "annualMedian": 170910,
+      "annual75": 237080,
+      "annual90": 237080
+    },
+    "29-1051": {
+      "year": 2024,
+      "annual10": 137480,
+      "annual25": 158620,
+      "annualMedian": 172040,
+      "annualMean": 137210,
+      "employment": 328870
+    },
+    "13-2011": {
+      "year": 2024,
+      "annual10": 81680,
+      "annual25": 106450,
+      "annualMedian": 141420,
+      "annualMean": 93520,
+      "employment": 1448290
+    },
+    "13-2051": {
+      "year": 2024,
+      "annual10": 101350,
+      "annual25": 132050,
+      "annualMedian": 180550,
+      "annualMean": 116490,
+      "employment": 340580
+    },
+    "11-2021": {
+      "year": 2024,
+      "annual10": 81920,
+      "annual25": 113050,
+      "annualMean": 184150,
+      "employment": 391520,
+      "annualMedian": 166050,
+      "annual75": 220440,
+      "annual90": 237080
+    },
+    "11-3031": {
+      "year": 2024,
+      "annual10": 84050,
+      "annual25": 115230,
+      "annualMean": 183900,
+      "employment": 773270,
+      "annualMedian": 166050,
+      "annual75": 220170,
+      "annual90": 237080
+    },
+    "17-2051": {
+      "year": 2024,
+      "annual10": 99590,
+      "annual25": 128290,
+      "annualMedian": 160990,
+      "annualMean": 107050,
+      "employment": 355410
+    },
+    "17-2071": {
+      "year": 2024,
+      "annual10": 111910,
+      "annual25": 141630,
+      "annualMedian": 175460,
+      "annualMean": 120980,
+      "employment": 188790
+    },
+    "17-2141": {
+      "year": 2024,
+      "annual10": 102320,
+      "annual25": 130290,
+      "annualMedian": 161240,
+      "annualMean": 110080,
+      "employment": 286760
+    },
+    "25-2021": {
+      "year": 2024,
+      "annual10": 62340,
+      "annual25": 79410,
+      "annualMedian": 102010,
+      "annualMean": 69790,
+      "employment": 1393310
+    },
+    "25-2031": {
+      "year": 2024,
+      "annual10": 64580,
+      "annual25": 83010,
+      "annualMedian": 104670,
+      "annualMean": 73700,
+      "employment": 1072540
+    },
+    "49-9021": {
+      "year": 2024,
+      "annual10": 59810,
+      "annual25": 74820,
+      "annualMedian": 91020,
+      "annualMean": 62690,
+      "employment": 396870
+    },
+    "47-2111": {
+      "year": 2024,
+      "annual10": 62350,
+      "annual25": 81730,
+      "annualMedian": 106030,
+      "annualMean": 69630,
+      "employment": 742580
+    },
+    "29-2061": {
+      "year": 2024,
+      "annual10": 62340,
+      "annual25": 73160,
+      "annualMedian": 80510,
+      "annualMean": 64150,
+      "employment": 632430
+    },
+    "15-1231": {
+      "year": 2024,
+      "annual10": 73340,
+      "annual25": 95710,
+      "annualMedian": 124470,
+      "annualMean": 79610,
+      "employment": 146450
+    },
+    "23-1011": {
+      "year": 2024,
+      "annual10": 65080,
+      "annual25": 86500,
+      "annualMean": 163770,
+      "employment": 813900,
+      "annualMedian": 145760,
+      "annual75": 208980,
+      "annual90": 237080
+    },
+    "23-2011": {
+      "year": 2024,
+      "annual10": 61010,
+      "annual25": 78280,
+      "annualMedian": 98990,
+      "annualMean": 66510,
+      "employment": 367220
+    },
+    "27-1024": {
+      "year": 2024,
+      "annual10": 61300,
+      "annual25": 79000,
+      "annualMedian": 103030,
+      "annualMean": 68610,
+      "employment": 214260
+    },
+    "27-3023": {
+      "year": 2024,
+      "annual10": 60280,
+      "annual25": 97460,
+      "annualMedian": 162430,
+      "annualMean": 106030,
+      "employment": 41550
+    }
+  }
+}
