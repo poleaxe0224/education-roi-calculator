@@ -5,3 +5,8 @@ dist/
 *.log
 .DS_Store
 Thumbs.db
+
+# NTFS WOF driver corrupts file bytes for MSYS2/git — CI generates fresh
+package-lock.json
+src/data/wages.json
+src/data/tuition.json

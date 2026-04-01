@@ -55,15 +55,22 @@ const FIELDS = [
   'latest.cost.avg_net_price.overall',
 ];
 
-const SAMPLE_SIZE = 50;
+const SAMPLE_SIZE = 100;
+
+function median(arr) {
+  if (!arr.length) return null;
+  const sorted = [...arr].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
+}
 
 async function fetchTuitionForCip(cipCode) {
+  // Fetch without sort bias — take a larger sample and compute median
   const params = new URLSearchParams({
     api_key: API_KEY,
     'latest.programs.cip_4_digit.code': cipCode,
     fields: FIELDS.join(','),
     per_page: String(SAMPLE_SIZE),
-    sort: 'latest.cost.avg_net_price.overall:asc',
   });
 
   const url = `${BASE_URL}?${params}`;
@@ -76,23 +83,24 @@ async function fetchTuitionForCip(cipCode) {
   const json = await res.json();
   const schools = json.results || [];
 
-  let inStateSum = 0, outOfStateSum = 0, netPriceSum = 0;
-  let inStateCount = 0, outOfStateCount = 0, netPriceCount = 0;
+  const inStateVals = [];
+  const outOfStateVals = [];
+  const netPriceVals = [];
 
   for (const s of schools) {
     const inState = s['latest.cost.tuition.in_state'];
     const outOfState = s['latest.cost.tuition.out_of_state'];
     const netPrice = s['latest.cost.avg_net_price.overall'];
 
-    if (inState != null) { inStateSum += inState; inStateCount++; }
-    if (outOfState != null) { outOfStateSum += outOfState; outOfStateCount++; }
-    if (netPrice != null) { netPriceSum += netPrice; netPriceCount++; }
+    if (inState != null) inStateVals.push(inState);
+    if (outOfState != null) outOfStateVals.push(outOfState);
+    if (netPrice != null) netPriceVals.push(netPrice);
   }
 
   return {
-    inState: inStateCount ? Math.round(inStateSum / inStateCount) : null,
-    outOfState: outOfStateCount ? Math.round(outOfStateSum / outOfStateCount) : null,
-    netPrice: netPriceCount ? Math.round(netPriceSum / netPriceCount) : null,
+    inState: median(inStateVals),
+    outOfState: median(outOfStateVals),
+    netPrice: median(netPriceVals),
     sampleCount: schools.length,
   };
 }
@@ -107,6 +115,12 @@ async function main() {
     console.log(`Loaded ${Object.keys(existing).length} existing CIP entries`);
   } catch { /* first run, no file */ }
 
+  // Force re-fetch all (ignore cache) when --force flag is passed
+  const forceRefetch = process.argv.includes('--force');
+  if (forceRefetch) {
+    existing = {};
+    console.log('Force re-fetch: ignoring cached data');
+  }
   const toFetch = CIP_CAREERS.filter((c) => !existing[c.cip]);
   console.log(`Fetching Scorecard tuition for ${toFetch.length} CIP codes (${CIP_CAREERS.length - toFetch.length} cached)...`);
 

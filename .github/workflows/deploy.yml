@@ -22,8 +22,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
-      - run: npm ci
+      - run: npm install
+      - name: Fetch BLS wage data
+        run: node scripts/fetch-bls-wages.mjs
+      - name: Fetch Scorecard tuition data
+        run: node scripts/fetch-scorecard-tuition.mjs
+        env:
+          SCORECARD_API_KEY: ${{ secrets.SCORECARD_API_KEY }}
       - run: npm test
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
