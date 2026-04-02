@@ -137,8 +137,30 @@
     "degree_doctoral": "\u535a\u58eb",
     "degree_firstProfessional": "\u5c08\u696d\u5b78\u4f4d"
   },
+  "ipeds": {
+    "graduation_rate": "畢業率 (150%)",
+    "completions": "年度畢業人數",
+    "market_employment": "市場就業人數",
+    "saturation_ratio": "飽和比率",
+    "basic_roi": "基本 ROI",
+    "risk_adjusted_roi": "風險調整 ROI",
+    "competition_adjusted_roi": "競爭調整 ROI",
+    "basic_roi_desc": "未經調整的原始投資報酬率",
+    "risk_adjusted_desc": "考慮畢業機率後的期望報酬率",
+    "competition_adjusted_desc": "考慮畢業機率與就業競爭後的期望報酬率",
+    "recommended": "推薦",
+    "fallback_no_grad": "⚠ 畢業率資料不足 — 未含畢業率風險調整",
+    "fallback_no_competition": "⚠ 就業資料不足 — 未含就業競爭度調整",
+    "advanced_params": "進階參數調整",
+    "competition_sensitivity": "競爭敏感度",
+    "competition_sensitivity_tip": "數值越高，就業競爭對 ROI 的影響越大",
+    "max_penalty_cap": "最大折損上限",
+    "max_penalty_tip": "ROI 因就業競爭最多被折減的幅度",
+    "reset_defaults": "重置預設值",
+    "data_unavailable": "資料不足"
+  },
   "footer": {
-    "data": "\u8cc7\u6599\u4f86\u6e90\uff1aBLS OES \u53ca College Scorecard",
-    "disclaimer": "\u50c5\u4f9b\u53c3\u8003\u7528\u9014"
+    "data": "資料來源：BLS OES、College Scorecard 及 IPEDS",
+    "disclaimer": "僅供參考用途"
   }
 }

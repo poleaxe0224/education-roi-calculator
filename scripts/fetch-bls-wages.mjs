@@ -119,10 +119,18 @@ async function main() {
     }
   }
 
+  // Add tot_emp alias (BLS TOT_EMP) from employment field
+  // Handles BLS "**" confidentiality marker → null
+  for (const soc of Object.keys(wages)) {
+    const emp = wages[soc].employment;
+    wages[soc].tot_emp = (emp != null && !Number.isNaN(emp)) ? emp : null;
+  }
+
   // Summary
   const count = Object.keys(wages).length;
   const complete = Object.values(wages).filter((w) => w.annualMedian != null).length;
-  console.log(`\nFetched: ${count} careers, ${complete} with median salary`);
+  const withEmp = Object.values(wages).filter((w) => w.tot_emp != null).length;
+  console.log(`\nFetched: ${count} careers, ${complete} with median salary, ${withEmp} with employment data`);
 
   // Write output
   mkdirSync(OUT_DIR, { recursive: true });

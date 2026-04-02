@@ -137,8 +137,30 @@
     "degree_doctoral": "Doctoral",
     "degree_firstProfessional": "Professional"
   },
+  "ipeds": {
+    "graduation_rate": "Graduation Rate (150%)",
+    "completions": "Annual Completions",
+    "market_employment": "Market Employment",
+    "saturation_ratio": "Saturation Ratio",
+    "basic_roi": "Basic ROI",
+    "risk_adjusted_roi": "Risk-Adjusted ROI",
+    "competition_adjusted_roi": "Competition-Adjusted ROI",
+    "basic_roi_desc": "Unadjusted return on investment",
+    "risk_adjusted_desc": "Expected ROI weighted by graduation probability",
+    "competition_adjusted_desc": "Expected ROI after graduation risk and job market competition",
+    "recommended": "Recommended",
+    "fallback_no_grad": "Graduation rate unavailable — risk adjustment not applied",
+    "fallback_no_competition": "Employment data unavailable — competition adjustment not applied",
+    "advanced_params": "Advanced Parameters",
+    "competition_sensitivity": "Competition Sensitivity",
+    "competition_sensitivity_tip": "Higher values = greater impact of job competition on ROI",
+    "max_penalty_cap": "Max Penalty Cap",
+    "max_penalty_tip": "Maximum ROI reduction due to job market competition",
+    "reset_defaults": "Reset Defaults",
+    "data_unavailable": "Data unavailable"
+  },
   "footer": {
-    "data": "Data: BLS OES & College Scorecard",
+    "data": "Data: BLS OES, College Scorecard & IPEDS",
     "disclaimer": "For informational purposes only"
   }
 }

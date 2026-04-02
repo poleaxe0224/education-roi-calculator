@@ -66,9 +66,9 @@ export const CAREER_MAPPINGS = Object.freeze([
 
   // Healthcare
   { soc: '29-1141', cip: '5138', career: 'Registered Nurse', careerZh: '註冊護理師', typicalDegree: 'bachelors' },
-  { soc: '29-1071', cip: '5117', career: 'Physician Assistant', careerZh: '醫師助理', typicalDegree: 'masters' },
-  { soc: '29-1021', cip: '5112', career: 'Dentist', careerZh: '牙醫', typicalDegree: 'firstProfessional' },
-  { soc: '29-1051', cip: '5102', career: 'Pharmacist', careerZh: '藥劑師', typicalDegree: 'firstProfessional' },
+  { soc: '29-1071', cip: '5109', career: 'Physician Assistant', careerZh: '醫師助理', typicalDegree: 'masters' },
+  { soc: '29-1021', cip: '5104', career: 'Dentist', careerZh: '牙醫', typicalDegree: 'firstProfessional' },
+  { soc: '29-1051', cip: '5120', career: 'Pharmacist', careerZh: '藥劑師', typicalDegree: 'firstProfessional' },
 
   // Business & Finance
   { soc: '13-2011', cip: '5203', career: 'Accountant', careerZh: '會計師', typicalDegree: 'bachelors' },

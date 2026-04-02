@@ -1,8 +1,9 @@
 import { t, getLocale } from '../i18n/i18n.js';
 import { CAREER_MAPPINGS, findBySoc, getBaselineSalary, getEducationDuration } from '../engine/mappings.js';
-import { calcFullROI } from '../engine/roi.js';
+import { calcThreeLayerROI } from '../engine/roi.js';
 import * as bls from '../api/bls.js';
 import * as scorecard from '../api/scorecard.js';
+import * as ipeds from '../api/ipeds.js';
 import { formatCurrency, formatPercent } from '../utils/format.js';
 
 const getChart = () => window.Chart;
@@ -63,28 +64,34 @@ export function render() {
   `;
 }
 
-/** Fetch tuition + wage for one career, return enriched object */
+/** Fetch tuition + wage + IPEDS for one career, return enriched object */
 async function fetchCareerData(career) {
   const duration = getEducationDuration(career.typicalDegree);
   const baseline = getBaselineSalary(career.typicalDegree);
 
-  const [wageRes, tuitionRes] = await Promise.allSettled([
+  const [wageRes, tuitionRes, ipedsRes] = await Promise.allSettled([
     bls.getWageData(career.soc),
     scorecard.getAverageTuition(career.cip),
+    ipeds.getIpedsData(career.cip),
   ]);
 
   const wage = wageRes.status === 'fulfilled' ? wageRes.value : null;
   const tuition = tuitionRes.status === 'fulfilled' ? tuitionRes.value : null;
+  const ipedsData = ipedsRes.status === 'fulfilled' ? ipedsRes.value : null;
 
   const medianSalary = wage?.annualMedian || baseline * 1.5; // rough fallback
   const annualTuition = tuition?.netPrice || tuition?.inState || 20_000;
   const salaryFallback = !wage?.annualMedian;
+  const totalEmployment = wage?.employment ?? wage?.tot_emp ?? null;
 
-  const roi = calcFullROI({
+  const roi = calcThreeLayerROI({
     annualTuition,
     educationYears: duration,
     postDegreeSalary: medianSalary,
     baselineSalary: baseline,
+    graduationRate: ipedsData?.graduationRate ?? null,
+    completionsTotal: ipedsData?.completionsTotal ?? null,
+    totalEmployment,
   });
 
   return {
@@ -94,6 +101,7 @@ async function fetchCareerData(career) {
     medianSalary,
     annualTuition,
     salaryFallback,
+    graduationRate: ipedsData?.graduationRate ?? null,
     roi,
   };
 }
@@ -124,6 +132,8 @@ function renderTable(results) {
   const gains = results.map((r) => r.roi.lifetime.netGain);
   const bkevens = results.map((r) => r.roi.breakevenYear);
   const payments = results.map((r) => r.roi.loan.monthlyPayment);
+  const gradRates = results.map((r) => r.graduationRate);
+  const adjRois = results.map((r) => r.roi.layers?.competitionAdjusted?.roi ?? r.roi.lifetime.roi);
 
   const npvBest = best(npvs);
   const irrBest = best(irrs);
@@ -131,6 +141,8 @@ function renderTable(results) {
   const gainBest = best(gains);
   const bkBest = best(bkevens.map((b) => b ?? 999), 'min');
   const payBest = best(payments, 'min');
+  const gradBest = best(gradRates.map((g) => g ?? -1));
+  const adjRoiBest = best(adjRois);
 
   function row(label, cells) {
     return `<tr><th>${label}</th>${cells.map((c) => `<td${c.cls ? ` class="${c.cls}"` : ''}>${c.val}</td>`).join('')}</tr>`;
@@ -153,10 +165,12 @@ function renderTable(results) {
           ${row(t('compare.duration_label'), results.map((r) => ({ val: `${r.duration} ${t('calculator.years')}` })))}
           ${row(t('compare.tuition_label'), results.map((r) => ({ val: formatCurrency(r.annualTuition) })))}
           ${row(t('compare.salary_label'), results.map((r, i) => ({ val: formatCurrency(r.medianSalary) + (r.salaryFallback ? ' *' : '') })))}
+          ${row(t('ipeds.graduation_rate'), results.map((r, i) => ({ val: r.graduationRate != null ? `${(r.graduationRate * 100).toFixed(1)}%` : t('ipeds.data_unavailable'), cls: gradBest[i] })))}
           ${row(t('compare.npv'), results.map((r, i) => ({ val: formatCurrency(r.roi.npv), cls: `${npvBest[i]} ${r.roi.npv >= 0 ? 'roi-positive' : 'roi-negative'}` })))}
           ${row(t('compare.irr'), results.map((r, i) => ({ val: formatPercent(r.roi.irr), cls: irrBest[i] })))}
           ${row(t('compare.breakeven'), results.map((r, i) => ({ val: breakevenText(r.roi.breakevenYear), cls: bkBest[i] })))}
           ${row(t('compare.lifetime_roi'), results.map((r, i) => ({ val: `${r.roi.lifetime.roi.toFixed(1)}%`, cls: `${roiBest[i]} ${r.roi.lifetime.roi >= 0 ? 'roi-positive' : 'roi-negative'}` })))}
+          ${row(t('ipeds.competition_adjusted_roi'), results.map((r, i) => ({ val: `${adjRois[i].toFixed(1)}%`, cls: `${adjRoiBest[i]} ${adjRois[i] >= 0 ? 'roi-positive' : 'roi-negative'}` })))}
           ${row(t('compare.net_gain'), results.map((r, i) => ({ val: formatCurrency(r.roi.lifetime.netGain), cls: `${gainBest[i]} ${r.roi.lifetime.netGain >= 0 ? 'roi-positive' : 'roi-negative'}` })))}
           ${row(t('compare.total_cost'), results.map((r) => ({ val: formatCurrency(r.roi.lifetime.totalCost) })))}
           ${row(t('compare.monthly_payment'), results.map((r, i) => ({ val: formatCurrency(r.roi.loan.monthlyPayment), cls: payBest[i] })))}

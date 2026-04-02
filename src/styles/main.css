@@ -467,6 +467,112 @@ header nav .brand {
   }
 }
 
+/* ---- IPEDS panel ---- */
+.ipeds-panel {
+  margin-top: var(--space-lg);
+  padding: var(--space-lg);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+}
+
+/* ---- Three-layer ROI cards ---- */
+.roi-layers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.roi-layer-card {
+  padding: var(--space-md);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+  text-align: center;
+  position: relative;
+}
+
+.roi-layer-primary {
+  border: 2px solid var(--brand-primary);
+}
+
+.roi-layer-fallback {
+  opacity: 0.7;
+}
+
+.roi-layer-badge {
+  position: absolute;
+  top: -10px;
+  right: var(--space-sm);
+  background: var(--brand-primary);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.roi-layer-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--pico-muted-color);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: var(--space-xs);
+}
+
+.roi-layer-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.roi-layer-desc {
+  font-size: 0.8rem;
+}
+
+.roi-fallback-notes {
+  margin-top: var(--space-sm);
+}
+
+/* ---- Advanced params slider panel ---- */
+.advanced-params {
+  margin: var(--space-lg) 0;
+  padding: var(--space-md);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+}
+
+.advanced-params summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.slider-panel {
+  padding-top: var(--space-md);
+}
+
+.slider-group {
+  margin-bottom: var(--space-md);
+}
+
+.slider-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  margin: var(--space-xs) 0;
+}
+
+.slider-group small {
+  display: block;
+}
+
 /* ---- Footer ---- */
 footer {
   margin-top: auto;
