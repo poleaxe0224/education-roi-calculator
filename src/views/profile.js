@@ -261,7 +261,7 @@ function renderLevel2Content(profile, onetData) {
   // Top Skills
   if (onetData.skills?.length > 0) {
     const top5 = onetData.skills.slice(0, 5);
-    const maxScore = 5;
+    const maxScore = 7; // O*NET Level (LV) scale is 0–7
     html += renderSection('prof-skills', 'onet.top_skills', `
       <div class="skill-bars">
         ${top5.map((s) => {

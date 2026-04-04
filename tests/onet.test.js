@@ -9,21 +9,21 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Sample O*NET-shaped data
 const MOCK_ONET_DATA = {
-  _meta: { fetchedAt: '2026-04-04T00:00:00Z', source: 'O*NET' },
+  _meta: { fetchedAt: '2026-04-04T00:00:00Z', source: 'O*NET Database 30.2 (CC BY 4.0)', scale: 'LV 0-7' },
   careers: {
     '15-1252': {
       skills: [
-        { name: 'Programming', id: '2.A.1.1', score: 4.5 },
-        { name: 'Critical Thinking', id: '2.A.1.2', score: 4.2 },
-        { name: 'Complex Problem Solving', id: '2.A.1.3', score: 4.0 },
-        { name: 'Systems Analysis', id: '2.A.1.4', score: 3.8 },
-        { name: 'Judgment', id: '2.A.1.5', score: 3.7 },
-        { name: 'Reading Comprehension', id: '2.A.1.6', score: 3.5 },
+        { name: 'Reading Comprehension', id: '2.A.1.a', score: 4.25 },
+        { name: 'Critical Thinking', id: '2.A.2.a', score: 4.12 },
+        { name: 'Systems Evaluation', id: '2.A.2.d', score: 4.12 },
+        { name: 'Complex Problem Solving', id: '2.B.2.i', score: 4.00 },
+        { name: 'Active Listening', id: '2.A.1.b', score: 3.88 },
+        { name: 'Programming', id: '2.B.2.a', score: 3.75 },
       ],
       knowledge: [
-        { name: 'Computers and Electronics', id: '2.C.1.1', score: 4.8 },
-        { name: 'Mathematics', id: '2.C.1.2', score: 3.9 },
-        { name: 'Engineering', id: '2.C.1.3', score: 3.5 },
+        { name: 'Computers and Electronics', id: '2.C.3.a', score: 6.23 },
+        { name: 'Mathematics', id: '2.C.4.a', score: 4.55 },
+        { name: 'Customer and Personal Service', id: '2.C.1.e', score: 4.12 },
       ],
       education: {
         education: [
@@ -71,7 +71,7 @@ describe('O*NET data structure', () => {
       expect(skill.id).toBeTruthy();
       expect(typeof skill.score).toBe('number');
       expect(skill.score).toBeGreaterThan(0);
-      expect(skill.score).toBeLessThanOrEqual(5);
+      expect(skill.score).toBeLessThanOrEqual(7);
     }
   });
 
@@ -106,8 +106,8 @@ describe('O*NET data structure', () => {
   it('top 5 skills slice works correctly', () => {
     const top5 = MOCK_ONET_DATA.careers['15-1252'].skills.slice(0, 5);
     expect(top5).toHaveLength(5);
-    expect(top5[0].name).toBe('Programming');
-    expect(top5[4].name).toBe('Judgment');
+    expect(top5[0].name).toBe('Reading Comprehension');
+    expect(top5[4].name).toBe('Active Listening');
   });
 
   it('top 8 knowledge slice works correctly', () => {
@@ -123,10 +123,10 @@ describe('O*NET data structure', () => {
     expect(withPct.every((e) => e.percentage > 0)).toBe(true);
   });
 
-  it('score to percentage conversion is correct', () => {
-    const score = 4.5;
-    const maxScore = 5;
+  it('score to percentage conversion uses 0-7 LV scale', () => {
+    const score = 4.25;
+    const maxScore = 7; // O*NET Level (LV) scale
     const pct = Math.round((score / maxScore) * 100);
-    expect(pct).toBe(90);
+    expect(pct).toBe(61);
   });
 });
