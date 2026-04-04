@@ -123,6 +123,26 @@ export function renderIpedsPanel(ipedsData, totalEmployment) {
  * @param {{ basic: object, riskAdjusted: object, competitionAdjusted: object }} layers
  * @returns {string}
  */
+/**
+ * Render the "Calculate ROI" call-to-action button.
+ * @param {{ soc: string, tuition: number, salary: number, years: number, baseline: number }} p
+ * @returns {string}
+ */
+export function renderCtaButton({ soc, tuition, salary, years, baseline }) {
+  const params = new URLSearchParams({
+    soc,
+    tuition,
+    salary,
+    years,
+    baseline,
+  });
+  return `
+    <a href="#/calculator?${params}" role="button" class="cta-btn">
+      ${t('detail.calculate_roi')}
+    </a>
+  `;
+}
+
 export function renderRoiLayers(layers) {
   const { basic, riskAdjusted, competitionAdjusted } = layers;
 
