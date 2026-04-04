@@ -281,6 +281,106 @@
   color: #fff;
 }
 
+/* ── O*NET Skill Bars ─────────────────────────────────────────────── */
+
+.skill-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.skill-bar {
+  display: grid;
+  grid-template-columns: 140px 1fr 40px;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.skill-bar__label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: right;
+}
+
+.skill-bar__track {
+  height: 10px;
+  background: var(--pico-muted-border-color);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.skill-bar__fill {
+  height: 100%;
+  border-radius: 5px;
+  background: var(--brand-primary);
+  transition: width var(--transition-normal);
+}
+
+.skill-bar__score {
+  font-size: 0.8rem;
+  color: var(--pico-muted-color);
+  font-weight: 600;
+}
+
+/* ── O*NET Knowledge Tags ─────────────────────────────────────────── */
+
+.knowledge-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.knowledge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-badge);
+  background: var(--pico-card-background-color);
+  border: 1px solid var(--pico-muted-border-color);
+  font-size: 0.8rem;
+}
+
+.knowledge-tag__score {
+  font-weight: 700;
+  color: var(--brand-primary);
+  font-size: 0.75rem;
+}
+
+/* ── O*NET Education Bars ─────────────────────────────────────────── */
+
+.edu-bars {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.edu-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.edu-bar__label {
+  font-size: 0.85rem;
+}
+
+.edu-bar__pct {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--brand-primary);
+  min-width: 40px;
+  text-align: right;
+}
+
+.onet-source {
+  font-size: 0.75rem;
+  color: var(--pico-muted-color);
+  margin-top: var(--space-md);
+  text-align: right;
+}
+
 /* ── Profile Hero ──���───────────────────────────────────────────────── */
 
 .profile-hero {
@@ -710,5 +810,13 @@
 
   .level-body {
     padding: var(--space-sm) var(--space-md) var(--space-md);
+  }
+
+  .skill-bar {
+    grid-template-columns: 100px 1fr 35px;
+  }
+
+  .skill-bar__label {
+    font-size: 0.8rem;
   }
 }

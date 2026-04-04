@@ -13,6 +13,7 @@ import { t, getLocale } from '../i18n/i18n.js';
 import { findBySoc, getRelatedCareers } from '../engine/mappings.js';
 import * as profiles from '../api/profiles.js';
 import * as bls from '../api/bls.js';
+import * as onet from '../api/onet.js';
 import { formatCurrency, formatNumber } from '../utils/format.js';
 
 function growthLabelKey(label) {
@@ -135,10 +136,25 @@ export async function afterRender({ soc } = {}) {
   // Build all 4 levels
   contentEl.innerHTML = [
     renderLevel1(profileData, career),
-    renderLevel2(profileData),
+    renderLevel2Skeleton(profileData),
     renderLevel3Skeleton(),
     renderLevel4(profileData, soc),
   ].join('');
+
+  // Lazy-load Level 2 O*NET data when expanded
+  const level2 = document.getElementById('level-2');
+  if (level2) {
+    level2.addEventListener('toggle', async () => {
+      if (!level2.open) return;
+      const body = level2.querySelector('.level-body');
+      if (body.dataset.loaded) return;
+      body.dataset.loaded = '1';
+
+      const onetData = await onet.getOnetData(soc);
+      if (!document.getElementById('level-2')) return;
+      body.innerHTML = renderLevel2Content(profileData, onetData);
+    }, { once: true });
+  }
 
   // Lazy-load Level 3 wage data when expanded
   const level3 = document.getElementById('level-3');
@@ -181,9 +197,9 @@ function renderLevel1(profile, career) {
   `;
 }
 
-/* ── Level 2: Plan (collapsed) ────────────────────────────────── */
+/* ── Level 2: Plan (collapsed, lazy-loads O*NET) ──────────────── */
 
-function renderLevel2(profile) {
+function renderLevel2Skeleton(profile) {
   const htb = profile.how_to_become;
   return `
     <details class="disclosure-level" id="level-2">
@@ -211,9 +227,92 @@ function renderLevel2(profile) {
             </div>
           </div>
         `)}
+        <p class="loading-text">${t('common.loading')}</p>
       </div>
     </details>
   `;
+}
+
+function renderLevel2Content(profile, onetData) {
+  const htb = profile.how_to_become;
+
+  let html = renderSection('prof-how', 'profile.how_to_become', `
+    <div class="how-to-grid">
+      <div class="how-to-card">
+        <h4>${t('profile.education_required')}</h4>
+        <p>${htb?.education ?? ''}</p>
+      </div>
+      <div class="how-to-card">
+        <h4>${t('profile.experience_needed')}</h4>
+        <p>${htb?.experience ?? ''}</p>
+      </div>
+      <div class="how-to-card">
+        <h4>${t('profile.on_the_job_training')}</h4>
+        <p>${htb?.training ?? ''}</p>
+      </div>
+    </div>
+  `);
+
+  if (!onetData) {
+    html += `<p class="muted">${t('onet.data_unavailable')}</p>`;
+    return html;
+  }
+
+  // Top Skills
+  if (onetData.skills?.length > 0) {
+    const top5 = onetData.skills.slice(0, 5);
+    const maxScore = 5;
+    html += renderSection('prof-skills', 'onet.top_skills', `
+      <div class="skill-bars">
+        ${top5.map((s) => {
+          const pct = Math.round((s.score / maxScore) * 100);
+          return `
+            <div class="skill-bar">
+              <span class="skill-bar__label">${s.name}</span>
+              <div class="skill-bar__track">
+                <div class="skill-bar__fill" style="width:${pct}%"></div>
+              </div>
+              <span class="skill-bar__score">${s.score.toFixed(1)}</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `);
+  }
+
+  // Knowledge Areas
+  if (onetData.knowledge?.length > 0) {
+    const top8 = onetData.knowledge.slice(0, 8);
+    html += renderSection('prof-knowledge', 'onet.knowledge_areas', `
+      <div class="knowledge-tags">
+        ${top8.map((k) => `
+          <span class="knowledge-tag">
+            ${k.name}
+            <span class="knowledge-tag__score">${k.score.toFixed(1)}</span>
+          </span>
+        `).join('')}
+      </div>
+    `);
+  }
+
+  // Education Requirements (O*NET structured)
+  if (onetData.education?.education?.length > 0) {
+    html += renderSection('prof-edu-req', 'onet.education_requirements', `
+      <div class="edu-bars">
+        ${onetData.education.education
+          .filter((e) => e.percentage > 0)
+          .map((e) => `
+            <div class="edu-bar">
+              <span class="edu-bar__label">${e.name}</span>
+              <span class="edu-bar__pct">${e.percentage}% ${t('onet.of_workers')}</span>
+            </div>
+          `).join('')}
+      </div>
+    `);
+  }
+
+  html += `<p class="onet-source">${t('onet.source')}</p>`;
+  return html;
 }
 
 /* ── Level 3: Evaluate (collapsed, lazy-loaded) ───────────────── */

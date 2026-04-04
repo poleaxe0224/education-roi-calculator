@@ -213,6 +213,17 @@
     "level4_title": "Decide",
     "level4_desc": "Take the next step"
   },
+  "onet": {
+    "top_skills": "Top Skills",
+    "knowledge_areas": "Knowledge Areas",
+    "education_requirements": "Education Requirements",
+    "training": "On-the-Job Training",
+    "experience": "Related Experience",
+    "importance": "Importance",
+    "of_workers": "of workers",
+    "data_unavailable": "O*NET data is not yet available for this career. Run the fetch script or check back later.",
+    "source": "Source: O*NET OnLine"
+  },
   "categories": {
     "tech": "Computer & IT",
     "healthcare": "Healthcare",

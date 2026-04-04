@@ -213,6 +213,17 @@
     "level4_title": "決定",
     "level4_desc": "踏出下一步"
   },
+  "onet": {
+    "top_skills": "\u6838\u5fc3\u6280\u80fd",
+    "knowledge_areas": "\u77e5\u8b58\u9818\u57df",
+    "education_requirements": "\u6559\u80b2\u9700\u6c42",
+    "training": "\u5728\u8077\u57f9\u8a13",
+    "experience": "\u76f8\u95dc\u7d93\u9a57",
+    "importance": "\u91cd\u8981\u6027",
+    "of_workers": "\u7684\u5f9e\u696d\u8005",
+    "data_unavailable": "\u6b64\u8077\u696d\u7684 O*NET \u8cc7\u6599\u5c1a\u672a\u63d0\u4f9b\u3002\u8acb\u57f7\u884c\u8cc7\u6599\u64f7\u53d6\u6216\u7a0d\u5f8c\u518d\u8a66\u3002",
+    "source": "\u8cc7\u6599\u4f86\u6e90\uff1aO*NET OnLine"
+  },
   "categories": {
     "tech": "電腦與資訊",
     "healthcare": "醫療保健",
