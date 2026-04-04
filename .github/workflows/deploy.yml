@@ -33,6 +33,8 @@ jobs:
         run: node scripts/fetch-ipeds-data.mjs
         env:
           SCORECARD_API_KEY: ${{ secrets.SCORECARD_API_KEY }}
+      - name: Fetch O*NET data (skills, knowledge, education)
+        run: node scripts/fetch-onet-data.mjs
       - run: npm test
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
