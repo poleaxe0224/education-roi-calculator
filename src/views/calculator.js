@@ -286,7 +286,7 @@ export function afterRender() {
   const pdfBtn = document.getElementById('calc-export-pdf');
   pdfBtn.addEventListener('click', () => {
     exportPdf(resultsEl, {
-      filename: 'career-compass-roi',
+      filename: '14to17-roi',
       orientation: 'portrait',
       statusBtn: pdfBtn,
     });

@@ -9,7 +9,7 @@
  *   compare       — ran a career comparison
  */
 
-const STORAGE_KEY = 'career-compass-tracker';
+const STORAGE_KEY = '14to17-tracker';
 const MAX_EVENTS = 500;
 
 function readStore() {

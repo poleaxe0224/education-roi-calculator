@@ -268,7 +268,7 @@ export function afterRender() {
   const exportBtn = document.getElementById('compare-export-pdf');
   exportBtn.addEventListener('click', () => {
     exportPdf(resultsEl, {
-      filename: 'career-compass-comparison',
+      filename: '14to17-comparison',
       orientation: 'landscape',
       statusBtn: exportBtn,
     });

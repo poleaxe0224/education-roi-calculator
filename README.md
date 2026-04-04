@@ -2,7 +2,7 @@
 
 A bilingual (English / Traditional Chinese) career exploration tool for teens (14-17), with progressive disclosure from discovery to ROI analysis. Powered by real US federal data.
 
-**Live**: [career-compass](https://poleaxe0224.github.io/career-compass/)
+**Live**: [poleaxe0224.github.io/14to17](https://poleaxe0224.github.io/14to17/)
 
 ## Features
 
