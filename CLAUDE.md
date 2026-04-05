@@ -119,7 +119,7 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 
 ## Data Files
 
-- `src/data/wages.json` — BLS OES (25 SOC codes, includes tot_emp) [TEMP: checked in as fallback while BLS API is down since 2026-04-04; revert to gitignored+CI-generated once API recovers — `git rm --cached src/data/wages.json` + remove `continue-on-error` from deploy.yml BLS step]
+- `src/data/wages.json` — BLS OES (25 SOC codes, includes tot_emp) [gitignored, CI-generated]
 - `src/data/tuition.json` — College Scorecard (25 CIP codes, median tuition) [gitignored, CI-generated]
 - `src/data/ipeds.json` — IPEDS graduation rates + curated completions [tracked]
 - `src/data/cip-soc-crosswalk.json` — CIP→SOC mappings [tracked, hand-curated]
