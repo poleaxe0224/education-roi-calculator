@@ -107,6 +107,9 @@ export async function initApp() {
   // Wire up US data disclaimer banner dismiss
   setupDisclaimerBanner();
 
+  // Re-render current route when locale changes (so t() calls in render() update)
+  document.addEventListener('locale-changed', () => refresh());
+
   // Force re-render when clicking a nav link for the current route
   document.querySelectorAll('header nav a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (e) => {

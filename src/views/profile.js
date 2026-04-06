@@ -69,7 +69,7 @@ export function render({ soc } = {}) {
 
   const isZh = getLocale() === 'zh-TW';
   const name = isZh ? career.careerZh : career.career;
-  const subName = isZh ? career.career : career.careerZh;
+  const subName = isZh ? career.career : '';
 
   return `
     <section class="profile-view" data-category="${career.category}">
@@ -80,7 +80,7 @@ export function render({ soc } = {}) {
         <span class="profile-icon">${career.icon}</span>
         <div>
           <h2 class="profile-title">${name}</h2>
-          <p class="profile-sub">${subName}</p>
+          ${subName ? `<p class="profile-sub">${subName}</p>` : ''}
           <span class="category-badge category-badge--${career.category}">${t('categories.' + career.category)}</span>
         </div>
       </div>
@@ -116,14 +116,6 @@ export async function afterRender({ soc } = {}) {
   if (!career) return;
 
   trackEvent('view_profile', { soc });
-
-  // Re-render on locale change
-  document.addEventListener('locale-changed', () => {
-    const outlet = document.getElementById('app');
-    if (!outlet || !document.getElementById('profile-content')) return;
-    outlet.innerHTML = render({ soc });
-    afterRender({ soc });
-  }, { once: true });
 
   // Wire level nav scroll + aria-selected
   const tabButtons = document.querySelectorAll('.profile-nav [data-scroll]');

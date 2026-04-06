@@ -120,12 +120,14 @@ export function render() {
           const career = findBySoc(soc);
           if (!career) return '';
           const isZh = getLocale() === 'zh-TW';
+          const displayName = isZh ? career.careerZh : career.career;
+          const subName = isZh ? career.career : '';
           return `
-            <a href="#/profile/${soc}" class="report-career-card" data-category="${career.category}" aria-label="${isZh ? career.careerZh : career.career}">
+            <a href="#/profile/${soc}" class="report-career-card" data-category="${career.category}" aria-label="${displayName}">
               <span class="report-career-icon" aria-hidden="true">${career.icon}</span>
               <div class="report-career-info">
-                <span class="report-career-name">${isZh ? career.careerZh : career.career}</span>
-                <span class="report-career-sub muted">${isZh ? career.career : career.careerZh}</span>
+                <span class="report-career-name">${displayName}</span>
+                ${subName ? `<span class="report-career-sub muted">${subName}</span>` : ''}
               </div>
               <span class="category-badge category-badge--${career.category}">${t('categories.' + career.category)}</span>
             </a>
@@ -195,8 +197,10 @@ function buildMarkdown() {
     const career = findBySoc(soc);
     if (!career) continue;
     const name = isZh ? career.careerZh : career.career;
-    const sub = isZh ? career.career : career.careerZh;
-    md += `- **${name}** (${sub}) — ${t('common.degree_' + career.typicalDegree)}\n`;
+    const sub = isZh ? career.career : '';
+    md += sub
+      ? `- **${name}** (${sub}) — ${t('common.degree_' + career.typicalDegree)}\n`
+      : `- **${name}** — ${t('common.degree_' + career.typicalDegree)}\n`;
   }
   md += '\n';
 
@@ -341,11 +345,4 @@ export function afterRender() {
     });
   }
 
-  // Locale change re-render
-  document.addEventListener('locale-changed', () => {
-    const outlet = document.getElementById('app');
-    if (!outlet || !document.querySelector('.report-view')) return;
-    outlet.innerHTML = render();
-    afterRender();
-  }, { once: true });
 }

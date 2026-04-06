@@ -24,10 +24,10 @@ function renderCards(careers) {
     <div class="career-grid">
       ${careers.map((c) => `
         <div class="career-card" data-category="${c.category}">
-          <a href="#/profile/${c.soc}" class="career-card__link" aria-label="${c.career} - ${c.careerZh}">
+          <a href="#/profile/${c.soc}" class="career-card__link" aria-label="${isZh ? c.careerZh : c.career}">
             <span class="career-card__icon" aria-hidden="true">${c.icon}</span>
             <h3>${isZh ? c.careerZh : c.career}</h3>
-            <p class="career-card-sub">${isZh ? c.career : c.careerZh}</p>
+            <p class="career-card-sub">${isZh ? c.career : ''}</p>
           </a>
           <div class="career-card-meta">
             <span class="badge">${degreeLabel(c.typicalDegree)}</span>

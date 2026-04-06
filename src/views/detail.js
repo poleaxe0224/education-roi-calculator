@@ -37,7 +37,7 @@ export function render({ soc } = {}) {
 
   const isZh = getLocale() === 'zh-TW';
   const name = isZh ? career.careerZh : career.career;
-  const subName = isZh ? career.career : career.careerZh;
+  const subName = isZh ? career.career : '';
   const duration = getEducationDuration(career.typicalDegree);
 
   return `
@@ -102,14 +102,6 @@ export async function afterRender({ soc } = {}) {
   if (!career) return;
 
   trackEvent('view_detail', { soc });
-
-  // Re-render on locale change
-  document.addEventListener('locale-changed', () => {
-    const outlet = document.getElementById('app');
-    if (!outlet || !document.getElementById('wage-content')) return;
-    outlet.innerHTML = render({ soc });
-    afterRender({ soc });
-  }, { once: true });
 
   // Fetch all economic data via shared service
   const econ = await fetchCareerEconomics(career);
