@@ -73,18 +73,20 @@ export function render({ soc } = {}) {
 
       <!-- Level Nav (sticky) -->
       <nav class="profile-nav" aria-label="Section navigation">
-        <a data-scroll="level-1" href="javascript:void(0)" class="level-tab level-tab--active">
-          <span class="level-num">1</span> ${t('profile.level1_title')}
-        </a>
-        <a data-scroll="level-2" href="javascript:void(0)" class="level-tab">
-          <span class="level-num">2</span> ${t('profile.level2_title')}
-        </a>
-        <a data-scroll="level-3" href="javascript:void(0)" class="level-tab">
-          <span class="level-num">3</span> ${t('profile.level3_title')}
-        </a>
-        <a data-scroll="level-4" href="javascript:void(0)" class="level-tab">
-          <span class="level-num">4</span> ${t('profile.level4_title')}
-        </a>
+        <div role="tablist">
+          <button type="button" role="tab" data-scroll="level-1" class="level-tab level-tab--active" aria-selected="true">
+            <span class="level-num">1</span> ${t('profile.level1_title')}
+          </button>
+          <button type="button" role="tab" data-scroll="level-2" class="level-tab" aria-selected="false">
+            <span class="level-num">2</span> ${t('profile.level2_title')}
+          </button>
+          <button type="button" role="tab" data-scroll="level-3" class="level-tab" aria-selected="false">
+            <span class="level-num">3</span> ${t('profile.level3_title')}
+          </button>
+          <button type="button" role="tab" data-scroll="level-4" class="level-tab" aria-selected="false">
+            <span class="level-num">4</span> ${t('profile.level4_title')}
+          </button>
+        </div>
       </nav>
 
       <!-- Content (populated by afterRender) -->
@@ -109,11 +111,19 @@ export async function afterRender({ soc } = {}) {
     afterRender({ soc });
   }, { once: true });
 
-  // Wire level nav scroll
-  document.querySelectorAll('.profile-nav [data-scroll]').forEach((link) => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.getElementById(link.dataset.scroll);
+  // Wire level nav scroll + aria-selected
+  const tabButtons = document.querySelectorAll('.profile-nav [data-scroll]');
+  tabButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Update aria-selected
+      tabButtons.forEach((b) => {
+        b.classList.remove('level-tab--active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('level-tab--active');
+      btn.setAttribute('aria-selected', 'true');
+
+      const target = document.getElementById(btn.dataset.scroll);
       if (target) {
         // If it's a collapsed details, open it first
         if (target.tagName === 'DETAILS' && !target.open) {

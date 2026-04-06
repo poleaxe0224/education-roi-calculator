@@ -558,6 +558,90 @@ footer {
   text-align: center;
 }
 
+/* ---- Onboarding CTA ---- */
+.home-onboarding {
+  text-align: center;
+  padding: var(--space-lg) var(--space-md);
+  margin-bottom: var(--space-lg);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(5, 150, 105, 0.08));
+  border: 2px dashed var(--pico-muted-border-color);
+}
+
+.onboarding-cta {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+  color: var(--brand-primary);
+}
+
+.onboarding-desc {
+  margin-bottom: 0;
+}
+
+/* ---- Calculator field help text ---- */
+.field-help {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--pico-muted-color);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* ---- Breadcrumb ---- */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.85rem;
+  margin-bottom: var(--space-md);
+  color: var(--pico-muted-color);
+}
+
+.breadcrumb a {
+  color: var(--pico-muted-color);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--brand-primary);
+  text-decoration: underline;
+}
+
+.breadcrumb [aria-current="page"] {
+  color: var(--pico-color);
+  font-weight: 600;
+}
+
+/* ---- Level tab button reset ---- */
+.profile-nav [role="tablist"] {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.profile-nav button.level-tab {
+  background: none;
+  border: none;
+  padding: var(--space-xs) var(--space-sm);
+  margin: 0;
+  cursor: pointer;
+  border-radius: var(--radius-badge);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--pico-muted-color);
+  min-height: var(--touch-target-min);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.profile-nav button.level-tab:hover,
+.profile-nav button.level-tab:focus-visible {
+  background: var(--pico-primary-focus);
+  color: var(--pico-primary);
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .hero h1 {

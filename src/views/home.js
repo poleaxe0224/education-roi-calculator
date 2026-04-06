@@ -26,7 +26,7 @@ function renderInterestCards() {
         <span class="interest-card__icon" aria-hidden="true">${g.icon}</span>
         <h3 class="interest-card__title">${t('interests.' + g.key)}</h3>
         <p class="interest-card__desc">${t('interests.' + g.key + '_desc')}</p>
-        <span class="interest-card__count">${count} careers</span>
+        <span class="interest-card__count">${t('home.career_count').replace('{count}', count)}</span>
       </a>
     `;
   }).join('');
@@ -50,6 +50,11 @@ export function render() {
     <section class="hero">
       <h1 data-i18n="home.title">${t('home.title')}</h1>
       <p data-i18n="home.subtitle">${t('home.subtitle')}</p>
+    </section>
+
+    <section class="home-onboarding">
+      <p class="onboarding-cta" data-i18n="home.onboarding_cta">${t('home.onboarding_cta')}</p>
+      <p class="onboarding-desc muted" data-i18n="home.onboarding_desc">${t('home.onboarding_desc')}</p>
     </section>
 
     <section class="home-interests">

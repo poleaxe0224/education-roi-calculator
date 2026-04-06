@@ -17,7 +17,10 @@
     "tools_calculator": "ROI Calculator",
     "tools_calculator_desc": "Calculate the financial return on any education path.",
     "tools_compare": "Compare Careers",
-    "tools_compare_desc": "Side-by-side comparison of salary, cost, and ROI."
+    "tools_compare_desc": "Side-by-side comparison of salary, cost, and ROI.",
+    "career_count": "{count} careers",
+    "onboarding_cta": "First time here? Start exploring!",
+    "onboarding_desc": "Pick an interest above to discover careers that match you."
   },
   "search": {
     "title": "Explore Careers",
@@ -25,7 +28,8 @@
     "no_results": "No careers found. Try a different search term.",
     "results_count": "{count} careers found",
     "filter_all": "All",
-    "showing_interest": "Showing: {interest}"
+    "showing_interest": "Showing: {interest}",
+    "filter_label": "Filter by interest"
   },
   "interests": {
     "build": "I Like Building Things",
@@ -65,7 +69,10 @@
     "error_wages": "Could not load wage data. BLS API may be unavailable.",
     "tuition_unavailable": "Tuition data unavailable for this program.",
     "year": "year",
-    "years": "years"
+    "years": "years",
+    "breadcrumb_search": "Explore",
+    "breadcrumb_profile": "Profile",
+    "breadcrumb_detail": "ROI Detail"
   },
   "calculator": {
     "title": "ROI Calculator",
@@ -103,7 +110,16 @@
     "education_phase": "Education",
     "career_phase": "Career Premium",
     "cumulative_line": "Cumulative (Discounted)",
-    "pre_filled": "Pre-filled from career: {career}"
+    "pre_filled": "Pre-filled from career: {career}",
+    "help_annual_tuition": "How much you pay per year for school (tuition + fees).",
+    "help_education_years": "How many years you need to study for this degree.",
+    "help_post_degree_salary": "What you'd earn per year after graduating.",
+    "help_baseline_salary": "What you'd earn per year without this degree (e.g., working right after high school).",
+    "help_salary_growth": "How much your salary goes up each year (typically 2\u20133%).",
+    "help_discount_rate": "Accounts for money being worth more today than in the future. Think of it as the \"impatience factor\" \u2014 a higher rate means you value having money sooner.",
+    "help_career_years": "How many years you plan to work in this career.",
+    "help_loan_rate": "The interest rate charged on your student loan.",
+    "help_loan_term": "How many years to pay back the loan."
   },
   "compare": {
     "title": "Compare Careers",

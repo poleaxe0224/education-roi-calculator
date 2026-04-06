@@ -88,13 +88,47 @@ export function exportJSON() {
   return JSON.stringify(readStore(), null, 2);
 }
 
+const VALID_EVENT_TYPES = new Set(['view_profile', 'view_detail', 'calculate_roi', 'compare']);
+
+/**
+ * Validate and sanitize a single tracker event.
+ * Returns null if the event is invalid.
+ */
+function validateEvent(ev) {
+  if (ev == null || typeof ev !== 'object') return null;
+  if (typeof ev.type !== 'string' || !VALID_EVENT_TYPES.has(ev.type)) return null;
+  if (typeof ev.ts !== 'string' || isNaN(Date.parse(ev.ts))) return null;
+
+  // Sanitize data: only allow known shapes
+  const data = {};
+  if (ev.data && typeof ev.data === 'object') {
+    if (typeof ev.data.soc === 'string' && /^\d{2}-\d{4}$/.test(ev.data.soc)) {
+      data.soc = ev.data.soc;
+    }
+    if (Array.isArray(ev.data.socs)) {
+      data.socs = ev.data.socs.filter((s) => typeof s === 'string' && /^\d{2}-\d{4}$/.test(s));
+    }
+  }
+
+  return { type: ev.type, data, ts: ev.ts };
+}
+
 /** Import tracker data from a JSON string (merges with existing). */
 export function importJSON(jsonStr) {
   const imported = JSON.parse(jsonStr);
   if (!imported?.events || !Array.isArray(imported.events)) {
     throw new Error('Invalid tracker data');
   }
+
+  const validEvents = imported.events
+    .map(validateEvent)
+    .filter(Boolean);
+
+  if (validEvents.length === 0) {
+    throw new Error('No valid events found in imported data');
+  }
+
   const store = readStore();
-  store.events = [...store.events, ...imported.events].slice(-MAX_EVENTS);
+  store.events = [...store.events, ...validEvents].slice(-MAX_EVENTS);
   writeStore(store);
 }

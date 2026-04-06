@@ -9,6 +9,34 @@ import * as calculatorView from './views/calculator.js';
 import * as compareView from './views/compare.js';
 import * as reportView from './views/report.js';
 
+/**
+ * One-time migration: move legacy localStorage keys (career-compass-*, eduroi-*)
+ * to the current 14to17-* namespace, then clean up.
+ */
+function migrateStorage() {
+  const FLAG = '14to17-migrated';
+  if (localStorage.getItem(FLAG)) return;
+
+  const LEGACY_PREFIXES = ['career-compass-', 'eduroi-'];
+  const KEY_MAP = {
+    locale: '14to17-locale',
+    tracker: '14to17-tracker',
+  };
+
+  for (const prefix of LEGACY_PREFIXES) {
+    for (const [suffix, newKey] of Object.entries(KEY_MAP)) {
+      const oldKey = prefix + suffix;
+      const oldVal = localStorage.getItem(oldKey);
+      if (oldVal && !localStorage.getItem(newKey)) {
+        localStorage.setItem(newKey, oldVal);
+      }
+      localStorage.removeItem(oldKey);
+    }
+  }
+
+  localStorage.setItem(FLAG, '1');
+}
+
 function notFound() {
   return `
     <section class="placeholder-view">
@@ -38,6 +66,9 @@ function setupLangToggle() {
 }
 
 export async function initApp() {
+  // Migrate legacy localStorage keys before anything reads storage
+  migrateStorage();
+
   // Register routes (views with afterRender pass the module; others pass render fn)
   addRoute('/', homeView.render);
   addRoute('/search', searchView);

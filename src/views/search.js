@@ -54,7 +54,7 @@ function renderFilterChips(active) {
   chips.unshift(
     `<button type="button" class="chip ${allActive ? 'chip--active' : ''}" data-interest="">${t('search.filter_all')}</button>`,
   );
-  return `<div class="filter-chips" role="group" aria-label="Filter by interest">${chips.join('')}</div>`;
+  return `<div class="filter-chips" role="group" aria-label="${t('search.filter_label')}">${chips.join('')}</div>`;
 }
 
 function getFilteredCareers(interest, query) {

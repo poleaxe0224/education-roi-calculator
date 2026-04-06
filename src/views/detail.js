@@ -40,7 +40,13 @@ export function render({ soc } = {}) {
 
   return `
     <section class="detail-view">
-      <a href="#/profile/${soc}" class="back-link">&larr; ${t('common.back')}</a>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="#/search">${t('detail.breadcrumb_search')}</a>
+        <span aria-hidden="true">/</span>
+        <a href="#/profile/${soc}">${t('detail.breadcrumb_profile')}</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">${t('detail.breadcrumb_detail')}</span>
+      </nav>
       <h2>${name}</h2>
       <p class="detail-sub">${subName}</p>
 

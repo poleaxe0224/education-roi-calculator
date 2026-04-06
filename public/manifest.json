@@ -1,0 +1,29 @@
+{
+  "name": "Career Compass — Explore Your Future",
+  "short_name": "Career Compass",
+  "description": "Explore careers, plan your path, and evaluate ROI with real federal data.",
+  "start_url": "/14to17/",
+  "scope": "/14to17/",
+  "display": "standalone",
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "social-card.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

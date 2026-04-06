@@ -4,9 +4,7 @@ import { findBySoc } from '../engine/mappings.js';
 import { formatCurrency, formatPercent } from '../utils/format.js';
 import { exportPdf } from '../utils/export-pdf.js';
 import { trackEvent } from '../tracker/tracker.js';
-
-// Chart.js loaded via CDN script tag in index.html (esbuild can't parse the npm dist on Windows NTFS)
-const getChart = () => window.Chart;
+import { loadChart } from '../utils/load-chart.js';
 
 /** Parse query params from the hash (e.g. #/calculator?soc=15-1252&salary=120000) */
 function getQueryParams() {
@@ -16,11 +14,15 @@ function getQueryParams() {
   return Object.fromEntries(new URLSearchParams(hash.slice(qIdx + 1)));
 }
 
-function field(name, label, value, attrs = '') {
+function field(name, label, value, attrs = '', helpKey = '') {
+  const helpId = helpKey ? `help-${name}` : '';
+  const helpText = helpKey ? t(helpKey) : '';
+  const describedBy = helpId ? `aria-describedby="${helpId}"` : '';
   return `
     <label>
       ${label}
-      <input type="number" name="${name}" value="${value}" ${attrs} required />
+      <input type="number" name="${name}" value="${value}" ${attrs} ${describedBy} required />
+      ${helpText ? `<small id="${helpId}" class="field-help">${helpText}</small>` : ''}
     </label>
   `;
 }
@@ -46,15 +48,15 @@ export function render() {
 
       <form id="calc-form" class="calc-form">
         <div class="form-grid">
-          ${field('annualTuition', t('calculator.annual_tuition'), tuition, 'min="0" step="500"')}
-          ${field('educationYears', t('calculator.education_years'), years, 'min="1" max="10" step="1"')}
-          ${field('postDegreeSalary', t('calculator.post_degree_salary'), salary, 'min="0" step="1000"')}
-          ${field('baselineSalary', t('calculator.baseline_salary'), baseline, 'min="0" step="1000"')}
-          ${field('salaryGrowthRate', t('calculator.salary_growth'), String(DEFAULTS.salaryGrowthRate * 100), 'min="0" max="20" step="0.1"')}
-          ${field('discountRate', t('calculator.discount_rate'), String(DEFAULTS.discountRate * 100), 'min="0" max="20" step="0.1"')}
-          ${field('careerYears', t('calculator.career_years'), String(DEFAULTS.careerYears), 'min="1" max="50" step="1"')}
-          ${field('loanRate', t('calculator.loan_rate'), '6.5', 'min="0" max="20" step="0.1"')}
-          ${field('loanTermYears', t('calculator.loan_term'), '10', 'min="1" max="30" step="1"')}
+          ${field('annualTuition', t('calculator.annual_tuition'), tuition, 'min="0" step="500"', 'calculator.help_annual_tuition')}
+          ${field('educationYears', t('calculator.education_years'), years, 'min="1" max="10" step="1"', 'calculator.help_education_years')}
+          ${field('postDegreeSalary', t('calculator.post_degree_salary'), salary, 'min="0" step="1000"', 'calculator.help_post_degree_salary')}
+          ${field('baselineSalary', t('calculator.baseline_salary'), baseline, 'min="0" step="1000"', 'calculator.help_baseline_salary')}
+          ${field('salaryGrowthRate', t('calculator.salary_growth'), String(DEFAULTS.salaryGrowthRate * 100), 'min="0" max="20" step="0.1"', 'calculator.help_salary_growth')}
+          ${field('discountRate', t('calculator.discount_rate'), String(DEFAULTS.discountRate * 100), 'min="0" max="20" step="0.1"', 'calculator.help_discount_rate')}
+          ${field('careerYears', t('calculator.career_years'), String(DEFAULTS.careerYears), 'min="1" max="50" step="1"', 'calculator.help_career_years')}
+          ${field('loanRate', t('calculator.loan_rate'), '6.5', 'min="0" max="20" step="0.1"', 'calculator.help_loan_rate')}
+          ${field('loanTermYears', t('calculator.loan_term'), '10', 'min="1" max="30" step="1"', 'calculator.help_loan_term')}
         </div>
         <div class="form-actions">
           <button type="submit">${t('calculator.calculate')}</button>
@@ -153,7 +155,8 @@ function renderResults(result) {
   `;
 }
 
-function renderCharts(result) {
+async function renderCharts(result) {
+  const ChartCtor = await loadChart();
   const { cashFlows, inputs } = result;
   const discountRate = inputs.discountRate;
   const educationYears = inputs.educationYears || DEFAULTS.educationYears;
@@ -183,7 +186,7 @@ function renderCharts(result) {
 
   const cashflowCtx = document.getElementById('chart-cashflow');
   if (cashflowCtx) {
-    cashflowChart = new (getChart())(cashflowCtx, {
+    cashflowChart = new ChartCtor(cashflowCtx, {
       type: 'bar',
       data: {
         labels,
@@ -209,7 +212,7 @@ function renderCharts(result) {
 
   const cumulativeCtx = document.getElementById('chart-cumulative');
   if (cumulativeCtx) {
-    cumulativeChart = new (getChart())(cumulativeCtx, {
+    cumulativeChart = new ChartCtor(cumulativeCtx, {
       type: 'line',
       data: {
         labels,
@@ -271,9 +274,13 @@ export function afterRender() {
     resultsEl.innerHTML = renderResults(result);
     resultsEl.classList.remove('hidden');
 
-    chartsEl.classList.remove('hidden');
     pdfWrap.classList.remove('hidden');
-    renderCharts(result);
+    renderCharts(result).then(() => {
+      chartsEl.classList.remove('hidden');
+    }).catch(() => {
+      chartsEl.innerHTML = '<p class="muted" style="text-align:center;padding:var(--space-md)">Charts unavailable — check your internet connection.</p>';
+      chartsEl.classList.remove('hidden');
+    });
 
     resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });

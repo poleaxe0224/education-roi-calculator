@@ -8,9 +8,10 @@ Static SPA deployed to GitHub Pages. Progressive career exploration tool for tee
 
 - **Build**: Vite 6, Vanilla JS (ES modules)
 - **Styles**: Pico CSS 2 + custom design tokens
-- **Charts**: Chart.js 4 (Phase 3+)
-- **PDF**: html2pdf.js, lazy-loaded (Phase 4+)
+- **Charts**: Chart.js 4, lazy-loaded from CDN on demand (load-chart.js)
+- **PDF**: html2pdf.js, lazy-loaded from CDN (Phase 4+)
 - **i18n**: Self-built JSON system (en / zh-TW)
+- **PWA**: manifest.json + compass PNG assets in public/
 - **Deploy**: GitHub Pages via Actions
 
 ## Commands
@@ -72,7 +73,7 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 
 ## Notes
 
-- Chart.js loaded via CDN script tag (esbuild can't parse npm dist on Windows NTFS)
+- Chart.js lazy-loaded from CDN via `src/utils/load-chart.js` (esbuild can't parse npm dist on Windows NTFS; loaded on-demand with 10s timeout fallback)
 - Views can export `{ render, afterRender }` — router calls afterRender after DOM insertion
 - Detail→Calculator pre-fill uses query params in hash: `#/calculator?soc=...&tuition=...`
 - Profile Level 3 lazy-loads wage data on `<details>` toggle (saves API calls for casual browsers)

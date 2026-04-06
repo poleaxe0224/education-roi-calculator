@@ -4,8 +4,7 @@ import { fetchCareerEconomics } from '../api/career-data.js';
 import { formatCurrency, formatPercent } from '../utils/format.js';
 import { exportPdf } from '../utils/export-pdf.js';
 import { trackEvent } from '../tracker/tracker.js';
-
-const getChart = () => window.Chart;
+import { loadChart } from '../utils/load-chart.js';
 
 /** State: selected SOC codes */
 let selections = ['', ''];
@@ -156,11 +155,15 @@ function renderTable(results) {
   `;
 }
 
-function renderChart(results) {
+async function renderChart(results) {
   if (comparisonChart) { comparisonChart.destroy(); comparisonChart = null; }
 
-  const ChartCtor = getChart();
-  if (!ChartCtor) return;
+  let ChartCtor;
+  try {
+    ChartCtor = await loadChart();
+  } catch {
+    return;
+  }
 
   const ctx = document.getElementById('compare-chart');
   if (!ctx) return;
