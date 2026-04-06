@@ -1,8 +1,8 @@
 /**
  * Home view — career exploration entry point.
  *
- * Shows 4 interest-based category cards, popular career picks,
- * and a subtle "Advanced Tools" section at the bottom.
+ * Shows an optional interest quiz, 4 interest-based category cards,
+ * popular career picks, and a subtle "Advanced Tools" section at the bottom.
  */
 
 import { t, getLocale } from '../i18n/i18n.js';
@@ -13,6 +13,14 @@ const INTEREST_GROUPS = [
   { key: 'help',  icon: '\u{1F91D}' },
   { key: 'analyze', icon: '\u{1F4CA}' },
   { key: 'create', icon: '\u{1F3A8}' },
+];
+
+/** Quiz question definitions — each answer maps to interest tags */
+const QUIZ_QUESTIONS = [
+  { key: 'q1', a: ['build', 'analyze'], b: ['help'] },
+  { key: 'q2', a: ['build'],            b: ['create'] },
+  { key: 'q3', a: ['analyze'],          b: ['create'] },
+  { key: 'q4', a: ['analyze'],          b: ['help', 'create'] },
 ];
 
 /** Hand-picked popular careers (diverse across interest groups) */
@@ -45,6 +53,22 @@ function renderPopularCareers() {
     `).join('');
 }
 
+function renderQuizStart() {
+  const quizDone = localStorage.getItem('14to17-quiz-done');
+  if (quizDone) return '';
+  return `
+    <section class="home-onboarding" id="quiz-section">
+      <p class="onboarding-cta">${t('quiz.title')}</p>
+      <p class="onboarding-desc muted">${t('quiz.subtitle')}</p>
+      <div style="display:flex; gap:var(--space-md); justify-content:center; margin-top:var(--space-md); flex-wrap:wrap;">
+        <button type="button" id="quiz-start-btn">${t('quiz.start')}</button>
+        <button type="button" id="quiz-skip-btn" class="outline secondary">${t('quiz.skip')}</button>
+      </div>
+      <div id="quiz-body" class="hidden"></div>
+    </section>
+  `;
+}
+
 export function render() {
   return `
     <section class="hero">
@@ -52,10 +76,7 @@ export function render() {
       <p data-i18n="home.subtitle">${t('home.subtitle')}</p>
     </section>
 
-    <section class="home-onboarding">
-      <p class="onboarding-cta" data-i18n="home.onboarding_cta">${t('home.onboarding_cta')}</p>
-      <p class="onboarding-desc muted" data-i18n="home.onboarding_desc">${t('home.onboarding_desc')}</p>
-    </section>
+    ${renderQuizStart()}
 
     <section class="home-interests">
       <h2 data-i18n="home.explore_by_interest">${t('home.explore_by_interest')}</h2>
@@ -85,4 +106,91 @@ export function render() {
       </div>
     </section>
   `;
+}
+
+export function afterRender() {
+  const startBtn = document.getElementById('quiz-start-btn');
+  const skipBtn = document.getElementById('quiz-skip-btn');
+  const quizBody = document.getElementById('quiz-body');
+  const quizSection = document.getElementById('quiz-section');
+  if (!startBtn || !quizBody) return;
+
+  skipBtn.addEventListener('click', () => {
+    localStorage.setItem('14to17-quiz-done', '1');
+    quizSection.classList.add('hidden');
+  });
+
+  startBtn.addEventListener('click', () => {
+    startBtn.parentElement.classList.add('hidden');
+    quizBody.classList.remove('hidden');
+    runQuiz(quizBody);
+  });
+}
+
+function runQuiz(container) {
+  let step = 0;
+  const answers = []; // collect interest tags
+
+  function renderStep() {
+    if (step >= QUIZ_QUESTIONS.length) {
+      showResults();
+      return;
+    }
+
+    const q = QUIZ_QUESTIONS[step];
+    const dots = QUIZ_QUESTIONS.map((_, i) => {
+      const cls = i < step ? 'quiz-dot quiz-dot--done' : i === step ? 'quiz-dot quiz-dot--active' : 'quiz-dot';
+      return `<span class="${cls}"></span>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="quiz-container">
+        <div class="quiz-progress">${dots}</div>
+        <p class="quiz-question">${t('quiz.' + q.key)}</p>
+        <div class="quiz-options">
+          <button type="button" class="quiz-option" data-choice="a">${t('quiz.' + q.key + '_a')}</button>
+          <button type="button" class="quiz-option" data-choice="b">${t('quiz.' + q.key + '_b')}</button>
+        </div>
+      </div>
+    `;
+
+    container.querySelectorAll('.quiz-option').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const choice = btn.dataset.choice;
+        const tags = choice === 'a' ? q.a : q.b;
+        answers.push(...tags);
+        step++;
+        renderStep();
+      });
+    });
+  }
+
+  function showResults() {
+    // Tally interest tags
+    const counts = {};
+    for (const tag of answers) {
+      counts[tag] = (counts[tag] || 0) + 1;
+    }
+    // Sort by frequency, take top 2
+    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const topInterests = sorted.slice(0, 2).map(([key]) => key);
+
+    const chips = topInterests.map((key) => {
+      const group = INTEREST_GROUPS.find((g) => g.key === key);
+      return `<a href="#/search?interest=${key}" class="chip chip--active">${group ? group.icon + ' ' : ''}${t('interests.' + key)}</a>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div class="quiz-container">
+        <div class="quiz-result">
+          <p class="quiz-question">${t('quiz.result_prefix')}</p>
+          <div class="quiz-result-interests">${chips}</div>
+        </div>
+      </div>
+    `;
+
+    localStorage.setItem('14to17-quiz-done', '1');
+  }
+
+  renderStep();
 }

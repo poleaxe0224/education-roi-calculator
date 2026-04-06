@@ -29,7 +29,8 @@
     "results_count": "{count} careers found",
     "filter_all": "All",
     "showing_interest": "Showing: {interest}",
-    "filter_label": "Filter by interest"
+    "filter_label": "Filter by interest",
+    "quick_roi": "ROI"
   },
   "interests": {
     "build": "I Like Building Things",
@@ -72,7 +73,11 @@
     "years": "years",
     "breadcrumb_search": "Explore",
     "breadcrumb_profile": "Profile",
-    "breadcrumb_detail": "ROI Detail"
+    "breadcrumb_detail": "ROI Detail",
+    "breakeven_chart": "Breakeven Analysis",
+    "cost_curve": "Cumulative Cost (Tuition + Opportunity)",
+    "earnings_curve": "Cumulative Earnings Premium",
+    "breakeven_note": "The crossover point is where your degree starts paying for itself."
   },
   "calculator": {
     "title": "ROI Calculator",
@@ -111,6 +116,7 @@
     "career_phase": "Career Premium",
     "cumulative_line": "Cumulative (Discounted)",
     "pre_filled": "Pre-filled from career: {career}",
+    "loading_data": "Loading career data\u2026",
     "help_annual_tuition": "How much you pay per year for school (tuition + fees).",
     "help_education_years": "How many years you need to study for this degree.",
     "help_post_degree_salary": "What you'd earn per year after graduating.",
@@ -147,7 +153,8 @@
     "best_value": "Best",
     "chart_title": "ROI Comparison",
     "salary_note": "* BLS salary unavailable; using estimated baseline",
-    "never": "Never"
+    "never": "Never",
+    "swipe_hint": "Swipe to compare"
   },
   "pdf": {
     "export": "Export PDF",
@@ -181,8 +188,8 @@
     "risk_adjusted_desc": "Expected ROI weighted by graduation probability",
     "competition_adjusted_desc": "Expected ROI after graduation risk and job market competition",
     "recommended": "Recommended",
-    "fallback_no_grad": "Graduation rate unavailable — risk adjustment not applied",
-    "fallback_no_competition": "Employment data unavailable — competition adjustment not applied",
+    "fallback_no_grad": "Graduation rate unavailable \u2014 risk adjustment not applied",
+    "fallback_no_competition": "Employment data unavailable \u2014 competition adjustment not applied",
     "advanced_params": "Advanced Parameters",
     "competition_sensitivity": "Competition Sensitivity",
     "competition_sensitivity_tip": "Higher values = greater impact of job competition on ROI",
@@ -277,10 +284,49 @@
     "clear_confirm": "Are you sure? This will delete all your exploration history.",
     "imported_ok": "Data imported successfully!",
     "import_error": "Invalid file format.",
-    "no_career_name": "Unknown Career"
+    "no_career_name": "Unknown Career",
+    "share_link": "Copy Share Link",
+    "link_copied": "Link copied to clipboard!",
+    "link_copy_fail": "Copy failed \u2014 use the URL in your browser's address bar."
   },
   "footer": {
     "data": "Data: BLS OES, College Scorecard & IPEDS",
     "disclaimer": "For informational purposes only"
+  },
+  "disclaimer": {
+    "us_data_title": "U.S. Market Data Only",
+    "us_data_body": "All salary, tuition, and employment data is sourced from U.S. federal agencies (BLS, IPEDS, College Scorecard). If you are outside the U.S., use this as a reference for studying or working in the United States only.",
+    "dismiss": "Got it"
+  },
+  "glossary": {
+    "roi": "Return on Investment \u2014 how long it takes to earn back what you spent on education.",
+    "npv": "Net Present Value \u2014 total value of future earnings minus costs, adjusted for time.",
+    "irr": "Internal Rate of Return \u2014 the annual growth rate your education investment earns.",
+    "bls": "Bureau of Labor Statistics \u2014 the U.S. government agency that tracks jobs and wages.",
+    "ipeds": "Integrated Postsecondary Education Data System \u2014 federal database of college statistics.",
+    "soc": "Standard Occupational Classification \u2014 a code system for categorizing jobs.",
+    "cip": "Classification of Instructional Programs \u2014 a code system for categorizing college majors.",
+    "breakeven": "The year when your total earnings premium exceeds total education costs."
+  },
+  "quiz": {
+    "title": "Find Your Path",
+    "subtitle": "Answer a few quick questions to discover careers that match you.",
+    "start": "Take the Quiz",
+    "next": "Next",
+    "see_results": "See My Results",
+    "skip": "Skip quiz",
+    "q1": "Which sounds more like you?",
+    "q1_a": "I like solving puzzles and figuring out how things work",
+    "q1_b": "I like working with people and helping them",
+    "q2": "What's your idea of a fun project?",
+    "q2_a": "Building or coding something from scratch",
+    "q2_b": "Designing something beautiful or writing a story",
+    "q3": "How do you make decisions?",
+    "q3_a": "I look at the data and evidence",
+    "q3_b": "I go with my gut feeling and creativity",
+    "q4": "In a group project, you'd rather\u2026",
+    "q4_a": "Plan the strategy and crunch the numbers",
+    "q4_b": "Lead the team and present the results",
+    "result_prefix": "Based on your answers, you might enjoy:"
   }
 }

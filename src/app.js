@@ -65,12 +65,28 @@ function setupLangToggle() {
   updateLabel();
 }
 
+function setupDisclaimerBanner() {
+  const banner = document.getElementById('us-data-banner');
+  const btn = document.getElementById('dismiss-banner');
+  if (!banner || !btn) return;
+
+  if (localStorage.getItem('14to17-banner-dismissed')) {
+    banner.classList.add('hidden');
+    return;
+  }
+
+  btn.addEventListener('click', () => {
+    banner.classList.add('hidden');
+    localStorage.setItem('14to17-banner-dismissed', '1');
+  });
+}
+
 export async function initApp() {
   // Migrate legacy localStorage keys before anything reads storage
   migrateStorage();
 
   // Register routes (views with afterRender pass the module; others pass render fn)
-  addRoute('/', homeView.render);
+  addRoute('/', homeView);
   addRoute('/search', searchView);
   addRoute('/profile/:soc', profileView);
   addRoute('/detail/:soc', detailView);
@@ -87,6 +103,9 @@ export async function initApp() {
 
   // Wire up language toggle button
   setupLangToggle();
+
+  // Wire up US data disclaimer banner dismiss
+  setupDisclaimerBanner();
 
   // Force re-render when clicking a nav link for the current route
   document.querySelectorAll('header nav a[href^="#"]').forEach((link) => {

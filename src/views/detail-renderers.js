@@ -7,6 +7,7 @@
 
 import { t } from '../i18n/i18n.js';
 import { formatCurrency, formatNumber } from '../utils/format.js';
+import { tooltip } from '../utils/glossary.js';
 
 /**
  * Render wage data as a definition list.
@@ -151,7 +152,7 @@ export function renderRoiLayers(layers) {
   if (competitionAdjusted.fallback) fallbacks.push(t('ipeds.fallback_no_competition'));
 
   return `
-    <h3 style="margin-top:var(--space-lg)">ROI</h3>
+    <h3 style="margin-top:var(--space-lg)">${tooltip('ROI', 'roi')}</h3>
     <div class="roi-layers-grid">
       <div class="roi-layer-card">
         <div class="roi-layer-label">${t('ipeds.basic_roi')}</div>

@@ -19,6 +19,8 @@ import {
 } from './detail-renderers.js';
 import { renderSliderPanel, wireSliders } from './detail-sliders.js';
 import { trackEvent } from '../tracker/tracker.js';
+import { tooltip } from '../utils/glossary.js';
+import { loadChart } from '../utils/load-chart.js';
 
 export function render({ soc } = {}) {
   const career = findBySoc(soc);
@@ -52,7 +54,7 @@ export function render({ soc } = {}) {
 
       <div class="detail-grid">
         <article class="detail-panel">
-          <h3>${t('detail.wage_data')}</h3>
+          <h3>${tooltip(t('detail.wage_data'), 'bls')}</h3>
           <div id="wage-content" aria-live="polite">
             <p class="loading-text">${t('detail.loading')}</p>
           </div>
@@ -65,9 +67,9 @@ export function render({ soc } = {}) {
             <dd>${t('common.degree_' + career.typicalDegree)}</dd>
             <dt>${t('detail.education_duration')}</dt>
             <dd>${duration} ${t(duration === 1 ? 'detail.year' : 'detail.years')}</dd>
-            <dt>${t('detail.soc_code')}</dt>
+            <dt>${tooltip(t('detail.soc_code'), 'soc')}</dt>
             <dd><code>${career.soc}</code></dd>
-            <dt>${t('detail.cip_code')}</dt>
+            <dt>${tooltip(t('detail.cip_code'), 'cip')}</dt>
             <dd><code>${career.cip}</code></dd>
           </dl>
           <div id="tuition-content" aria-live="polite">
@@ -83,6 +85,12 @@ export function render({ soc } = {}) {
         <summary>${t('ipeds.advanced_params')}</summary>
         ${renderSliderPanel()}
       </details>
+
+      <div id="breakeven-chart-wrap" class="breakeven-chart-wrap hidden">
+        <h3>${t('detail.breakeven_chart')}</h3>
+        <canvas id="breakeven-chart"></canvas>
+        <p class="breakeven-note">${t('detail.breakeven_note')}</p>
+      </div>
 
       <div id="roi-cta" class="roi-cta hidden"></div>
     </section>
@@ -144,6 +152,9 @@ export async function afterRender({ soc } = {}) {
   // Wire sliders
   wireSliders(layerState);
 
+  // Show breakeven chart
+  renderBreakevenChart(econ);
+
   // Show CTA
   const ctaEl = document.getElementById('roi-cta');
   if (!ctaEl) return;
@@ -155,4 +166,111 @@ export async function afterRender({ soc } = {}) {
     baseline: econ.baseline,
   });
   ctaEl.classList.remove('hidden');
+}
+
+let breakevenChartInstance = null;
+
+async function renderBreakevenChart(econ) {
+  const wrap = document.getElementById('breakeven-chart-wrap');
+  if (!wrap) return;
+
+  const tuition = econ.avgTuition;
+  const edYears = econ.duration;
+  const salary = econ.medianSalary;
+  const baseline = econ.baseline;
+  const growthRate = 0.025;
+  const totalYears = edYears + 20; // Show 20 years after graduation
+
+  // Build cost and earnings curves
+  const labels = [];
+  const costData = [];
+  const earningsData = [];
+
+  let cumulativeCost = 0;
+  let cumulativePremium = 0;
+
+  for (let yr = 0; yr < totalYears; yr++) {
+    labels.push(yr);
+    if (yr < edYears) {
+      // Education phase: cost = tuition + opportunity cost (baseline salary foregone)
+      cumulativeCost += tuition + baseline;
+    }
+    if (yr >= edYears) {
+      // Career phase: earnings premium above baseline
+      const yearsWorking = yr - edYears;
+      const degSalary = salary * Math.pow(1 + growthRate, yearsWorking);
+      const altSalary = baseline * Math.pow(1 + growthRate, yr);
+      cumulativePremium += degSalary - altSalary;
+    }
+    costData.push(Math.round(cumulativeCost));
+    earningsData.push(Math.round(cumulativePremium));
+  }
+
+  let ChartCtor;
+  try {
+    ChartCtor = await loadChart();
+  } catch {
+    return;
+  }
+
+  const ctx = document.getElementById('breakeven-chart');
+  if (!ctx) return;
+
+  if (breakevenChartInstance) {
+    breakevenChartInstance.destroy();
+    breakevenChartInstance = null;
+  }
+
+  breakevenChartInstance = new ChartCtor(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: t('detail.cost_curve'),
+          data: costData,
+          borderColor: '#dc2626',
+          backgroundColor: 'rgba(220, 38, 38, 0.1)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 0,
+          pointHitRadius: 8,
+        },
+        {
+          label: t('detail.earnings_curve'),
+          data: earningsData,
+          borderColor: '#059669',
+          backgroundColor: 'rgba(5, 150, 105, 0.1)',
+          fill: true,
+          tension: 0.3,
+          pointRadius: 0,
+          pointHitRadius: 8,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom' },
+      },
+      scales: {
+        x: {
+          title: { display: true, text: t('calculator.year_label') },
+        },
+        y: {
+          title: { display: true, text: t('calculator.amount_label') },
+          ticks: {
+            callback: (v) => {
+              if (Math.abs(v) >= 1_000_000) return `$${(v / 1_000_000).toFixed(1)}M`;
+              if (Math.abs(v) >= 1_000) return `$${(v / 1_000).toFixed(0)}K`;
+              return `$${v}`;
+            },
+          },
+        },
+      },
+    },
+  });
+
+  wrap.classList.remove('hidden');
 }

@@ -23,15 +23,20 @@ function renderCards(careers) {
   return `
     <div class="career-grid">
       ${careers.map((c) => `
-        <a href="#/profile/${c.soc}" class="career-card" data-category="${c.category}" aria-label="${c.career} - ${c.careerZh}">
-          <span class="career-card__icon" aria-hidden="true">${c.icon}</span>
-          <h3>${isZh ? c.careerZh : c.career}</h3>
-          <p class="career-card-sub">${isZh ? c.career : c.careerZh}</p>
+        <div class="career-card" data-category="${c.category}">
+          <a href="#/profile/${c.soc}" class="career-card__link" aria-label="${c.career} - ${c.careerZh}">
+            <span class="career-card__icon" aria-hidden="true">${c.icon}</span>
+            <h3>${isZh ? c.careerZh : c.career}</h3>
+            <p class="career-card-sub">${isZh ? c.career : c.careerZh}</p>
+          </a>
           <div class="career-card-meta">
             <span class="badge">${degreeLabel(c.typicalDegree)}</span>
             <code>${c.soc}</code>
+            <a href="#/calculator?soc=${c.soc}" class="quick-roi-btn" title="${t('detail.calculate_roi')}" onclick="event.stopPropagation()">
+              ${t('search.quick_roi')} &rarr;
+            </a>
           </div>
-        </a>
+        </div>
       `).join('')}
     </div>
   `;

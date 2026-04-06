@@ -34,7 +34,7 @@ src/
 ├── i18n/         # Translation JSON + runtime (en / zh-TW)
 ├── router/       # Hash-based SPA router (supports afterRender + query params)
 ├── tracker/      # localStorage exploration tracker (tracker.js)
-├── utils/        # Formatting helpers + shared export-pdf utility
+├── utils/        # Formatting helpers, shared export-pdf, glossary tooltips
 ├── views/        # Page components (render + optional afterRender)
 │   ├── home.js           # Interest-based exploration entry (4 category cards)
 │   ├── search.js         # Career search with interest filter chips
@@ -109,6 +109,7 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 10. **ROI Quick View in Level 3** ✓ — inline ROI badges + shared career-data.js fetcher
 11. **Assessment Report Export** ✓ — localStorage tracker, report view (#/report), Markdown + PDF + JSON export/import, shared export-pdf.js utility
 12. **Polish** ✓ — a11y (focus management, ARIA labels, skip link), responsive report view, CI verified
+13. **Impact & Completeness Upgrade** ✓ — US data disclaimer, glossary tooltips (CSS-only), onboarding quiz (4Q→interest routing), Search→Calculator quick ROI (auto-fetch), Detail breakeven chart (crossover), mobile compare cards (scroll-snap), Report share link (base64 URL)
 
 ## Three-Layer ROI Model
 

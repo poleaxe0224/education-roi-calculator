@@ -154,6 +154,12 @@ header nav .brand {
   transform: translateY(-2px);
 }
 
+.career-card__link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
 .career-card h3 {
   margin: 0 0 var(--space-xs);
   font-size: 1.1rem;
@@ -642,6 +648,280 @@ footer {
   color: var(--pico-primary);
 }
 
+/* ---- US Data Disclaimer Banner ---- */
+.us-data-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-md);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(217, 119, 6, 0.08));
+  border: 2px solid var(--brand-accent);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.us-data-banner__body {
+  flex: 1;
+}
+
+.us-data-banner__body strong {
+  display: block;
+  margin-bottom: var(--space-xs);
+  color: var(--brand-accent);
+}
+
+.us-data-banner__btn {
+  flex-shrink: 0;
+  margin-bottom: 0;
+  min-height: var(--touch-target-min);
+}
+
+/* ---- Glossary Tooltip (CSS-only) ---- */
+[data-tooltip] {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dashed var(--brand-primary);
+  text-decoration: none;
+  color: inherit;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 8px;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.5;
+  white-space: normal;
+  width: max-content;
+  max-width: 280px;
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-fast), visibility var(--transition-fast);
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+[data-tooltip]:hover::after,
+[data-tooltip]:focus::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ---- Quiz (Onboarding) ---- */
+.quiz-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  border-radius: var(--radius-card);
+  background: var(--pico-card-background-color);
+  box-shadow: var(--shadow-card-teen);
+}
+
+.quiz-container h3 {
+  text-align: center;
+  margin-bottom: var(--space-xs);
+}
+
+.quiz-progress {
+  display: flex;
+  gap: var(--space-xs);
+  justify-content: center;
+  margin-bottom: var(--space-lg);
+}
+
+.quiz-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pico-muted-border-color);
+  transition: background var(--transition-fast);
+}
+
+.quiz-dot--active {
+  background: var(--brand-primary);
+}
+
+.quiz-dot--done {
+  background: var(--brand-secondary);
+}
+
+.quiz-question {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.quiz-option {
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-card);
+  border: 2px solid var(--pico-muted-border-color);
+  background: transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  text-align: left;
+  min-height: var(--touch-target-min);
+  color: var(--pico-color);
+}
+
+.quiz-option:hover {
+  border-color: var(--brand-primary);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.quiz-option--selected {
+  border-color: var(--brand-primary);
+  background: rgba(37, 99, 235, 0.1);
+  font-weight: 600;
+}
+
+.quiz-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.quiz-result {
+  text-align: center;
+  margin-top: var(--space-lg);
+}
+
+.quiz-result-interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+  margin-top: var(--space-md);
+}
+
+/* ---- Search: Quick ROI Button ---- */
+.career-card-actions {
+  display: flex;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.quick-roi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: var(--radius-badge);
+  background: var(--brand-secondary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+  min-height: 28px;
+}
+
+.quick-roi-btn:hover {
+  background: #047857;
+  transform: scale(1.05);
+  color: #fff;
+}
+
+/* ---- Detail: Breakeven Chart ---- */
+.breakeven-chart-wrap {
+  margin-top: var(--space-lg);
+  padding: var(--space-md);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+}
+
+.breakeven-note {
+  text-align: center;
+  margin-top: var(--space-sm);
+  font-size: 0.85rem;
+  color: var(--pico-muted-color);
+}
+
+/* ---- Compare: Mobile Cards ---- */
+.compare-cards-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .compare-table-wrap {
+    display: none;
+  }
+
+  .compare-cards-mobile {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: var(--space-md);
+    padding: var(--space-sm) 0 var(--space-md);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .compare-mobile-card {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+    padding: var(--space-lg);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card-teen);
+    background: var(--pico-card-background-color);
+  }
+
+  .compare-mobile-card h4 {
+    font-size: 1.15rem;
+    margin-bottom: var(--space-md);
+    text-align: center;
+  }
+
+  .compare-mobile-card dl {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-xs) var(--space-sm);
+    margin: 0;
+  }
+
+  .compare-mobile-card dt {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--pico-muted-color);
+  }
+
+  .compare-mobile-card dd {
+    text-align: right;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .swipe-hint {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--pico-muted-color);
+    margin-top: var(--space-xs);
+  }
+}
+
+/* ---- Report: Share Link ---- */
+.share-link-btn {
+  min-height: var(--touch-target-min);
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
   .hero h1 {
@@ -651,5 +931,16 @@ footer {
   header nav ul:last-child {
     flex-wrap: wrap;
     gap: var(--space-xs);
+  }
+
+  .us-data-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  [data-tooltip]::after {
+    left: 0;
+    transform: none;
+    max-width: 220px;
   }
 }

@@ -33,7 +33,39 @@ function formatTime(iso) {
   });
 }
 
+function importFromShareLink() {
+  const hash = window.location.hash;
+  const qIdx = hash.indexOf('?');
+  if (qIdx === -1) return;
+  const params = new URLSearchParams(hash.slice(qIdx + 1));
+  const data = params.get('data');
+  if (!data) return;
+
+  try {
+    const socs = JSON.parse(atob(data));
+    if (Array.isArray(socs) && socs.length > 0) {
+      // Import each SOC as a view_profile event if not already tracked
+      const existing = new Set(getExploredSocs());
+      for (const soc of socs) {
+        if (!existing.has(soc) && findBySoc(soc)) {
+          // Use the tracker's trackEvent-compatible approach
+          const events = getEvents();
+          events.push({ type: 'view_profile', data: { soc }, ts: new Date().toISOString() });
+          localStorage.setItem('14to17-tracker', JSON.stringify(events));
+        }
+      }
+    }
+  } catch {
+    // Invalid share data — silently ignore
+  }
+
+  // Clean URL to remove data param
+  const cleanHash = hash.split('?')[0];
+  window.history.replaceState(null, '', cleanHash);
+}
+
 export function render() {
+  importFromShareLink();
   const exploredSocs = getExploredSocs();
   const counts = getEventCounts();
   const events = getEvents();
@@ -109,6 +141,7 @@ export function render() {
 
       <!-- Export / Import actions -->
       <div class="report-actions">
+        <button type="button" id="report-share-link" class="share-link-btn">${t('report.share_link')}</button>
         <button type="button" id="report-export-md" class="outline">${t('report.export_md')}</button>
         <button type="button" id="report-export-pdf" class="outline">${t('report.export_pdf')}</button>
         <button type="button" id="report-export-json" class="outline secondary">${t('report.export_json')}</button>
@@ -191,6 +224,38 @@ function downloadFile(content, filename, mimeType) {
 
 export function afterRender() {
   const msgEl = document.getElementById('report-msg');
+
+  // Share link
+  const shareBtn = document.getElementById('report-share-link');
+  if (shareBtn) {
+    shareBtn.addEventListener('click', () => {
+      try {
+        // Compact payload: just SOC codes explored
+        const socs = getExploredSocs();
+        const payload = btoa(JSON.stringify(socs));
+        const baseUrl = window.location.href.split('#')[0];
+        const shareUrl = `${baseUrl}#/report?data=${payload}`;
+
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          if (msgEl) {
+            msgEl.textContent = t('report.link_copied');
+            msgEl.className = 'report-msg roi-positive';
+          }
+        }).catch(() => {
+          // Fallback: prompt user
+          if (msgEl) {
+            msgEl.textContent = t('report.link_copy_fail');
+            msgEl.className = 'report-msg error-text';
+          }
+        });
+      } catch {
+        if (msgEl) {
+          msgEl.textContent = t('report.link_copy_fail');
+          msgEl.className = 'report-msg error-text';
+        }
+      }
+    });
+  }
 
   // Markdown export
   const mdBtn = document.getElementById('report-export-md');

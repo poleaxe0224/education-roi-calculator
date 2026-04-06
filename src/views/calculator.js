@@ -1,10 +1,12 @@
 import { t, getLocale } from '../i18n/i18n.js';
 import { calcFullROI, DEFAULTS } from '../engine/roi.js';
 import { findBySoc } from '../engine/mappings.js';
+import { fetchCareerEconomics } from '../api/career-data.js';
 import { formatCurrency, formatPercent } from '../utils/format.js';
 import { exportPdf } from '../utils/export-pdf.js';
 import { trackEvent } from '../tracker/tracker.js';
 import { loadChart } from '../utils/load-chart.js';
+import { tooltip } from '../utils/glossary.js';
 
 /** Parse query params from the hash (e.g. #/calculator?soc=15-1252&salary=120000) */
 function getQueryParams() {
@@ -100,15 +102,15 @@ function renderResults(result) {
     <h3>${t('calculator.results_title')}</h3>
     <div class="results-grid">
       <div class="result-card ${npvClass}">
-        <div class="result-label">${t('calculator.npv')}</div>
+        <div class="result-label">${tooltip(t('calculator.npv'), 'npv')}</div>
         <div class="result-value">${formatCurrency(npv)}</div>
       </div>
       <div class="result-card">
-        <div class="result-label">${t('calculator.irr')}</div>
+        <div class="result-label">${tooltip(t('calculator.irr'), 'irr')}</div>
         <div class="result-value">${formatPercent(irr)}</div>
       </div>
       <div class="result-card">
-        <div class="result-label">${t('calculator.breakeven')}</div>
+        <div class="result-label">${tooltip(t('calculator.breakeven'), 'breakeven')}</div>
         <div class="result-value">${breakevenText(breakevenYear)}</div>
       </div>
       <div class="result-card">
@@ -305,7 +307,29 @@ export function afterRender() {
 
   // Auto-calculate if pre-filled from detail page
   const qp = getQueryParams();
-  if (qp.soc) {
+  if (qp.soc && qp.salary) {
+    // Fully pre-filled from detail page — calculate immediately
     form.dispatchEvent(new Event('submit', { cancelable: true }));
+  } else if (qp.soc && !qp.salary) {
+    // Only SOC provided (from search page) — fetch data, then pre-fill and calculate
+    const career = findBySoc(qp.soc);
+    if (career) {
+      const loadingMsg = document.createElement('p');
+      loadingMsg.className = 'loading-text';
+      loadingMsg.textContent = t('calculator.loading_data');
+      form.before(loadingMsg);
+
+      fetchCareerEconomics(career).then((econ) => {
+        loadingMsg.remove();
+        form.annualTuition.value = Math.round(econ.avgTuition);
+        form.educationYears.value = econ.duration;
+        form.postDegreeSalary.value = Math.round(econ.medianSalary);
+        form.baselineSalary.value = Math.round(econ.baseline);
+        form.dispatchEvent(new Event('submit', { cancelable: true }));
+      }).catch(() => {
+        loadingMsg.remove();
+        // Fall back to defaults — user can still manually calculate
+      });
+    }
   }
 }

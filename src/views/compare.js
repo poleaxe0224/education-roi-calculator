@@ -152,6 +152,45 @@ function renderTable(results) {
       </table>
     </div>
     ${hasFallback ? `<p class="muted">${t('compare.salary_note')}</p>` : ''}
+
+    <!-- Mobile swipeable cards -->
+    <div class="compare-cards-mobile">
+      ${results.map((r, i) => {
+        const adjRoi = r.roi.layers?.competitionAdjusted?.roi ?? r.roi.lifetime.roi;
+        return `
+          <div class="compare-mobile-card">
+            <h4>${careerName(r.career)}</h4>
+            <dl>
+              <dt>${t('compare.degree')}</dt>
+              <dd>${t('common.degree_' + r.career.typicalDegree)}</dd>
+              <dt>${t('compare.duration_label')}</dt>
+              <dd>${r.duration} ${t('calculator.years')}</dd>
+              <dt>${t('compare.tuition_label')}</dt>
+              <dd>${formatCurrency(r.annualTuition)}</dd>
+              <dt>${t('compare.salary_label')}</dt>
+              <dd>${formatCurrency(r.medianSalary)}</dd>
+              <dt>${t('ipeds.graduation_rate')}</dt>
+              <dd>${r.graduationRate != null ? (r.graduationRate * 100).toFixed(1) + '%' : t('ipeds.data_unavailable')}</dd>
+              <dt>${t('compare.npv')}</dt>
+              <dd class="${r.roi.npv >= 0 ? 'roi-positive' : 'roi-negative'}">${formatCurrency(r.roi.npv)}</dd>
+              <dt>${t('compare.irr')}</dt>
+              <dd>${formatPercent(r.roi.irr)}</dd>
+              <dt>${t('compare.breakeven')}</dt>
+              <dd>${r.roi.breakevenYear != null ? r.roi.breakevenYear + ' ' + t('calculator.years') : t('compare.never')}</dd>
+              <dt>${t('compare.lifetime_roi')}</dt>
+              <dd class="${r.roi.lifetime.roi >= 0 ? 'roi-positive' : 'roi-negative'}">${r.roi.lifetime.roi.toFixed(1)}%</dd>
+              <dt>${t('ipeds.competition_adjusted_roi')}</dt>
+              <dd class="${adjRoi >= 0 ? 'roi-positive' : 'roi-negative'}">${adjRoi.toFixed(1)}%</dd>
+              <dt>${t('compare.net_gain')}</dt>
+              <dd class="${r.roi.lifetime.netGain >= 0 ? 'roi-positive' : 'roi-negative'}">${formatCurrency(r.roi.lifetime.netGain)}</dd>
+              <dt>${t('compare.monthly_payment')}</dt>
+              <dd>${formatCurrency(r.roi.loan.monthlyPayment)}</dd>
+            </dl>
+          </div>
+        `;
+      }).join('')}
+    </div>
+    <p class="swipe-hint">${t('compare.swipe_hint')}</p>
   `;
 }
 
