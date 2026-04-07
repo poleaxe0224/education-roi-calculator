@@ -36,15 +36,37 @@ export const DEGREE_LEVELS = Object.freeze({
 });
 
 /**
- * Typical duration (years) by degree level.
+ * Degree levels that require a bachelor's degree as prerequisite.
+ * Used to determine total education path from high school.
+ */
+export const GRADUATE_DEGREES = Object.freeze(
+  new Set(['masters', 'doctoral', 'firstProfessional']),
+);
+
+/**
+ * Duration of the graduate/professional phase only (post-bachelor's years).
+ * For non-graduate degrees this is the same as total duration.
+ */
+export const GRAD_PHASE_DURATION = Object.freeze({
+  certificate:  1,
+  associates:   2,
+  bachelors:    4,
+  masters:      2,
+  doctoral:     5,
+  firstProfessional: 3,
+});
+
+/**
+ * Total duration (years) from high school to degree completion.
+ * Graduate degrees include 4 years of undergraduate study.
  */
 export const DEGREE_DURATION = Object.freeze({
   certificate:  1,
   associates:   2,
   bachelors:    4,
-  masters:      2,  // assumes post-bachelor's
-  doctoral:     5,  // assumes post-bachelor's
-  firstProfessional: 3,
+  masters:      6,  // 4 undergrad + 2 grad
+  doctoral:     9,  // 4 undergrad + 5 grad
+  firstProfessional: 7, // 4 undergrad + 3 professional
 });
 
 /**
@@ -131,36 +153,65 @@ export function searchCareers(query) {
 }
 
 /**
+ * Baseline mode — determines the counterfactual "what if I don't pursue this degree".
+ *
+ *   'teen'    — user is a high school student deciding their full path (default)
+ *   'postBac' — user already has a bachelor's and is evaluating grad school only
+ *
+ * Currently only 'teen' is exposed in UI. 'postBac' is reserved for future toggle.
+ * @typedef {'teen'|'postBac'} BaselineMode
+ */
+
+/**
  * Get the appropriate baseline salary for a degree level.
- * The baseline represents what someone would earn WITHOUT this degree.
+ *
+ * In 'teen' mode (default): baseline is always high school salary because
+ * the target user (14-17) is deciding their full education path from scratch.
+ *
+ * In 'postBac' mode: graduate degrees use bachelor's salary as baseline,
+ * since the user already holds a bachelor's degree.
  *
  * @param {string} degreeLevel — key from DEGREE_LEVELS
+ * @param {BaselineMode} [mode='teen'] — baseline perspective
  * @returns {number} baseline annual salary
  */
-export function getBaselineSalary(degreeLevel) {
-  switch (degreeLevel) {
-    case 'certificate':
-    case 'associates':
-      return BASELINE_SALARIES.highSchool;
-    case 'bachelors':
-      return BASELINE_SALARIES.someCollege;
-    case 'masters':
-      return BASELINE_SALARIES.bachelors;
-    case 'doctoral':
-    case 'firstProfessional':
-      return BASELINE_SALARIES.bachelors;
-    default:
-      return BASELINE_SALARIES.highSchool;
+export function getBaselineSalary(degreeLevel, mode = 'teen') {
+  if (mode === 'postBac' && GRADUATE_DEGREES.has(degreeLevel)) {
+    return BASELINE_SALARIES.bachelors;
   }
+  // Teen mode: all paths compared against high school baseline
+  return BASELINE_SALARIES.highSchool;
 }
 
 /**
- * Get typical education duration for a degree level.
+ * Get total education duration from high school to degree completion.
+ * Graduate degrees include 4 years of undergraduate study.
+ *
  * @param {string} degreeLevel
- * @returns {number} years
+ * @returns {number} total years
  */
 export function getEducationDuration(degreeLevel) {
   return DEGREE_DURATION[degreeLevel] || 4;
+}
+
+/**
+ * Get graduate-phase-only duration (post-bachelor's years).
+ * For non-graduate degrees, returns the same as getEducationDuration.
+ *
+ * @param {string} degreeLevel
+ * @returns {number} years for grad phase only
+ */
+export function getGradPhaseDuration(degreeLevel) {
+  return GRAD_PHASE_DURATION[degreeLevel] || 4;
+}
+
+/**
+ * Check if a degree level requires undergraduate prerequisite.
+ * @param {string} degreeLevel
+ * @returns {boolean}
+ */
+export function isGraduateDegree(degreeLevel) {
+  return GRADUATE_DEGREES.has(degreeLevel);
 }
 
 /**

@@ -25,18 +25,29 @@ export const DEFAULTS = Object.freeze({
  *   - Negative cash flows = costs (tuition + opportunity cost)
  *   - Positive cash flows = earnings premium over baseline
  *
+ * For graduate degrees, supports split tuition:
+ *   - Years 0..(undergradYears-1): undergradTuition per year
+ *   - Years undergradYears..(educationYears-1): gradTuition per year
+ * If undergradTuition/gradTuition are not provided, annualTuition is used for all years.
+ *
  * @param {object} inputs
- * @param {number} inputs.annualTuition     — per-year education cost
- * @param {number} inputs.educationYears    — years of schooling
- * @param {number} inputs.postDegreeSalary  — starting salary after degree
- * @param {number} inputs.baselineSalary    — no-degree alternative salary
+ * @param {number} inputs.annualTuition        — per-year education cost (uniform)
+ * @param {number} [inputs.undergradTuition]   — per-year undergrad cost (split mode)
+ * @param {number} [inputs.gradTuition]        — per-year grad cost (split mode)
+ * @param {number} [inputs.undergradYears]     — years of undergrad phase (split mode)
+ * @param {number} inputs.educationYears       — total years of schooling
+ * @param {number} inputs.postDegreeSalary     — starting salary after degree
+ * @param {number} inputs.baselineSalary       — no-degree alternative salary
  * @param {number} [inputs.salaryGrowthRate]
  * @param {number} [inputs.careerYears]
- * @returns {Array<{year: number, cost: number, earning: number, net: number}>}
+ * @returns {Array<{year: number, cost: number, earning: number, net: number, phase: string}>}
  */
 export function buildCashFlows(inputs) {
   const {
     annualTuition,
+    undergradTuition,
+    gradTuition,
+    undergradYears,
     educationYears = DEFAULTS.educationYears,
     postDegreeSalary,
     baselineSalary = DEFAULTS.highSchoolBaseline,
@@ -44,22 +55,33 @@ export function buildCashFlows(inputs) {
     careerYears = DEFAULTS.careerYears,
   } = inputs;
 
+  const hasSplitTuition = undergradTuition != null && gradTuition != null && undergradYears != null;
   const flows = [];
   const totalYears = educationYears + careerYears;
 
   for (let y = 0; y < totalYears; y++) {
     if (y < educationYears) {
       // During education: pay tuition + forgo baseline earnings
+      let tuitionThisYear;
+      let phase;
+      if (hasSplitTuition) {
+        const isUndergradPhase = y < undergradYears;
+        tuitionThisYear = isUndergradPhase ? undergradTuition : gradTuition;
+        phase = isUndergradPhase ? 'undergrad' : 'grad';
+      } else {
+        tuitionThisYear = annualTuition;
+        phase = 'education';
+      }
       const baselineAtYear = baselineSalary * Math.pow(1 + salaryGrowthRate, y);
-      const cost = annualTuition + baselineAtYear;
-      flows.push({ year: y, cost: -cost, earning: 0, net: -cost });
+      const cost = tuitionThisYear + baselineAtYear;
+      flows.push({ year: y, cost: -cost, earning: 0, net: -cost, phase });
     } else {
       // After education: earn degree salary, compare to baseline
       const yearsWorking = y - educationYears;
       const degreeSalary = postDegreeSalary * Math.pow(1 + salaryGrowthRate, yearsWorking);
       const baselineAtYear = baselineSalary * Math.pow(1 + salaryGrowthRate, y);
       const premium = degreeSalary - baselineAtYear;
-      flows.push({ year: y, cost: 0, earning: degreeSalary, net: premium });
+      flows.push({ year: y, cost: 0, earning: degreeSalary, net: premium, phase: 'career' });
     }
   }
 
@@ -222,6 +244,9 @@ export function calcFullROI(inputs) {
     loanRate = 0.065,
     loanTermYears = 10,
     annualTuition,
+    undergradTuition,
+    gradTuition,
+    undergradYears,
     educationYears = DEFAULTS.educationYears,
   } = inputs;
 
@@ -233,7 +258,11 @@ export function calcFullROI(inputs) {
   const lifetime = calcLifetimeROI(cashFlows);
   const discounted = calcDiscountedLifetimeROI(cashFlows, discountRate);
 
-  const totalTuition = annualTuition * educationYears;
+  // Calculate total tuition — split or uniform
+  const hasSplitTuition = undergradTuition != null && gradTuition != null && undergradYears != null;
+  const totalTuition = hasSplitTuition
+    ? (undergradTuition * undergradYears) + (gradTuition * (educationYears - undergradYears))
+    : annualTuition * educationYears;
   const monthlyPayment = calcMonthlyPayment(totalTuition, loanRate, loanTermYears);
 
   return {

@@ -8,7 +8,7 @@
  */
 
 import { t, getLocale } from '../i18n/i18n.js';
-import { findBySoc, getEducationDuration } from '../engine/mappings.js';
+import { findBySoc, getEducationDuration, isGraduateDegree, getGradPhaseDuration } from '../engine/mappings.js';
 import { fetchCareerEconomics } from '../api/career-data.js';
 import {
   renderWagePanel,
@@ -39,6 +39,13 @@ export function render({ soc } = {}) {
   const name = isZh ? career.careerZh : career.career;
   const subName = isZh ? career.career : '';
   const duration = getEducationDuration(career.typicalDegree);
+  const isGrad = isGraduateDegree(career.typicalDegree);
+  const gradPhase = isGrad ? getGradPhaseDuration(career.typicalDegree) : null;
+
+  // Duration display: "6 years (4 undergrad + 2 grad)" for graduate degrees
+  const durationLabel = isGrad
+    ? `${duration} ${t('detail.years')} <span class="muted">(4 ${t('detail.undergrad')} + ${gradPhase} ${t('detail.grad')})</span>`
+    : `${duration} ${t(duration === 1 ? 'detail.year' : 'detail.years')}`;
 
   return `
     <section class="detail-view">
@@ -66,7 +73,7 @@ export function render({ soc } = {}) {
             <dt>${t('detail.typical_degree')}</dt>
             <dd>${t('common.degree_' + career.typicalDegree)}</dd>
             <dt>${t('detail.education_duration')}</dt>
-            <dd>${duration} ${t(duration === 1 ? 'detail.year' : 'detail.years')}</dd>
+            <dd>${durationLabel}</dd>
             <dt>${tooltip(t('detail.soc_code'), 'soc')}</dt>
             <dd><code>${career.soc}</code></dd>
             <dt>${tooltip(t('detail.cip_code'), 'cip')}</dt>
@@ -112,10 +119,14 @@ export async function afterRender({ soc } = {}) {
   const { html: wageHtml } = renderWagePanel(econ.wageData);
   wageEl.innerHTML = wageHtml;
 
-  // Render tuition panel
+  // Render tuition panel (pass grad info for split display)
   const tuitionEl = document.getElementById('tuition-content');
   if (!tuitionEl) return;
-  const { html: tuitionHtml } = renderTuitionPanel(econ.tuitionData);
+  const { html: tuitionHtml } = renderTuitionPanel(econ.tuitionData, {
+    isGraduateDegree: econ.isGraduateDegree,
+    undergradTuition: econ.undergradTuition,
+    gradTuition: econ.gradTuition,
+  });
   tuitionEl.innerHTML = tuitionHtml;
 
   // Render IPEDS panel

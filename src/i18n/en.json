@@ -77,7 +77,11 @@
     "breakeven_chart": "Breakeven Analysis",
     "cost_curve": "Cumulative Cost (Tuition + Opportunity)",
     "earnings_curve": "Cumulative Earnings Premium",
-    "breakeven_note": "The crossover point is where your degree starts paying for itself."
+    "breakeven_note": "The crossover point is where your degree starts paying for itself.",
+    "undergrad": "undergrad",
+    "grad": "grad",
+    "undergrad_tuition": "Undergrad Tuition",
+    "grad_tuition": "Graduate Tuition"
   },
   "calculator": {
     "title": "ROI Calculator",

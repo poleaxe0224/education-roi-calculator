@@ -77,7 +77,11 @@
     "breakeven_chart": "回本分析",
     "cost_curve": "累積成本（學費 + 機會成本）",
     "earnings_curve": "累積收入溢價",
-    "breakeven_note": "交叉點就是你的學位開始「回本」的時候。"
+    "breakeven_note": "交叉點就是你的學位開始「回本」的時候。",
+    "undergrad": "大學",
+    "grad": "研究所",
+    "undergrad_tuition": "大學學費",
+    "grad_tuition": "研究所學費"
   },
   "calculator": {
     "title": "ROI 計算器",

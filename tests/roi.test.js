@@ -369,3 +369,88 @@ describe('calcFullROI', () => {
     );
   });
 });
+
+// --- Split Tuition (Graduate Degrees) ---
+
+describe('buildCashFlows with split tuition', () => {
+  it('uses undergradTuition for undergrad years and gradTuition for grad years', () => {
+    const flows = buildCashFlows({
+      undergradTuition: 20_000,
+      gradTuition: 30_000,
+      undergradYears: 4,
+      educationYears: 6,
+      postDegreeSalary: 90_000,
+      baselineSalary: 35_000,
+      salaryGrowthRate: 0,
+      careerYears: 5,
+    });
+
+    expect(flows).toHaveLength(11); // 6 + 5
+
+    // Undergrad years: cost = 20k + 35k = 55k
+    expect(flows[0].net).toBe(-55_000);
+    expect(flows[0].phase).toBe('undergrad');
+    expect(flows[3].phase).toBe('undergrad');
+
+    // Grad years: cost = 30k + 35k = 65k
+    expect(flows[4].net).toBe(-65_000);
+    expect(flows[4].phase).toBe('grad');
+    expect(flows[5].phase).toBe('grad');
+
+    // Career years
+    expect(flows[6].phase).toBe('career');
+    expect(flows[6].net).toBeGreaterThan(0);
+  });
+
+  it('falls back to annualTuition when split params are absent', () => {
+    const flows = buildCashFlows({
+      annualTuition: 25_000,
+      educationYears: 4,
+      postDegreeSalary: 60_000,
+      baselineSalary: 35_000,
+      salaryGrowthRate: 0,
+      careerYears: 2,
+    });
+
+    expect(flows[0].net).toBe(-60_000); // 25k + 35k
+    expect(flows[0].phase).toBe('education');
+  });
+});
+
+describe('calcFullROI with split tuition', () => {
+  it('calculates total loan as undergrad + grad combined', () => {
+    const result = calcFullROI({
+      undergradTuition: 20_000,
+      gradTuition: 30_000,
+      undergradYears: 4,
+      educationYears: 6,
+      postDegreeSalary: 90_000,
+      baselineSalary: 35_000,
+    });
+
+    // Total tuition: 4*20k + 2*30k = 80k + 60k = 140k
+    expect(result.loan.totalBorrowed).toBe(140_000);
+    expect(result.cashFlows).toHaveLength(6 + DEFAULTS.careerYears);
+  });
+
+  it('Master ROI includes 4 years undergrad + 2 years grad cost', () => {
+    const result = calcFullROI({
+      undergradTuition: 22_700,
+      gradTuition: 25_800,
+      undergradYears: 4,
+      educationYears: 6,
+      postDegreeSalary: 100_000,
+      baselineSalary: 35_000,
+      salaryGrowthRate: 0,
+      careerYears: 40,
+    });
+
+    // Education phase: 6 years negative
+    for (let i = 0; i < 6; i++) {
+      expect(result.cashFlows[i].net).toBeLessThan(0);
+    }
+    // Career phase: positive
+    expect(result.cashFlows[6].net).toBeGreaterThan(0);
+    expect(result.npv).toBeGreaterThan(0);
+  });
+});

@@ -3,12 +3,16 @@ import {
   BASELINE_SALARIES,
   DEGREE_LEVELS,
   DEGREE_DURATION,
+  GRAD_PHASE_DURATION,
+  GRADUATE_DEGREES,
   CAREER_MAPPINGS,
   findBySoc,
   findByCip,
   searchCareers,
   getBaselineSalary,
   getEducationDuration,
+  getGradPhaseDuration,
+  isGraduateDegree,
   findByInterest,
 } from '../src/engine/mappings.js';
 
@@ -97,20 +101,41 @@ describe('searchCareers', () => {
 });
 
 describe('getBaselineSalary', () => {
-  it('returns high school for certificate', () => {
+  it('returns highSchool for certificate (teen mode)', () => {
     expect(getBaselineSalary('certificate')).toBe(BASELINE_SALARIES.highSchool);
   });
 
-  it('returns someCollege for bachelors', () => {
-    expect(getBaselineSalary('bachelors')).toBe(BASELINE_SALARIES.someCollege);
+  it('returns highSchool for bachelors (teen mode)', () => {
+    expect(getBaselineSalary('bachelors')).toBe(BASELINE_SALARIES.highSchool);
   });
 
-  it('returns bachelors for masters', () => {
-    expect(getBaselineSalary('masters')).toBe(BASELINE_SALARIES.bachelors);
+  it('returns highSchool for masters (teen mode — full path from HS)', () => {
+    expect(getBaselineSalary('masters')).toBe(BASELINE_SALARIES.highSchool);
+  });
+
+  it('returns highSchool for firstProfessional (teen mode)', () => {
+    expect(getBaselineSalary('firstProfessional')).toBe(BASELINE_SALARIES.highSchool);
   });
 
   it('defaults to highSchool for unknown', () => {
     expect(getBaselineSalary('unknown')).toBe(BASELINE_SALARIES.highSchool);
+  });
+
+  it('postBac mode: returns bachelors salary for masters', () => {
+    expect(getBaselineSalary('masters', 'postBac')).toBe(BASELINE_SALARIES.bachelors);
+  });
+
+  it('postBac mode: returns bachelors salary for doctoral', () => {
+    expect(getBaselineSalary('doctoral', 'postBac')).toBe(BASELINE_SALARIES.bachelors);
+  });
+
+  it('postBac mode: returns bachelors salary for firstProfessional', () => {
+    expect(getBaselineSalary('firstProfessional', 'postBac')).toBe(BASELINE_SALARIES.bachelors);
+  });
+
+  it('postBac mode: non-graduate degrees still use highSchool', () => {
+    expect(getBaselineSalary('bachelors', 'postBac')).toBe(BASELINE_SALARIES.highSchool);
+    expect(getBaselineSalary('certificate', 'postBac')).toBe(BASELINE_SALARIES.highSchool);
   });
 });
 
@@ -158,7 +183,64 @@ describe('getEducationDuration', () => {
     expect(getEducationDuration('associates')).toBe(2);
   });
 
+  it('returns 6 for masters (4 undergrad + 2 grad)', () => {
+    expect(getEducationDuration('masters')).toBe(6);
+  });
+
+  it('returns 9 for doctoral (4 undergrad + 5 grad)', () => {
+    expect(getEducationDuration('doctoral')).toBe(9);
+  });
+
+  it('returns 7 for firstProfessional (4 undergrad + 3 prof)', () => {
+    expect(getEducationDuration('firstProfessional')).toBe(7);
+  });
+
   it('defaults to 4 for unknown', () => {
     expect(getEducationDuration('unknown')).toBe(4);
+  });
+});
+
+describe('getGradPhaseDuration', () => {
+  it('returns 2 for masters (grad phase only)', () => {
+    expect(getGradPhaseDuration('masters')).toBe(2);
+  });
+
+  it('returns 5 for doctoral (grad phase only)', () => {
+    expect(getGradPhaseDuration('doctoral')).toBe(5);
+  });
+
+  it('returns 3 for firstProfessional (prof phase only)', () => {
+    expect(getGradPhaseDuration('firstProfessional')).toBe(3);
+  });
+
+  it('returns 4 for bachelors (same as total)', () => {
+    expect(getGradPhaseDuration('bachelors')).toBe(4);
+  });
+});
+
+describe('isGraduateDegree', () => {
+  it('returns true for masters, doctoral, firstProfessional', () => {
+    expect(isGraduateDegree('masters')).toBe(true);
+    expect(isGraduateDegree('doctoral')).toBe(true);
+    expect(isGraduateDegree('firstProfessional')).toBe(true);
+  });
+
+  it('returns false for certificate, associates, bachelors', () => {
+    expect(isGraduateDegree('certificate')).toBe(false);
+    expect(isGraduateDegree('associates')).toBe(false);
+    expect(isGraduateDegree('bachelors')).toBe(false);
+  });
+});
+
+describe('GRADUATE_DEGREES', () => {
+  it('is frozen', () => {
+    expect(Object.isFrozen(GRADUATE_DEGREES)).toBe(true);
+  });
+
+  it('contains exactly masters, doctoral, firstProfessional', () => {
+    expect(GRADUATE_DEGREES.size).toBe(3);
+    expect(GRADUATE_DEGREES.has('masters')).toBe(true);
+    expect(GRADUATE_DEGREES.has('doctoral')).toBe(true);
+    expect(GRADUATE_DEGREES.has('firstProfessional')).toBe(true);
   });
 });

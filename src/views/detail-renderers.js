@@ -46,10 +46,16 @@ export function renderWagePanel(wageData) {
 
 /**
  * Render tuition data as a definition list.
+ * For graduate degrees, shows both undergrad and grad tuition.
+ *
  * @param {object|null} tuitionData — from scorecard.getAverageTuition()
+ * @param {object} [gradInfo] — graduate degree info from fetchCareerEconomics
+ * @param {boolean} [gradInfo.isGraduateDegree]
+ * @param {number}  [gradInfo.undergradTuition]
+ * @param {number}  [gradInfo.gradTuition]
  * @returns {{ html: string, avgTuition: number }}
  */
-export function renderTuitionPanel(tuitionData) {
+export function renderTuitionPanel(tuitionData, gradInfo) {
   if (!tuitionData) {
     return { html: `<p class="muted">${t('detail.tuition_unavailable')}</p>`, avgTuition: 20_000 };
   }
@@ -58,14 +64,20 @@ export function renderTuitionPanel(tuitionData) {
   const avgTuition = tu.netPrice || tu.inState || 20_000;
   const parts = [];
 
-  if (tu.netPrice != null) {
-    parts.push(`<dt>${t('detail.avg_tuition')}</dt><dd>${formatCurrency(tu.netPrice)} ${t('detail.per_year')}</dd>`);
-  }
-  if (tu.inState != null) {
-    parts.push(`<dt>${t('detail.tuition_in_state')}</dt><dd>${formatCurrency(tu.inState)} ${t('detail.per_year')}</dd>`);
-  }
-  if (tu.outOfState != null) {
-    parts.push(`<dt>${t('detail.tuition_out_state')}</dt><dd>${formatCurrency(tu.outOfState)} ${t('detail.per_year')}</dd>`);
+  if (gradInfo?.isGraduateDegree && gradInfo.undergradTuition != null) {
+    // Split display for graduate degrees
+    parts.push(`<dt>${t('detail.undergrad_tuition')}</dt><dd>${formatCurrency(gradInfo.undergradTuition)} ${t('detail.per_year')}</dd>`);
+    parts.push(`<dt>${t('detail.grad_tuition')}</dt><dd>${formatCurrency(avgTuition)} ${t('detail.per_year')}</dd>`);
+  } else {
+    if (tu.netPrice != null) {
+      parts.push(`<dt>${t('detail.avg_tuition')}</dt><dd>${formatCurrency(tu.netPrice)} ${t('detail.per_year')}</dd>`);
+    }
+    if (tu.inState != null) {
+      parts.push(`<dt>${t('detail.tuition_in_state')}</dt><dd>${formatCurrency(tu.inState)} ${t('detail.per_year')}</dd>`);
+    }
+    if (tu.outOfState != null) {
+      parts.push(`<dt>${t('detail.tuition_out_state')}</dt><dd>${formatCurrency(tu.outOfState)} ${t('detail.per_year')}</dd>`);
+    }
   }
   if (tu.sampleCount) {
     parts.push(`<dt></dt><dd class="muted">${t('detail.sample_schools').replace('{count}', tu.sampleCount)}</dd>`);

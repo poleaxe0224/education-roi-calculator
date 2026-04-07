@@ -48,7 +48,7 @@ src/
 ├── styles/       # Design tokens + main.css + enhanced.css
 ├── app.js        # App init (router + i18n wiring)
 └── main.js       # Vite entry point
-tests/            # Vitest unit tests (159+)
+tests/            # Vitest unit tests (189+)
 ```
 
 ## User Flow
@@ -119,6 +119,7 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 - Saturation: `penalty = min(completions/employment × k, maxPenalty)`, defaults k=0.3, maxPenalty=0.25
 - Dropout model: `estimateAvgDropoutYear` (geometric from retention rate) + `calcDropoutROI` (partial tuition + some-college premium)
 - Graceful fallback: missing data → skip that layer, UI shows warning
+- **Graduate degree model**: Masters/Doctoral/Professional include 4yr undergrad + N yr grad, split tuition (undergrad fallback + CIP-specific grad), baseline = HS salary (teen perspective). `baselineMode: 'postBac'` reserved for future toggle.
 
 ## Data Files
 
