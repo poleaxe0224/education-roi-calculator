@@ -88,10 +88,19 @@ function buildShareUrl(hashRoute) {
 }
 
 /**
- * Returns HTML for the share dropdown menu.
+ * Returns HTML for the share UI.
+ * - When navigator.share is available (mobile + modern desktop): single button → native share sheet
+ * - Otherwise: dropdown menu with platform links (no Instagram — unsupported on desktop)
  * @param {string} msgElId — id for the feedback message element
  */
 export function renderShareMenu(msgElId) {
+  if (typeof navigator !== 'undefined' && navigator.share) {
+    return `
+      <button class="outline share-link-btn" data-share="native">${t('share.button')}</button>
+      <div id="${msgElId}" class="share-msg"></div>
+    `;
+  }
+
   return `
     <details class="dropdown share-dropdown">
       <summary class="outline share-link-btn">${t('share.button')}</summary>
@@ -100,7 +109,6 @@ export function renderShareMenu(msgElId) {
         <li><a href="#" data-share="line">LINE</a></li>
         <li><a href="#" data-share="facebook">Facebook</a></li>
         <li><a href="#" data-share="threads">Threads</a></li>
-        <li><a href="#" data-share="instagram">Instagram</a></li>
         <li><a href="#" data-share="twitter">${t('share.twitter')}</a></li>
         <li><a href="#" data-share="whatsapp">WhatsApp</a></li>
         <li><a href="#" data-share="linkedin">LinkedIn</a></li>
@@ -114,7 +122,8 @@ export function renderShareMenu(msgElId) {
 }
 
 /**
- * Attach click handlers to share dropdown items.
+ * Attach click handlers to share UI elements.
+ * Handles both native share (mobile) and dropdown fallback (desktop).
  * @param {HTMLElement} containerEl — element containing the [data-share] links
  * @param {() => string} getHashRoute — returns the hash route to share (e.g. '#/calculator?soc=...')
  * @param {HTMLElement} [msgEl] — element to show copy feedback
@@ -122,6 +131,24 @@ export function renderShareMenu(msgElId) {
 export function initShareHandlers(containerEl, getHashRoute, msgEl) {
   const title = t('share.default_title');
 
+  /* ---- Native share (mobile + modern desktop) ---- */
+  const nativeBtn = containerEl.querySelector('[data-share="native"]');
+  if (nativeBtn) {
+    nativeBtn.addEventListener('click', async () => {
+      const shareUrl = buildShareUrl(getHashRoute());
+      try {
+        await navigator.share({ title, url: shareUrl });
+      } catch (err) {
+        // AbortError = user cancelled — not an error
+        if (err.name !== 'AbortError') {
+          showMsg(msgEl, t('share.copy_fail'), 'error-text');
+        }
+      }
+    });
+    return;
+  }
+
+  /* ---- Desktop dropdown fallback ---- */
   containerEl.querySelectorAll('[data-share]').forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
@@ -153,21 +180,10 @@ export function initShareHandlers(containerEl, getHashRoute, msgEl) {
           break;
 
         case 'threads':
-          // Threads uses intent URL with text containing the link
           window.open(
             `https://www.threads.net/intent/post?text=${encodedTitle}%20${encoded}`,
             '_blank', 'noopener'
           );
-          break;
-
-        case 'instagram':
-          // Instagram has no direct share URL — copy link + open Instagram
-          navigator.clipboard.writeText(shareUrl).then(() => {
-            showMsg(msgEl, t('share.ig_copied'), 'roi-positive');
-          }).catch(() => {
-            showMsg(msgEl, t('share.copy_fail'), 'error-text');
-          });
-          window.open('https://www.instagram.com/', '_blank', 'noopener');
           break;
 
         case 'twitter':
