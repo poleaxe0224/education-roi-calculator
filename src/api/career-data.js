@@ -25,24 +25,37 @@ import * as ipeds from './ipeds.js';
  * high school level (teen perspective).
  *
  * @param {{ soc: string, cip: string, typicalDegree: string }} career — from CAREER_MAPPINGS
- * @param {import('../engine/mappings.js').BaselineMode} [baselineMode='teen']
+ * @param {object} [options]
+ * @param {import('../engine/mappings.js').BaselineMode} [options.baselineMode='teen']
+ * @param {string|null} [options.undergradCip=null] — CIP code for undergrad major (grad degrees only)
  * @returns {Promise<object>}
  */
-export async function fetchCareerEconomics(career, baselineMode = 'teen') {
+export async function fetchCareerEconomics(career, options = {}) {
+  const { baselineMode = 'teen', undergradCip = null } = typeof options === 'string'
+    ? { baselineMode: options }  // backward compat: old callers pass baselineMode as string
+    : options;
+
   const degree = career.typicalDegree;
   const duration = getEducationDuration(degree);
   const baseline = getBaselineSalary(degree, baselineMode);
   const isGrad = isGraduateDegree(degree);
 
-  const [wageResult, tuitionResult, ipedsResult] = await Promise.allSettled([
+  // Parallel fetches: wages + grad tuition + IPEDS + optional undergrad tuition
+  const fetches = [
     bls.getWageData(career.soc),
     scorecard.getAverageTuition(career.cip),
     ipeds.getIpedsData(career.cip),
-  ]);
+  ];
+  if (isGrad && undergradCip) {
+    fetches.push(scorecard.getAverageTuition(undergradCip));
+  }
 
-  const wageData = wageResult.status === 'fulfilled' ? wageResult.value : null;
-  const tuitionData = tuitionResult.status === 'fulfilled' ? tuitionResult.value : null;
-  const ipedsData = ipedsResult.status === 'fulfilled' ? ipedsResult.value : null;
+  const results = await Promise.allSettled(fetches);
+
+  const wageData = results[0].status === 'fulfilled' ? results[0].value : null;
+  const tuitionData = results[1].status === 'fulfilled' ? results[1].value : null;
+  const ipedsData = results[2].status === 'fulfilled' ? results[2].value : null;
+  const undergradTuitionData = results[3]?.status === 'fulfilled' ? results[3].value : null;
 
   const medianSalary = wageData?.annualMedian || baseline * 1.5;
   const salaryFallback = !wageData?.annualMedian;
@@ -57,9 +70,9 @@ export async function fetchCareerEconomics(career, baselineMode = 'teen') {
   if (isGrad) {
     const undergradYears = 4;
     const gradPhaseYears = getGradPhaseDuration(degree);
-    // Undergrad tuition: use bachelor's fallback (CIP-specific data is for the grad program)
-    const undergradFallback = scorecard.getTuitionFallback('bachelors');
-    const undergradTuition = undergradFallback.netPrice;
+    // Undergrad tuition: CIP-specific if user selected a major, else national average fallback
+    const undergradTuition = undergradTuitionData?.netPrice
+      || scorecard.getTuitionFallback('bachelors').netPrice;
 
     roiInputs = {
       undergradTuition,

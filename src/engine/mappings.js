@@ -123,6 +123,32 @@ export const CAREER_MAPPINGS = Object.freeze([
 ]);
 
 /**
+ * Common undergraduate majors for the "choose your undergrad" dropdown.
+ * Shown on detail pages for graduate-degree careers so users can estimate
+ * their 4-year undergrad tuition instead of using the national average.
+ *
+ * CIP codes match College Scorecard program-level data.
+ */
+export const UNDERGRAD_MAJORS = Object.freeze([
+  { cip: '2601', en: 'Biology', zh: '生物學' },
+  { cip: '4002', en: 'Chemistry', zh: '化學' },
+  { cip: '2701', en: 'Mathematics / Statistics', zh: '數學/統計' },
+  { cip: '1107', en: 'Computer Science', zh: '電腦科學' },
+  { cip: '4201', en: 'Psychology', zh: '心理學' },
+  { cip: '4501', en: 'Political Science', zh: '政治學' },
+  { cip: '2301', en: 'English', zh: '英文' },
+  { cip: '5203', en: 'Accounting', zh: '會計學' },
+  { cip: '5208', en: 'Finance', zh: '金融學' },
+  { cip: '5138', en: 'Nursing', zh: '護理學' },
+  { cip: '5101', en: 'Health Sciences', zh: '健康科學' },
+  { cip: '1409', en: 'Civil Engineering', zh: '土木工程' },
+  { cip: '1410', en: 'Electrical Engineering', zh: '電機工程' },
+  { cip: '1419', en: 'Mechanical Engineering', zh: '機械工程' },
+  { cip: '0904', en: 'Journalism', zh: '新聞學' },
+  { cip: '5010', en: 'Fine Arts / Design', zh: '美術/設計' },
+]);
+
+/**
  * Look up a career mapping by SOC code.
  * @param {string} socCode
  * @returns {object|undefined}

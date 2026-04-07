@@ -5,9 +5,10 @@
  * No DOM manipulation, no side effects.
  */
 
-import { t } from '../i18n/i18n.js';
+import { t, getLocale } from '../i18n/i18n.js';
 import { formatCurrency, formatNumber } from '../utils/format.js';
 import { tooltip } from '../utils/glossary.js';
+import { UNDERGRAD_MAJORS } from '../engine/mappings.js';
 
 /**
  * Render wage data as a definition list.
@@ -42,6 +43,30 @@ export function renderWagePanel(wageData) {
   `;
 
   return { html, medianSalary, totalEmployment };
+}
+
+/**
+ * Render the undergrad major selector dropdown.
+ * Only shown for graduate-degree careers.
+ *
+ * @param {string|null} selectedCip — currently selected CIP, or null for national average
+ * @returns {string} HTML string
+ */
+export function renderUndergradMajorSelect(selectedCip) {
+  const isZh = getLocale() === 'zh-TW';
+  const options = UNDERGRAD_MAJORS.map((m) => {
+    const label = isZh ? m.zh : m.en;
+    const selected = m.cip === selectedCip ? ' selected' : '';
+    return `<option value="${m.cip}"${selected}>${label}</option>`;
+  }).join('');
+
+  return `
+    <label for="undergrad-major-select">${t('detail.undergrad_major_label')}</label>
+    <select id="undergrad-major-select">
+      <option value=""${!selectedCip ? ' selected' : ''}>${t('detail.undergrad_major_default')}</option>
+      ${options}
+    </select>
+  `;
 }
 
 /**

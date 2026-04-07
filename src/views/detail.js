@@ -16,6 +16,7 @@ import {
   renderIpedsPanel,
   renderRoiLayers,
   renderCtaButton,
+  renderUndergradMajorSelect,
 } from './detail-renderers.js';
 import { renderSliderPanel, wireSliders } from './detail-sliders.js';
 import { trackEvent } from '../tracker/tracker.js';
@@ -79,6 +80,7 @@ export function render({ soc } = {}) {
             <dt>${tooltip(t('detail.cip_code'), 'cip')}</dt>
             <dd><code>${career.cip}</code></dd>
           </dl>
+          ${isGrad ? '<div id="undergrad-major-wrap"></div>' : ''}
           <div id="tuition-content" aria-live="polite">
             <p class="loading-text">${t('common.loading')}</p>
           </div>
@@ -111,7 +113,7 @@ export async function afterRender({ soc } = {}) {
   trackEvent('view_detail', { soc });
 
   // Fetch all economic data via shared service
-  const econ = await fetchCareerEconomics(career);
+  let econ = await fetchCareerEconomics(career);
 
   // Render wage panel
   const wageEl = document.getElementById('wage-content');
@@ -119,6 +121,33 @@ export async function afterRender({ soc } = {}) {
   const { html: wageHtml } = renderWagePanel(econ.wageData);
   wageEl.innerHTML = wageHtml;
 
+  // Render undergrad major selector for graduate degrees
+  const majorWrap = document.getElementById('undergrad-major-wrap');
+  if (majorWrap && econ.isGraduateDegree) {
+    majorWrap.innerHTML = renderUndergradMajorSelect(null);
+  }
+
+  // Render all panels from current econ data
+  renderEconPanels(econ, career);
+
+  // Wire undergrad major change handler
+  if (majorWrap && econ.isGraduateDegree) {
+    const select = document.getElementById('undergrad-major-select');
+    if (select) {
+      select.addEventListener('change', async () => {
+        const cip = select.value || null;
+        econ = await fetchCareerEconomics(career, { undergradCip: cip });
+        renderEconPanels(econ, career);
+      });
+    }
+  }
+}
+
+/**
+ * Render tuition, IPEDS, ROI, breakeven chart, and CTA panels.
+ * Extracted so it can be called on initial load and on undergrad major change.
+ */
+function renderEconPanels(econ, career) {
   // Render tuition panel (pass grad info for split display)
   const tuitionEl = document.getElementById('tuition-content');
   if (!tuitionEl) return;

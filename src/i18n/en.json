@@ -81,7 +81,9 @@
     "undergrad": "undergrad",
     "grad": "grad",
     "undergrad_tuition": "Undergrad Tuition",
-    "grad_tuition": "Graduate Tuition"
+    "grad_tuition": "Graduate Tuition",
+    "undergrad_major_label": "Undergraduate Major",
+    "undergrad_major_default": "National Average"
   },
   "calculator": {
     "title": "ROI Calculator",

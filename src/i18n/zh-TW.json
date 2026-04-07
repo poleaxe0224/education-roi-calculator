@@ -81,7 +81,9 @@
     "undergrad": "大學",
     "grad": "研究所",
     "undergrad_tuition": "大學學費",
-    "grad_tuition": "研究所學費"
+    "grad_tuition": "研究所學費",
+    "undergrad_major_label": "大學科系",
+    "undergrad_major_default": "全國平均"
   },
   "calculator": {
     "title": "ROI 計算器",
