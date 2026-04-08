@@ -309,5 +309,16 @@ async function renderBreakevenChart(econ) {
     },
   });
 
+  // Inject sr-only data table for screen readers
+  wrap.querySelectorAll('.sr-only').forEach((el) => el.remove());
+  const srRows = labels.map((yr, i) =>
+    `<tr><td>${yr}</td><td>$${costData[i].toLocaleString()}</td><td>$${earningsData[i].toLocaleString()}</td></tr>`
+  ).join('');
+  wrap.insertAdjacentHTML('beforeend',
+    `<table class="sr-only"><caption>${t('detail.breakeven_chart')}</caption>` +
+    `<thead><tr><th scope="col">${t('calculator.year_label')}</th><th scope="col">${t('detail.cost_curve')}</th><th scope="col">${t('detail.earnings_curve')}</th></tr></thead>` +
+    `<tbody>${srRows}</tbody></table>`
+  );
+
   wrap.classList.remove('hidden');
 }

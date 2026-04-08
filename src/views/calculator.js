@@ -158,6 +158,15 @@ function renderResults(result) {
   `;
 }
 
+/** Build sr-only data table for a chart (accessibility fallback) */
+function buildSrTable(caption, headers, rows) {
+  const ths = headers.map((h) => `<th scope="col">${h}</th>`).join('');
+  const trs = rows.map((row) =>
+    `<tr>${row.map((cell) => `<td>${cell}</td>`).join('')}</tr>`
+  ).join('');
+  return `<table class="sr-only"><caption>${caption}</caption><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table>`;
+}
+
 async function renderCharts(result) {
   const ChartCtor = await loadChart();
   const { cashFlows, inputs } = result;
@@ -244,6 +253,20 @@ async function renderCharts(result) {
         },
       },
     });
+  }
+
+  // Inject sr-only data tables for screen readers
+  const chartsEl = document.getElementById('calc-charts');
+  if (chartsEl) {
+    // Remove previous sr-only tables
+    chartsEl.querySelectorAll('.sr-only').forEach((el) => el.remove());
+
+    const rows = labels.map((yr, i) => [yr, formatCurrency(netValues[i]), formatCurrency(cumulativeValues[i])]);
+    chartsEl.insertAdjacentHTML('beforeend', buildSrTable(
+      t('calculator.chart_cashflow'),
+      [t('calculator.year_label'), t('calculator.chart_cashflow'), t('calculator.cumulative_line')],
+      rows
+    ));
   }
 }
 

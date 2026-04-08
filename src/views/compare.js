@@ -242,6 +242,26 @@ async function renderChart(results) {
       },
     },
   });
+
+  // Inject sr-only data table for screen readers
+  const wrap = document.getElementById('compare-chart-wrap');
+  if (wrap) {
+    wrap.querySelectorAll('.sr-only').forEach((el) => el.remove());
+    const metrics = [t('compare.npv'), t('compare.net_gain'), t('compare.total_cost')];
+    const srRows = metrics.map((metric, mi) => {
+      const cells = results.map((r) => {
+        const vals = [r.roi.npv, r.roi.lifetime.netGain, r.roi.lifetime.totalCost];
+        return `<td>${formatCurrency(vals[mi])}</td>`;
+      }).join('');
+      return `<tr><th scope="row">${metric}</th>${cells}</tr>`;
+    }).join('');
+    const ths = labels.map((l) => `<th scope="col">${l}</th>`).join('');
+    wrap.insertAdjacentHTML('beforeend',
+      `<table class="sr-only"><caption>${t('compare.chart_title')}</caption>` +
+      `<thead><tr><th scope="col"></th>${ths}</tr></thead>` +
+      `<tbody>${srRows}</tbody></table>`
+    );
+  }
 }
 
 export function afterRender() {
