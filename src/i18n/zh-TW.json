@@ -145,6 +145,7 @@
     "compare_btn": "比較",
     "comparing": "正在取得數據\u2026",
     "no_selection": "請至少選擇 2 個職業來比較。",
+    "empty_hint": "從上方選擇兩個職業，點擊「比較」即可查看薪資、成本與 ROI 並排分析。",
     "results_title": "比較結果",
     "career": "職業",
     "degree": "學位",

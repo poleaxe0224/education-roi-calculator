@@ -145,6 +145,7 @@
     "compare_btn": "Compare",
     "comparing": "Fetching data\u2026",
     "no_selection": "Select at least 2 careers to compare.",
+    "empty_hint": "Pick two careers above, then hit Compare to see salary, cost, and ROI side by side.",
     "results_title": "Comparison Results",
     "career": "Career",
     "degree": "Degree",

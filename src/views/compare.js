@@ -60,6 +60,10 @@ export function render() {
       </div>
 
       <div id="compare-msg" class="compare-msg"></div>
+      <div id="compare-empty-hint" class="compare-empty-hint">
+        <span class="compare-empty-icon" aria-hidden="true">&#x2696;</span>
+        <p>${t('compare.empty_hint')}</p>
+      </div>
       <div id="compare-results" class="hidden"></div>
       <div id="compare-chart-wrap" class="compare-chart-wrap hidden">
         <canvas id="compare-chart" role="img" aria-label="${t('compare.chart_label')}"></canvas>
@@ -319,6 +323,10 @@ export function afterRender() {
       const results = await Promise.all(careers.map(fetchCareerData));
 
       trackEvent('compare', { socs: valid });
+
+      // Hide empty hint, show results
+      const emptyHint = document.getElementById('compare-empty-hint');
+      if (emptyHint) emptyHint.classList.add('hidden');
 
       resultsEl.innerHTML = renderTable(results);
       resultsEl.classList.remove('hidden');

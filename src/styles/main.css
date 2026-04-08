@@ -494,6 +494,25 @@ header nav .brand {
   margin-bottom: var(--space-md);
 }
 
+.compare-empty-hint {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  color: var(--pico-muted-color);
+}
+
+.compare-empty-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--space-md);
+  opacity: 0.4;
+}
+
+.compare-empty-hint p {
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
 .compare-table-wrap {
   overflow-x: auto;
   margin-bottom: var(--space-md);
