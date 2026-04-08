@@ -92,7 +92,7 @@ export function renderTuitionPanel(tuitionData, gradInfo) {
   if (gradInfo?.isGraduateDegree && gradInfo.undergradTuition != null) {
     // Split display for graduate degrees
     parts.push(`<dt>${t('detail.undergrad_tuition')}</dt><dd>${formatCurrency(gradInfo.undergradTuition)} ${t('detail.per_year')}</dd>`);
-    parts.push(`<dt>${t('detail.grad_tuition')}</dt><dd>${formatCurrency(avgTuition)} ${t('detail.per_year')}</dd>`);
+    parts.push(`<dt>${t('detail.grad_tuition')}</dt><dd>${formatCurrency(gradInfo.gradTuition ?? avgTuition)} ${t('detail.per_year')}</dd>`);
   } else {
     if (tu.netPrice != null) {
       parts.push(`<dt>${t('detail.avg_tuition')}</dt><dd>${formatCurrency(tu.netPrice)} ${t('detail.per_year')}</dd>`);
