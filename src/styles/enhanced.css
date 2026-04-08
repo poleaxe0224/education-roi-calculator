@@ -153,6 +153,9 @@
   margin-bottom: var(--space-md);
 }
 
+/* button.chip: override Pico's white-on-primary button color.
+   Pico redefines --pico-color to #fff inside <button>, so use explicit color. */
+button.chip,
 .chip {
   display: inline-flex;
   align-items: center;
@@ -165,20 +168,23 @@
   cursor: pointer;
   transition: all var(--transition-fast);
   min-height: var(--touch-target-min);
-  color: var(--pico-color);
+  color: var(--chip-text-color);
 }
 
+button.chip:hover,
 .chip:hover {
   border-color: var(--brand-primary);
-  color: var(--brand-primary);
+  color: var(--chip-text-hover);
 }
 
+button.chip--active,
 .chip--active {
   background: var(--brand-primary);
   border-color: var(--brand-primary);
   color: #fff;
 }
 
+button.chip--active:hover,
 .chip--active:hover {
   background: var(--brand-primary-hover);
   border-color: var(--brand-primary-hover);

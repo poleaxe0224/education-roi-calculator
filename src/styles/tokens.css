@@ -56,6 +56,10 @@
   /* Touch targets */
   --touch-target-min: 44px;
 
+  /* Chip text (explicit — Pico redefines --pico-color inside <button>) */
+  --chip-text-color: #374151;
+  --chip-text-hover: var(--brand-primary);
+
   /* Growth badge colors */
   --growth-fast: #059669;
   --growth-avg: #d97706;

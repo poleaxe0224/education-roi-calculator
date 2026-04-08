@@ -81,6 +81,39 @@ function setupDisclaimerBanner() {
   });
 }
 
+function setupNavToggle() {
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  if (!toggle || !menu) return;
+
+  function closeMenu() {
+    menu.classList.remove('nav-menu--open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('nav-menu--open');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close menu when a nav link is clicked
+  menu.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  // Close menu on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+}
+
 export async function initApp() {
   // Migrate legacy localStorage keys before anything reads storage
   migrateStorage();
@@ -103,6 +136,9 @@ export async function initApp() {
 
   // Wire up language toggle button
   setupLangToggle();
+
+  // Wire up mobile navigation toggle
+  setupNavToggle();
 
   // Wire up US data disclaimer banner dismiss
   setupDisclaimerBanner();

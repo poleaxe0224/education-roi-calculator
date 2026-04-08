@@ -48,6 +48,97 @@ header nav .brand {
   cursor: pointer;
 }
 
+/* ---- Hamburger Toggle ---- */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
+  padding: 10px;
+  background: none;
+  border: 2px solid var(--brand-primary);
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  z-index: 101;
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 20px;
+  height: 2.5px;
+  background: var(--brand-primary);
+  border-radius: 2px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+/* Animate to X when open */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: flex;
+    margin-left: auto;
+  }
+
+  header nav {
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: var(--space-xs) 0;
+    gap: 0;
+    border-top: 1px solid var(--pico-muted-border-color);
+    margin-top: var(--space-sm);
+  }
+
+  .nav-menu.nav-menu--open {
+    display: flex;
+  }
+
+  .nav-menu li {
+    width: 100%;
+  }
+
+  .nav-menu li a,
+  .nav-menu li details summary {
+    display: flex;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    min-height: var(--touch-target-min);
+  }
+
+  .nav-menu li .lang-btn {
+    margin: var(--space-xs) var(--space-md) var(--space-sm);
+  }
+
+  /* Tools dropdown in mobile: full-width, not positioned */
+  .nav-menu .dropdown ul {
+    position: static;
+    box-shadow: none;
+    padding-left: var(--space-lg);
+  }
+
+  .nav-menu .dropdown ul[dir="rtl"] {
+    direction: ltr;
+    text-align: left;
+  }
+}
+
 /* ---- Hero ---- */
 .hero {
   text-align: center;
@@ -1024,10 +1115,7 @@ button.quiz-option[type="button"]:hover {
     font-size: 1.75rem;
   }
 
-  header nav ul:last-child {
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-  }
+  /* hamburger nav handled above */
 
   .us-data-banner {
     flex-direction: column;
