@@ -11,6 +11,7 @@ Static SPA deployed to GitHub Pages. Progressive career exploration tool for tee
 - **Charts**: Chart.js 4, lazy-loaded from CDN on demand (load-chart.js)
 - **PDF**: html2pdf.js, lazy-loaded from CDN (Phase 4+)
 - **i18n**: Self-built JSON system (en / zh-TW)
+- **Theme**: Dark/light mode (theme.js) — toggle, prefers-color-scheme auto-detect, localStorage persistence
 - **PWA**: manifest.json + compass PNG assets in public/
 - **Deploy**: GitHub Pages via Actions
 
@@ -48,7 +49,7 @@ src/
 ├── styles/       # Design tokens + main.css + enhanced.css
 ├── app.js        # App init (router + i18n wiring)
 └── main.js       # Vite entry point
-tests/            # Vitest unit tests (189+)
+tests/            # Vitest unit tests (209+)
 ```
 
 ## User Flow
@@ -110,6 +111,7 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 11. **Assessment Report Export** ✓ — localStorage tracker, report view (#/report), Markdown + PDF + JSON export/import, shared export-pdf.js utility
 12. **Polish** ✓ — a11y (focus management, ARIA labels, skip link), responsive report view, CI verified
 13. **Impact & Completeness Upgrade** ✓ — US data disclaimer, glossary tooltips (CSS-only), onboarding quiz (4Q→interest routing), Search→Calculator quick ROI (auto-fetch), Detail breakeven chart (crossover), mobile compare cards (scroll-snap), Report share link (base64 URL)
+14. **Phase 4 Polish** ✓ — Dark mode (toggle + auto-detect + localStorage), Social card WebP, bilingual degree tooltips (en↔zh-TW)
 
 ## Three-Layer ROI Model
 

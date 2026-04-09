@@ -1,5 +1,6 @@
 import { addRoute, setNotFound, initRouter, refresh } from './router/router.js';
 import { initI18n, toggleLocale, getLocale, t } from './i18n/i18n.js';
+import { initTheme, toggleTheme, getTheme } from './theme.js';
 import { findBySoc } from './engine/mappings.js';
 
 import * as homeView from './views/home.js';
@@ -46,6 +47,25 @@ function notFound() {
       <a href="#/" role="button" class="outline">Home</a>
     </section>
   `;
+}
+
+function setupThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+
+  function updateIcon() {
+    const isDark = getTheme() === 'dark';
+    btn.textContent = isDark ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    btn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+
+  btn.addEventListener('click', () => {
+    toggleTheme();
+    updateIcon();
+  });
+
+  document.addEventListener('theme-changed', updateIcon);
+  updateIcon();
 }
 
 function setupLangToggle() {
@@ -159,11 +179,17 @@ export async function initApp() {
   addRoute('/report', reportView);
   setNotFound(notFound);
 
+  // Init theme (applies saved/OS preference)
+  initTheme();
+
   // Init i18n (loads translations, applies to static DOM)
   await initI18n();
 
   // Init router (renders first view, applies i18n to dynamic DOM)
   initRouter('app');
+
+  // Wire up theme toggle button
+  setupThemeToggle();
 
   // Wire up language toggle button
   setupLangToggle();

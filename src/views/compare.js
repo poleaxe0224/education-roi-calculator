@@ -5,6 +5,7 @@ import { formatCurrency, formatPercent } from '../utils/format.js';
 import { exportPdf, renderShareMenu, initShareHandlers } from '../utils/export-pdf.js';
 import { trackEvent } from '../tracker/tracker.js';
 import { loadChart } from '../utils/load-chart.js';
+import { degreeLabel } from '../utils/glossary.js';
 
 /** State: selected SOC codes */
 let selections = ['', ''];
@@ -148,7 +149,7 @@ function renderTable(results) {
           </tr>
         </thead>
         <tbody>
-          ${row(t('compare.degree'), results.map((r) => ({ val: t('common.degree_' + r.career.typicalDegree) })))}
+          ${row(t('compare.degree'), results.map((r) => ({ val: degreeLabel(r.career.typicalDegree) })))}
           ${row(t('compare.duration_label'), results.map((r) => ({ val: `${r.duration} ${t('calculator.years')}` })))}
           ${row(t('compare.tuition_label'), results.map((r) => ({ val: formatCurrency(r.annualTuition) })))}
           ${row(t('compare.salary_label'), results.map((r, i) => ({ val: formatCurrency(r.medianSalary) + (r.salaryFallback ? ' *' : '') })))}
@@ -176,7 +177,7 @@ function renderTable(results) {
             <h4>${careerName(r.career)}</h4>
             <dl>
               <dt>${t('compare.degree')}</dt>
-              <dd>${t('common.degree_' + r.career.typicalDegree)}</dd>
+              <dd>${degreeLabel(r.career.typicalDegree)}</dd>
               <dt>${t('compare.duration_label')}</dt>
               <dd>${r.duration} ${t('calculator.years')}</dd>
               <dt>${t('compare.tuition_label')}</dt>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,6 +11,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Career Compass — Explore Your Future" />
   <meta property="og:description" content="Explore careers, discover what they're really like, and evaluate ROI with real federal data. For teens aged 14-17." />
+  <meta property="og:image" content="https://poleaxe0224.github.io/14to17/social-card.webp" />
   <meta property="og:image" content="https://poleaxe0224.github.io/14to17/social-card.png" />
   <meta property="og:url" content="https://poleaxe0224.github.io/14to17/" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -24,6 +25,10 @@
   <link rel="manifest" href="/manifest.json" />
 
   <link rel="canonical" href="https://poleaxe0224.github.io/14to17/" />
+  <!-- Prevent FOUC: apply saved/OS theme before first paint -->
+  <script>
+    (function(){var t=localStorage.getItem('14to17-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t)})();
+  </script>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
   <link rel="preconnect" href="https://api.data.gov" crossorigin />
@@ -55,6 +60,7 @@
           </details>
         </li>
         <li><a href="#/report" data-i18n="nav.report">My Report</a></li>
+        <li><button id="theme-toggle" class="outline secondary theme-btn" type="button" aria-label="Toggle dark mode"></button></li>
         <li><button id="lang-toggle" class="outline secondary lang-btn" type="button" aria-label="Toggle language">中文</button></li>
       </ul>
     </nav>

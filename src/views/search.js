@@ -7,12 +7,9 @@
 
 import { t, getLocale } from '../i18n/i18n.js';
 import { searchCareers, CAREER_MAPPINGS, findByInterest } from '../engine/mappings.js';
+import { degreeLabel } from '../utils/glossary.js';
 
 const INTEREST_KEYS = ['build', 'help', 'analyze', 'create'];
-
-function degreeLabel(key) {
-  return t(`common.degree_${key}`) || key;
-}
 
 function renderCards(careers) {
   if (careers.length === 0) {

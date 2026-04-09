@@ -20,7 +20,7 @@ import {
 } from './detail-renderers.js';
 import { renderSliderPanel, wireSliders } from './detail-sliders.js';
 import { trackEvent } from '../tracker/tracker.js';
-import { tooltip } from '../utils/glossary.js';
+import { tooltip, degreeLabel } from '../utils/glossary.js';
 import { loadChart } from '../utils/load-chart.js';
 
 export function render({ soc } = {}) {
@@ -72,7 +72,7 @@ export function render({ soc } = {}) {
           <h3>${t('detail.education_info')}</h3>
           <dl class="detail-dl">
             <dt>${t('detail.typical_degree')}</dt>
-            <dd>${t('common.degree_' + career.typicalDegree)}</dd>
+            <dd>${degreeLabel(career.typicalDegree)}</dd>
             <dt>${t('detail.education_duration')}</dt>
             <dd>${durationLabel}</dd>
             <dt>${tooltip(t('detail.soc_code'), 'soc')}</dt>

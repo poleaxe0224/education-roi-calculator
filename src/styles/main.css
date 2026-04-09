@@ -55,10 +55,17 @@ header nav .brand {
   font-size: 1.25rem;
 }
 
-.lang-btn {
+.lang-btn,
+.theme-btn {
   padding: var(--space-xs) var(--space-sm);
   font-size: 0.85rem;
   cursor: pointer;
+}
+
+.theme-btn {
+  font-size: 1.1rem;
+  line-height: 1;
+  min-width: 36px;
 }
 
 /* ---- Hamburger Toggle ---- */
@@ -559,7 +566,7 @@ header nav .brand {
 }
 
 .compare-table tbody tr:nth-child(even) {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(128, 128, 128, 0.06);
 }
 
 .compare-table .best-cell {
@@ -1157,6 +1164,28 @@ button.quiz-option[type="button"]:hover {
   @page {
     margin: 2cm;
   }
+}
+
+/* ---- Dark Mode Overrides ---- */
+[data-theme="dark"] [data-tooltip]::after {
+  background: #e2e8f0;
+  color: #1a1a2e;
+}
+
+[data-theme="dark"] .home-onboarding {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(5, 150, 105, 0.15));
+}
+
+[data-theme="dark"] .us-data-banner {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.15), rgba(217, 119, 6, 0.15));
+}
+
+[data-theme="dark"] .hero {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(5, 150, 105, 0.1));
+}
+
+[data-theme="dark"] .salary-meter__marker {
+  border-color: #374151;
 }
 
 /* ---- Reduced Motion ---- */

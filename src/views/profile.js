@@ -13,6 +13,7 @@ import { t, getLocale } from '../i18n/i18n.js';
 import { findBySoc, getRelatedCareers } from '../engine/mappings.js';
 import * as profiles from '../api/profiles.js';
 import * as onet from '../api/onet.js';
+import { degreeLabel } from '../utils/glossary.js';
 import { fetchCareerEconomics } from '../api/career-data.js';
 import { renderRoiLayers } from './detail-renderers.js';
 import { formatCurrency, formatNumber } from '../utils/format.js';
@@ -510,7 +511,7 @@ function renderSimilarCareers(careers, isZh) {
         <a href="#/profile/${c.soc}" class="career-mini-card" data-category="${c.category}">
           <span class="career-mini-card__icon">${c.icon}</span>
           <span class="career-mini-card__name">${isZh ? c.careerZh : c.career}</span>
-          <span class="career-mini-card__degree muted">${t('common.degree_' + c.typicalDegree)}</span>
+          <span class="career-mini-card__degree muted">${degreeLabel(c.typicalDegree)}</span>
         </a>
       `).join('')}
     </div>
