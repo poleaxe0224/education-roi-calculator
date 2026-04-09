@@ -6,13 +6,17 @@
  * BLS API: https://api.bls.gov/publicAPI/v2/timeseries/data/
  */
 
-import { writeFileSync, mkdirSync } from 'fs';
+import { writeFileSync, copyFileSync, existsSync, mkdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, '..', 'src', 'data');
 const OUT_FILE = join(OUT_DIR, 'wages.json');
+const FALLBACK_FILE = join(__dirname, 'fallback', 'wages.json');
+
+const MAX_RETRIES = 3;
+const RETRY_DELAY_MS = 3000;
 
 const BLS_URL = 'https://api.bls.gov/publicAPI/v2/timeseries/data/';
 const API_KEY = process.env.BLS_API_KEY || '';
@@ -42,6 +46,20 @@ function buildSeriesId(soc, typeCode) {
   return `OEUN0000000000000${soc.replace('-', '')}${typeCode}`;
 }
 
+async function fetchWithRetry(url, options, retries = MAX_RETRIES) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, options);
+      if (!res.ok) throw new Error(`BLS HTTP ${res.status}`);
+      return res;
+    } catch (err) {
+      console.warn(`  Attempt ${attempt}/${retries} failed: ${err.message}`);
+      if (attempt === retries) throw err;
+      await new Promise((r) => setTimeout(r, RETRY_DELAY_MS * attempt));
+    }
+  }
+}
+
 async function fetchBatch(seriesIds, year) {
   const payload = {
     seriesid: seriesIds,
@@ -50,13 +68,12 @@ async function fetchBatch(seriesIds, year) {
   };
   if (API_KEY) payload.registrationkey = API_KEY;
 
-  const res = await fetch(BLS_URL, {
+  const res = await fetchWithRetry(BLS_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
 
-  if (!res.ok) throw new Error(`BLS HTTP ${res.status}`);
   const json = await res.json();
 
   if (json.status !== 'REQUEST_SUCCEEDED') {
@@ -152,6 +169,14 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('Fatal:', err);
-  process.exit(1);
+  console.error(`BLS OES fetch failed: ${err.message}`);
+  if (existsSync(FALLBACK_FILE)) {
+    console.warn('Using static fallback: scripts/fallback/wages.json');
+    mkdirSync(OUT_DIR, { recursive: true });
+    copyFileSync(FALLBACK_FILE, OUT_FILE);
+    console.log(`Fallback copied to: ${OUT_FILE}`);
+  } else {
+    console.error('No fallback available. Aborting.');
+    process.exit(1);
+  }
 });

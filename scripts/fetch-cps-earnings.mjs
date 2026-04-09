@@ -8,13 +8,17 @@
  * Used by the Layer 2 dropout ROI model to estimate "some college, no degree" earnings.
  */
 
-import { writeFileSync, mkdirSync } from 'fs';
+import { writeFileSync, copyFileSync, existsSync, mkdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, '..', 'src', 'data');
 const OUT_FILE = join(OUT_DIR, 'cps_earnings.json');
+const FALLBACK_FILE = join(__dirname, 'fallback', 'cps_earnings.json');
+
+const MAX_RETRIES = 3;
+const RETRY_DELAY_MS = 3000;
 
 const BLS_URL = 'https://api.bls.gov/publicAPI/v2/timeseries/data/';
 const API_KEY = process.env.BLS_API_KEY || '';
@@ -27,6 +31,20 @@ const SERIES = {
 
 const INTERPOLATION_FACTOR = 0.6;
 
+async function fetchWithRetry(url, options, retries = MAX_RETRIES) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const res = await fetch(url, options);
+      if (!res.ok) throw new Error(`BLS HTTP ${res.status}`);
+      return res;
+    } catch (err) {
+      console.warn(`  Attempt ${attempt}/${retries} failed: ${err.message}`);
+      if (attempt === retries) throw err;
+      await new Promise((r) => setTimeout(r, RETRY_DELAY_MS * attempt));
+    }
+  }
+}
+
 async function fetchSeries(seriesIds, startYear, endYear) {
   const payload = {
     seriesid: seriesIds,
@@ -35,13 +53,12 @@ async function fetchSeries(seriesIds, startYear, endYear) {
   };
   if (API_KEY) payload.registrationkey = API_KEY;
 
-  const res = await fetch(BLS_URL, {
+  const res = await fetchWithRetry(BLS_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
 
-  if (!res.ok) throw new Error(`BLS HTTP ${res.status}`);
   const json = await res.json();
 
   if (json.status !== 'REQUEST_SUCCEEDED') {
@@ -131,6 +148,14 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('Fatal:', err);
-  process.exit(1);
+  console.error(`BLS CPS fetch failed: ${err.message}`);
+  if (existsSync(FALLBACK_FILE)) {
+    console.warn('Using static fallback: scripts/fallback/cps_earnings.json');
+    mkdirSync(OUT_DIR, { recursive: true });
+    copyFileSync(FALLBACK_FILE, OUT_FILE);
+    console.log(`Fallback copied to: ${OUT_FILE}`);
+  } else {
+    console.error('No fallback available. Aborting.');
+    process.exit(1);
+  }
 });
