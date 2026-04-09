@@ -1,0 +1,178 @@
+{
+  "_meta": {
+    "fetchedAt": "2026-04-09T00:00:00.000Z",
+    "source": "College Scorecard API (api.data.gov) — 2023-24 data",
+    "sampleSize": 100,
+    "fallback": true
+  },
+  "programs": {
+    "1107": {
+      "inState": 11286,
+      "outOfState": 29834,
+      "netPrice": 18576,
+      "sampleCount": 100
+    },
+    "1101": {
+      "inState": 10884,
+      "outOfState": 28750,
+      "netPrice": 17450,
+      "sampleCount": 100
+    },
+    "1104": {
+      "inState": 11520,
+      "outOfState": 30120,
+      "netPrice": 19200,
+      "sampleCount": 85
+    },
+    "3070": {
+      "inState": 12450,
+      "outOfState": 32680,
+      "netPrice": 20500,
+      "sampleCount": 72
+    },
+    "5138": {
+      "inState": 9840,
+      "outOfState": 25120,
+      "netPrice": 15680,
+      "sampleCount": 100
+    },
+    "5109": {
+      "inState": 22400,
+      "outOfState": 42560,
+      "netPrice": 34200,
+      "sampleCount": 65
+    },
+    "5104": {
+      "inState": 38500,
+      "outOfState": 58200,
+      "netPrice": 48300,
+      "sampleCount": 55
+    },
+    "5120": {
+      "inState": 18750,
+      "outOfState": 36400,
+      "netPrice": 28500,
+      "sampleCount": 80
+    },
+    "5203": {
+      "inState": 10200,
+      "outOfState": 27350,
+      "netPrice": 17100,
+      "sampleCount": 100
+    },
+    "5208": {
+      "inState": 12680,
+      "outOfState": 32400,
+      "netPrice": 21500,
+      "sampleCount": 90
+    },
+    "5214": {
+      "inState": 11540,
+      "outOfState": 29800,
+      "netPrice": 19200,
+      "sampleCount": 95
+    },
+    "5210": {
+      "inState": 12100,
+      "outOfState": 31200,
+      "netPrice": 20800,
+      "sampleCount": 88
+    },
+    "1409": {
+      "inState": 12350,
+      "outOfState": 33600,
+      "netPrice": 21400,
+      "sampleCount": 80
+    },
+    "1410": {
+      "inState": 12800,
+      "outOfState": 34200,
+      "netPrice": 22100,
+      "sampleCount": 75
+    },
+    "1419": {
+      "inState": 12600,
+      "outOfState": 33900,
+      "netPrice": 21800,
+      "sampleCount": 82
+    },
+    "1312": {
+      "inState": 8950,
+      "outOfState": 22400,
+      "netPrice": 14600,
+      "sampleCount": 100
+    },
+    "1313": {
+      "inState": 9200,
+      "outOfState": 23100,
+      "netPrice": 15100,
+      "sampleCount": 100
+    },
+    "4702": {
+      "inState": 6500,
+      "outOfState": 12800,
+      "netPrice": 9200,
+      "sampleCount": 60
+    },
+    "4601": {
+      "inState": 5800,
+      "outOfState": 11500,
+      "netPrice": 8400,
+      "sampleCount": 55
+    },
+    "1106": {
+      "inState": 10500,
+      "outOfState": 27800,
+      "netPrice": 17200,
+      "sampleCount": 90
+    },
+    "2201": {
+      "inState": 28500,
+      "outOfState": 48200,
+      "netPrice": 38400,
+      "sampleCount": 70
+    },
+    "2203": {
+      "inState": 8200,
+      "outOfState": 18500,
+      "netPrice": 12800,
+      "sampleCount": 65
+    },
+    "5010": {
+      "inState": 10800,
+      "outOfState": 28200,
+      "netPrice": 18400,
+      "sampleCount": 85
+    },
+    "0904": {
+      "inState": 11200,
+      "outOfState": 29500,
+      "netPrice": 19000,
+      "sampleCount": 78
+    },
+    "2601": {
+      "inState": 10400,
+      "outOfState": 28800,
+      "netPrice": 18200,
+      "sampleCount": 100
+    },
+    "4002": {
+      "inState": 10600,
+      "outOfState": 29200,
+      "netPrice": 18600,
+      "sampleCount": 95
+    },
+    "4501": {
+      "inState": 10900,
+      "outOfState": 29600,
+      "netPrice": 18900,
+      "sampleCount": 92
+    },
+    "2701": {
+      "inState": 11100,
+      "outOfState": 30000,
+      "netPrice": 19100,
+      "sampleCount": 88
+    }
+  }
+}
