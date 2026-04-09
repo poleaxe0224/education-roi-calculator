@@ -1112,13 +1112,14 @@ button.quiz-option[type="button"]:hover {
 }
 
 @media print {
-  /* Hide chrome */
+  /* Hide chrome & interactive elements */
   header, footer, .us-data-banner, .skip-link,
   .share-dropdown, .share-link-btn, .share-msg,
   .report-actions, .action-bar,
   [id$="-pdf-wrap"], [id$="-share-msg"],
-  button, select, input, details.dropdown,
-  .quiz-card, .us-data-banner, .onboarding-overlay {
+  button, select, input, label, details.dropdown,
+  .quiz-card, .us-data-banner, .onboarding-overlay,
+  #calc-form, .pre-fill-note, .loading-text {
     display: none !important;
   }
 
@@ -1130,6 +1131,11 @@ button.quiz-option[type="button"]:hover {
   }
 
   .print-hidden {
+    display: none !important;
+  }
+
+  /* Hide sr-only tables in print (clip/overflow unreliable in print engines) */
+  .sr-only {
     display: none !important;
   }
 

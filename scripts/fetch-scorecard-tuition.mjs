@@ -6,13 +6,14 @@
  * Scorecard API: https://api.data.gov/ed/collegescorecard/v1/schools.json
  */
 
-import { writeFileSync, mkdirSync } from 'fs';
+import { writeFileSync, mkdirSync, copyFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, '..', 'src', 'data');
 const OUT_FILE = join(OUT_DIR, 'tuition.json');
+const FALLBACK_FILE = join(__dirname, 'fallback', 'tuition.json');
 
 const BASE_URL = 'https://api.data.gov/ed/collegescorecard/v1/schools.json';
 const API_KEY = process.env.SCORECARD_API_KEY || 'DEMO_KEY';
@@ -153,6 +154,11 @@ async function main() {
   const withNet = Object.values(tuition).filter((t) => t.netPrice != null).length;
   console.log(`\nFetched: ${count} CIP codes, ${withNet} with net price data`);
 
+  // Guard: if API returned no usable data, use fallback
+  if (withNet === 0) {
+    throw new Error('Scorecard API returned no tuition data — API may be rate-limited or down.');
+  }
+
   // Write output
   mkdirSync(OUT_DIR, { recursive: true });
   const output = {
@@ -168,6 +174,14 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('Fatal:', err);
-  process.exit(1);
+  console.error(`Scorecard fetch failed: ${err.message}`);
+  if (existsSync(FALLBACK_FILE)) {
+    console.warn('Using static fallback: scripts/fallback/tuition.json');
+    mkdirSync(OUT_DIR, { recursive: true });
+    copyFileSync(FALLBACK_FILE, OUT_FILE);
+    console.log(`Fallback copied to: ${OUT_FILE}`);
+  } else {
+    console.error('No fallback available. Aborting.');
+    process.exit(1);
+  }
 });

@@ -126,8 +126,10 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 ## Data Files
 
 - `src/data/wages.json` — BLS OES (25 SOC codes, includes tot_emp) [gitignored, CI-generated]
-- `src/data/tuition.json` — College Scorecard (25 CIP codes, median tuition) [gitignored, CI-generated]
+- `src/data/tuition.json` — College Scorecard (28 CIP codes, median tuition) [gitignored, CI-generated]
 - `src/data/cps_earnings.json` — BLS CPS weekly earnings by education level (dropout model) [gitignored, CI-generated]
-- `src/data/ipeds.json` — IPEDS graduation rates, retention rates + curated completions [tracked]
+- `src/data/ipeds.json` — IPEDS graduation rates, retention rates + curated completions [gitignored, CI-generated]
+- `src/data/onet-data.json` — O*NET 30.2 skills, knowledge, education (25 SOC codes) [gitignored, CI-generated]
 - `src/data/cip-soc-crosswalk.json` — CIP→SOC mappings [tracked, hand-curated]
 - `src/data/occupation-profiles.json` — BLS OOH career profiles, bilingual (25 SOC codes) [tracked, hand-curated]
+- `scripts/fallback/*.json` — Static fallbacks for all 5 API-fetched data files [tracked, committed]

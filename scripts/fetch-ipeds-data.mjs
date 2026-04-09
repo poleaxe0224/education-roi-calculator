@@ -13,13 +13,14 @@
  * used as the IPEDS-derived alternative for graduation rates.
  */
 
-import { writeFileSync, readFileSync, mkdirSync } from 'fs';
+import { writeFileSync, readFileSync, mkdirSync, copyFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, '..', 'src', 'data');
 const OUT_FILE = join(OUT_DIR, 'ipeds.json');
+const FALLBACK_FILE = join(__dirname, 'fallback', 'ipeds.json');
 
 const SCORECARD_URL = 'https://api.data.gov/ed/collegescorecard/v1/schools.json';
 const API_KEY = process.env.SCORECARD_API_KEY || 'DEMO_KEY';
@@ -190,6 +191,14 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('Fatal:', err);
-  process.exit(1);
+  console.error(`IPEDS fetch failed: ${err.message}`);
+  if (existsSync(FALLBACK_FILE)) {
+    console.warn('Using static fallback: scripts/fallback/ipeds.json');
+    mkdirSync(OUT_DIR, { recursive: true });
+    copyFileSync(FALLBACK_FILE, OUT_FILE);
+    console.log(`Fallback copied to: ${OUT_FILE}`);
+  } else {
+    console.error('No fallback available. Aborting.');
+    process.exit(1);
+  }
 });

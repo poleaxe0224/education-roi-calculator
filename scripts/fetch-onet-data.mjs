@@ -14,13 +14,14 @@
  * https://www.onetcenter.org/database.html#individual-files
  */
 
-import { writeFileSync, mkdirSync } from 'fs';
+import { writeFileSync, mkdirSync, copyFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = join(__dirname, '..', 'src', 'data');
 const OUT_FILE = join(OUT_DIR, 'onet-data.json');
+const FALLBACK_FILE = join(__dirname, 'fallback', 'onet-data.json');
 
 /** Bump this when a new O*NET Database release is available. */
 const ONET_DB_VERSION = '30_2';
@@ -267,6 +268,14 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error('Fatal:', err);
-  process.exit(1);
+  console.error(`O*NET fetch failed: ${err.message}`);
+  if (existsSync(FALLBACK_FILE)) {
+    console.warn('Using static fallback: scripts/fallback/onet-data.json');
+    mkdirSync(OUT_DIR, { recursive: true });
+    copyFileSync(FALLBACK_FILE, OUT_FILE);
+    console.log(`Fallback copied to: ${OUT_FILE}`);
+  } else {
+    console.error('No fallback available. Aborting.');
+    process.exit(1);
+  }
 });
