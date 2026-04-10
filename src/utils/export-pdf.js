@@ -4,7 +4,6 @@
  */
 
 import { t } from '../i18n/i18n.js';
-import { applyChartTheme } from './load-chart.js';
 
 /* ------------------------------------------------------------------ */
 /*  PDF Export via window.print()                                      */
@@ -12,72 +11,54 @@ import { applyChartTheme } from './load-chart.js';
 
 /**
  * Export the current view as PDF via the browser's print dialog.
- * Converts Chart.js <canvas> elements to <img> so they render in print.
+ *
+ * IMPORTANT: This function is intentionally SYNCHRONOUS to preserve
+ * the user-gesture context on iOS Safari. Async delays before
+ * window.print() cause Safari to silently block the print dialog.
+ *
+ * Dark mode is handled purely via @media print CSS overrides —
+ * no JS theme switching needed.
  *
  * @param {HTMLElement} _contentEl — unused (kept for API compat)
  * @param {object} [opts]
  * @param {HTMLElement} [opts.statusBtn] — button to show progress on
  */
-export async function exportPdf(_contentEl, { statusBtn } = {}) {
+export function exportPdf(_contentEl, { statusBtn } = {}) {
   const origText = statusBtn?.textContent;
   if (statusBtn) {
     statusBtn.textContent = t('pdf.exporting');
     statusBtn.disabled = true;
   }
 
-  // Force light theme so print output has white backgrounds
-  const htmlEl = document.documentElement;
-  const wasDark = htmlEl.getAttribute('data-theme') === 'dark';
-  if (wasDark) {
-    htmlEl.setAttribute('data-theme', 'light');
-    if (window.Chart) {
-      applyChartTheme(window.Chart);
-      Object.values(window.Chart.instances).forEach((c) => c.update('none'));
-    }
-    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
-  }
-
+  // Convert visible <canvas> to <img> so print captures charts (all sync)
   const restored = [];
-  try {
-    // Convert visible <canvas> to <img> so print captures charts
-    document.querySelectorAll('canvas').forEach((canvas) => {
-      if (canvas.offsetWidth === 0) return; // skip hidden
-      try {
-        const img = document.createElement('img');
-        img.src = canvas.toDataURL('image/png');
-        img.className = 'print-chart-img';
-        img.style.width = `${canvas.offsetWidth}px`;
-        img.style.maxWidth = '100%';
-        img.setAttribute('aria-hidden', 'true');
-        canvas.after(img);
-        canvas.classList.add('print-hidden');
-        restored.push({ img, canvas });
-      } catch { /* tainted canvas — skip */ }
-    });
+  document.querySelectorAll('canvas').forEach((canvas) => {
+    if (canvas.offsetWidth === 0) return; // skip hidden
+    try {
+      const img = document.createElement('img');
+      img.src = canvas.toDataURL('image/png');
+      img.className = 'print-chart-img';
+      img.style.width = `${canvas.offsetWidth}px`;
+      img.style.maxWidth = '100%';
+      img.setAttribute('aria-hidden', 'true');
+      canvas.after(img);
+      canvas.classList.add('print-hidden');
+      restored.push({ img, canvas });
+    } catch { /* tainted canvas — skip */ }
+  });
 
-    // Wait for browser to lay out the inserted images before printing
-    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-    window.print();
-  } finally {
-    // Restore canvases after print dialog closes
-    restored.forEach(({ img, canvas }) => {
-      canvas.classList.remove('print-hidden');
-      img.remove();
-    });
+  // Synchronous print — preserves user-gesture context on iOS Safari
+  window.print();
 
-    // Restore dark theme if it was active
-    if (wasDark) {
-      htmlEl.setAttribute('data-theme', 'dark');
-      if (window.Chart) {
-        applyChartTheme(window.Chart);
-        Object.values(window.Chart.instances).forEach((c) => c.update('none'));
-      }
-    }
+  // Restore canvases after print dialog closes
+  restored.forEach(({ img, canvas }) => {
+    canvas.classList.remove('print-hidden');
+    img.remove();
+  });
 
-    if (statusBtn) {
-      statusBtn.textContent = origText;
-      statusBtn.disabled = false;
-    }
+  if (statusBtn) {
+    statusBtn.textContent = origText;
+    statusBtn.disabled = false;
   }
 }
 

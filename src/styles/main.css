@@ -1139,11 +1139,28 @@ button.quiz-option[type="button"]:hover {
     display: none !important;
   }
 
+  /* Force light theme in print — no JS theme switch needed */
+  :root, [data-theme="dark"] {
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-card-hover: none;
+    --shadow-card-teen: none;
+    --shadow-card-teen-hover: none;
+    --chip-text-color: #374151;
+    --meter-track: #e5e7eb;
+    color-scheme: light;
+  }
+
   /* Clean layout */
   body {
     font-size: 11pt;
     color: #000 !important;
     background: #fff !important;
+  }
+
+  /* Neutralize Pico dark mode in print */
+  [data-theme="dark"] [data-tooltip]::after {
+    background: #1a1a2e;
+    color: #e2e8f0;
   }
 
   main.container {

@@ -259,14 +259,11 @@ export function afterRender() {
       if (actions) actions.classList.add('hidden');
       if (msgEl) msgEl.classList.add('hidden');
 
-      exportPdf(content, {
-        filename: '14to17-report',
-        orientation: 'portrait',
-        statusBtn: pdfBtn,
-      }).finally(() => {
-        if (actions) actions.classList.remove('hidden');
-        if (msgEl) msgEl.classList.remove('hidden');
-      });
+      exportPdf(content, { statusBtn: pdfBtn });
+
+      // Restore hidden elements after synchronous print
+      if (actions) actions.classList.remove('hidden');
+      if (msgEl) msgEl.classList.remove('hidden');
     });
   }
 
