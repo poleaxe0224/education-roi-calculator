@@ -9,7 +9,7 @@ import { BASELINE_SALARIES, LOAN_RATES } from './mappings.js';
 
 /** Default assumptions */
 export const DEFAULTS = Object.freeze({
-  discountRate: 0.04,        // 4% real discount rate
+  discountRate: 0.03,        // 3% real discount rate (education ROI literature standard)
   salaryGrowthRate: 0.02,    // 2% annual real wage growth
   careerYears: 40,           // working years after education
   educationYears: 4,         // years of education (Bachelor's)
