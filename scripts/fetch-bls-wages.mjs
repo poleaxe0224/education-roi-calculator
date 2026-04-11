@@ -1,12 +1,13 @@
 /**
- * Fetch BLS OES wage data for all 50 mapped careers.
+ * Fetch BLS OES wage data for all mapped careers.
+ * Dynamically reads SOC codes from occupation-profiles.json.
  * Run from project root: node scripts/fetch-bls-wages.mjs
  *
  * Output: src/data/wages.json
  * BLS API: https://api.bls.gov/publicAPI/v2/timeseries/data/
  */
 
-import { writeFileSync, copyFileSync, existsSync, mkdirSync } from 'fs';
+import { writeFileSync, readFileSync, copyFileSync, existsSync, mkdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -21,23 +22,10 @@ const RETRY_DELAY_MS = 3000;
 const BLS_URL = 'https://api.bls.gov/publicAPI/v2/timeseries/data/';
 const API_KEY = process.env.BLS_API_KEY || '';
 
-const CAREERS = [
-  '15-1252', '15-1211', '15-1212', '15-2051', '15-1242', // Computer & IT
-  '29-1141', '29-1071', '29-1021', '29-1051',  // Healthcare (original)
-  '29-1123', '29-1131', '29-1292', '29-1228',  // Healthcare (expanded)
-  '29-1122', '29-2052', '11-9111', '39-9031',  // Healthcare (OT, PharmTech, MedMgr, Fitness)
-  '13-2011', '13-2051', '11-2021', '11-3031', '11-3121', // Business & Finance
-  '17-2051', '17-2071', '17-2141', '17-1011', '17-2031', // Engineering & Architecture
-  '25-2021', '25-2031',                          // Education
-  '49-9021', '47-2111', '29-2061', '15-1231',  // Trades (original)
-  '47-2152', '47-2031', '35-1011',              // Trades (expanded)
-  '23-1011', '23-2011',                          // Legal
-  '27-1024', '27-3023', '27-1014', '27-3031',  // Creative & Media
-  '21-1021', '21-1018',                          // Community & Social Service
-  '19-3031', '19-2041', '19-4092',              // Science
-  '33-3051', '33-2011',                          // Protective Service
-  '53-2011',                                      // Transportation
-];
+// Dynamically load SOC codes from occupation-profiles.json
+const profilesPath = join(OUT_DIR, 'occupation-profiles.json');
+const profiles = JSON.parse(readFileSync(profilesPath, 'utf-8'));
+const CAREERS = Object.keys(profiles.profiles);
 
 const DATA_TYPES = {
   annual10:     '11',

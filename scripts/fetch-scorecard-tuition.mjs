@@ -6,7 +6,7 @@
  * Scorecard API: https://api.data.gov/ed/collegescorecard/v1/schools.json
  */
 
-import { writeFileSync, mkdirSync, copyFileSync, existsSync } from 'fs';
+import { writeFileSync, readFileSync, mkdirSync, copyFileSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -27,61 +27,29 @@ const CIP_PROXIES = {
   '0902': { cip: '0904', title: 'Journalism (CIP 09.04)' },
 };
 
-/** CIP codes from CAREER_MAPPINGS (soc → cip) */
-const CIP_CAREERS = [
-  // Original 25
-  { cip: '1107', career: 'Software Developer' },
-  { cip: '1101', career: 'Computer Systems Analyst' },
-  { cip: '1104', career: 'Information Security Analyst' },
-  { cip: '3070', career: 'Data Scientist' },
-  { cip: '5138', career: 'Registered Nurse' },
-  { cip: '5109', career: 'Physician Assistant / LPN' },
-  { cip: '5104', career: 'Dentist' },
-  { cip: '5120', career: 'Pharmacist / Pharmacy Technician' },
-  { cip: '5203', career: 'Accountant' },
-  { cip: '5208', career: 'Financial Analyst' },
-  { cip: '5214', career: 'Marketing Manager' },
-  { cip: '5210', career: 'Financial Manager' },
-  { cip: '1409', career: 'Civil Engineer' },
-  { cip: '1410', career: 'Electrical Engineer' },
-  { cip: '1419', career: 'Mechanical Engineer' },
-  { cip: '1312', career: 'Elementary School Teacher' },
-  { cip: '1313', career: 'High School Teacher' },
-  { cip: '4702', career: 'HVAC Technician' },
-  { cip: '4601', career: 'Electrician' },
-  { cip: '1106', career: 'Web Developer' },
-  { cip: '2201', career: 'Lawyer' },
-  { cip: '2203', career: 'Paralegal' },
-  { cip: '5010', career: 'Graphic Designer / Multimedia Artist' },
-  { cip: '0904', career: 'News Analyst / Reporter' },
-  // Expanded 25
-  { cip: '0402', career: 'Architect' },
-  { cip: '1405', career: 'Biomedical Engineer' },
-  { cip: '4407', career: 'Social Worker' },
-  { cip: '5115', career: 'Mental Health Counselor' },
-  { cip: '1103', career: 'Database Administrator' },
-  { cip: '4605', career: 'Plumber' },
-  { cip: '4602', career: 'Carpenter' },
-  { cip: '1205', career: 'Chef / Head Cook' },
-  { cip: '5123', career: 'Physical Therapist / OT' },
-  { cip: '5118', career: 'Veterinarian' },
-  { cip: '5106', career: 'Dental Hygienist' },
-  { cip: '5117', career: 'Physician / Surgeon' },
-  { cip: '4201', career: 'Psychologist' },
-  { cip: '0301', career: 'Environmental Scientist' },
-  { cip: '4301', career: 'Criminal Justice / Forensic Science' },
-  { cip: '5202', career: 'Human Resources Manager' },
-  { cip: '5107', career: 'Medical / Health Services Manager' },
-  { cip: '0902', career: 'Public Relations Specialist' },
-  { cip: '3105', career: 'Fitness Trainer' },
-  { cip: '4302', career: 'Firefighter' },
-  { cip: '4902', career: 'Airline Pilot' },
-  // Undergrad CIPs for graduate-degree careers (defaultUndergradCip)
-  { cip: '2601', career: 'Biology (undergrad for PA / Dentist / PT / Vet / MD / OT)' },
-  { cip: '4002', career: 'Chemistry (undergrad for Pharmacist)' },
-  { cip: '4501', career: 'Political Science (undergrad for Lawyer)' },
-  { cip: '2701', career: 'Mathematics (undergrad for Data Scientist)' },
-];
+/**
+ * Dynamically build CIP_CAREERS from cip-soc-crosswalk.json.
+ * Deduplicate by CIP code (multiple SOCs may share one CIP).
+ */
+const crosswalkPath = join(OUT_DIR, 'cip-soc-crosswalk.json');
+const crosswalk = JSON.parse(readFileSync(crosswalkPath, 'utf-8'));
+const cipSet = new Set();
+const CIP_CAREERS = [];
+for (const entry of crosswalk.mappings) {
+  const cip = entry.cip_code;
+  if (!cipSet.has(cip)) {
+    cipSet.add(cip);
+    CIP_CAREERS.push({ cip, career: entry.cip_title });
+  }
+}
+// Also add undergrad CIPs used as prerequisites
+const UNDERGRAD_CIPS = ['2601', '4002', '4501', '2701', '1107', '4201', '5138', '5101'];
+for (const cip of UNDERGRAD_CIPS) {
+  if (!cipSet.has(cip)) {
+    cipSet.add(cip);
+    CIP_CAREERS.push({ cip, career: `Undergrad prerequisite (CIP ${cip})` });
+  }
+}
 
 const FIELDS = [
   'id',

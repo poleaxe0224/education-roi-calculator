@@ -116,6 +116,7 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 14. **Phase 4 Polish** ✓ — Dark mode (toggle + auto-detect + localStorage), Social card WebP, bilingual degree tooltips (en↔zh-TW)
 15. **Phase 15** (in progress) — Tech debt resolved (detail.js 4-module split), SEO dynamic meta + SSG share pages (50 career-specific OG pages), personalized recommendations (quiz→localStorage→home), PWA offline (build-time SW, 68-file pre-cache, CDN caching, offline banner)
 16. **Phase 16** ✓ — Career database expansion (25→50 careers), 4 new categories (community, science, protective, transportation), BLS OOH-sourced profiles
+17. **Phase 17** ✓ — Full BLS OOH expansion (50→330 careers), 10 new categories (management, media, food_service, maintenance, personal_service, sales, office, agriculture, production, military), dynamic SOC/CIP loading in fetch scripts
 
 ## Three-Layer ROI Model
 
@@ -129,11 +130,11 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 
 ## Data Files
 
-- `src/data/wages.json` — BLS OES (50 SOC codes, includes tot_emp) [tracked, CI-refreshed]
-- `src/data/tuition.json` — College Scorecard (46 CIP codes, median tuition) [tracked, CI-refreshed]
+- `src/data/wages.json` — BLS OES (330 SOC codes, includes tot_emp) [tracked, CI-refreshed]
+- `src/data/tuition.json` — College Scorecard (100+ CIP codes, median tuition) [tracked, CI-refreshed]
 - `src/data/cps_earnings.json` — BLS CPS weekly earnings by education level (dropout model) [tracked, CI-refreshed]
 - `src/data/ipeds.json` — IPEDS graduation rates, retention rates + curated completions [tracked, CI-refreshed]
-- `src/data/onet-data.json` — O*NET 30.2 skills, knowledge, education (50 SOC codes) [tracked, CC BY 4.0 public data]
-- `src/data/cip-soc-crosswalk.json` — CIP→SOC mappings [tracked, hand-curated]
-- `src/data/occupation-profiles.json` — BLS OOH career profiles, bilingual (50 SOC codes) [tracked, hand-curated]
+- `src/data/onet-data.json` — O*NET 30.2 skills, knowledge, education (330 SOC codes) [tracked, CC BY 4.0 public data]
+- `src/data/cip-soc-crosswalk.json` — CIP→SOC mappings (317 entries) [tracked, hand-curated]
+- `src/data/occupation-profiles.json` — BLS OOH career profiles, bilingual (330 SOC codes) [tracked, hand-curated]
 - `scripts/fallback/*.json` — Static fallbacks for all 5 API-fetched data files [tracked, committed]

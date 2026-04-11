@@ -1,55 +1,2576 @@
 {
   "metadata": {
-    "source": "NCES CIP-SOC Crosswalk, curated for 50 career mappings",
+    "source": "NCES CIP-SOC Crosswalk, curated for 330 career mappings",
     "note": "primary_soc = direct career match from CAREER_MAPPINGS; soc_codes includes related occupations",
     "cip_version": "CIP 2020",
     "soc_version": "SOC 2018"
   },
   "mappings": [
-    { "cip_code": "1107", "cip_title": "Computer Science", "soc_codes": ["15-1252", "15-1251", "15-1256"], "primary_soc": "15-1252" },
-    { "cip_code": "1101", "cip_title": "Computer and Information Sciences, General", "soc_codes": ["15-1211", "15-1212", "15-1245"], "primary_soc": "15-1211" },
-    { "cip_code": "1104", "cip_title": "Information Science/Studies", "soc_codes": ["15-1212", "15-1299"], "primary_soc": "15-1212" },
-    { "cip_code": "2701", "cip_title": "Mathematics, General", "soc_codes": ["15-2051", "15-2041"], "primary_soc": "15-2051" },
-    { "cip_code": "3070", "cip_title": "Data Science", "soc_codes": ["15-2051", "15-2098"], "primary_soc": "15-2051" },
-    { "cip_code": "5138", "cip_title": "Registered Nursing", "soc_codes": ["29-1141"], "primary_soc": "29-1141" },
-    { "cip_code": "5109", "cip_title": "Allied Health / Physician Assistant", "soc_codes": ["29-1071", "29-2061"], "primary_soc": "29-1071" },
-    { "cip_code": "5104", "cip_title": "Dentistry", "soc_codes": ["29-1021", "29-1029"], "primary_soc": "29-1021" },
-    { "cip_code": "5120", "cip_title": "Pharmacy", "soc_codes": ["29-1051"], "primary_soc": "29-1051" },
-    { "cip_code": "5203", "cip_title": "Accounting", "soc_codes": ["13-2011", "13-2082"], "primary_soc": "13-2011" },
-    { "cip_code": "5208", "cip_title": "Finance", "soc_codes": ["13-2051", "13-2054"], "primary_soc": "13-2051" },
-    { "cip_code": "5214", "cip_title": "Marketing", "soc_codes": ["11-2021", "11-2022"], "primary_soc": "11-2021" },
-    { "cip_code": "5210", "cip_title": "Human Resources / Financial Management", "soc_codes": ["11-3031", "11-3111"], "primary_soc": "11-3031" },
-    { "cip_code": "1409", "cip_title": "Civil Engineering", "soc_codes": ["17-2051"], "primary_soc": "17-2051" },
-    { "cip_code": "1410", "cip_title": "Electrical Engineering", "soc_codes": ["17-2071", "17-2072"], "primary_soc": "17-2071" },
-    { "cip_code": "1419", "cip_title": "Mechanical Engineering", "soc_codes": ["17-2141"], "primary_soc": "17-2141" },
-    { "cip_code": "1312", "cip_title": "Teacher Education, Elementary", "soc_codes": ["25-2021"], "primary_soc": "25-2021" },
-    { "cip_code": "1313", "cip_title": "Teacher Education, Secondary", "soc_codes": ["25-2031"], "primary_soc": "25-2031" },
-    { "cip_code": "4702", "cip_title": "HVAC and Refrigeration", "soc_codes": ["49-9021"], "primary_soc": "49-9021" },
-    { "cip_code": "4601", "cip_title": "Construction Trades / Electrician", "soc_codes": ["47-2111"], "primary_soc": "47-2111" },
-    { "cip_code": "1106", "cip_title": "Data Entry / Web Development", "soc_codes": ["15-1231", "15-1257"], "primary_soc": "15-1231" },
-    { "cip_code": "2201", "cip_title": "Law", "soc_codes": ["23-1011", "23-1012"], "primary_soc": "23-1011" },
-    { "cip_code": "2203", "cip_title": "Legal Support Services", "soc_codes": ["23-2011"], "primary_soc": "23-2011" },
-    { "cip_code": "5010", "cip_title": "Visual Arts / Graphic Design", "soc_codes": ["27-1024", "27-1014"], "primary_soc": "27-1024" },
-    { "cip_code": "0904", "cip_title": "Journalism", "soc_codes": ["27-3023", "27-3022"], "primary_soc": "27-3023" },
-    { "cip_code": "0402", "cip_title": "Architecture", "soc_codes": ["17-1011"], "primary_soc": "17-1011" },
-    { "cip_code": "1405", "cip_title": "Biomedical / Medical Engineering", "soc_codes": ["17-2031"], "primary_soc": "17-2031" },
-    { "cip_code": "4407", "cip_title": "Social Work", "soc_codes": ["21-1021", "21-1022"], "primary_soc": "21-1021" },
-    { "cip_code": "5115", "cip_title": "Mental Health Counseling", "soc_codes": ["21-1018", "21-1014"], "primary_soc": "21-1018" },
-    { "cip_code": "1103", "cip_title": "Information Technology / Database", "soc_codes": ["15-1242", "15-1244"], "primary_soc": "15-1242" },
-    { "cip_code": "4605", "cip_title": "Plumbing Technology", "soc_codes": ["47-2152"], "primary_soc": "47-2152" },
-    { "cip_code": "4602", "cip_title": "Carpentry / Construction Trades", "soc_codes": ["47-2031"], "primary_soc": "47-2031" },
-    { "cip_code": "1205", "cip_title": "Culinary Arts / Food Service", "soc_codes": ["35-1011", "35-1012"], "primary_soc": "35-1011" },
-    { "cip_code": "5123", "cip_title": "Rehabilitation / Physical Therapy", "soc_codes": ["29-1123", "29-1122"], "primary_soc": "29-1123" },
-    { "cip_code": "5118", "cip_title": "Veterinary Medicine", "soc_codes": ["29-1131"], "primary_soc": "29-1131" },
-    { "cip_code": "5106", "cip_title": "Dental Hygiene", "soc_codes": ["29-1292"], "primary_soc": "29-1292" },
-    { "cip_code": "5117", "cip_title": "Medicine (M.D. / D.O.)", "soc_codes": ["29-1228", "29-1211", "29-1218"], "primary_soc": "29-1228" },
-    { "cip_code": "0301", "cip_title": "Environmental Science", "soc_codes": ["19-2041", "19-2042"], "primary_soc": "19-2041" },
-    { "cip_code": "4301", "cip_title": "Criminal Justice / Forensic Science", "soc_codes": ["19-4092", "33-3051"], "primary_soc": "33-3051" },
-    { "cip_code": "5202", "cip_title": "Business Administration / HR Management", "soc_codes": ["11-3121", "11-1021"], "primary_soc": "11-3121" },
-    { "cip_code": "5107", "cip_title": "Health / Hospital Administration", "soc_codes": ["11-9111"], "primary_soc": "11-9111" },
-    { "cip_code": "0902", "cip_title": "Public Relations / Communications", "soc_codes": ["27-3031", "27-3041"], "primary_soc": "27-3031" },
-    { "cip_code": "3105", "cip_title": "Kinesiology / Exercise Science", "soc_codes": ["39-9031"], "primary_soc": "39-9031" },
-    { "cip_code": "4302", "cip_title": "Fire Science / Firefighting", "soc_codes": ["33-2011"], "primary_soc": "33-2011" },
-    { "cip_code": "4902", "cip_title": "Aviation / Airline Pilot Training", "soc_codes": ["53-2011", "53-2012"], "primary_soc": "53-2011" }
+    {
+      "cip_code": "1107",
+      "cip_title": "Computer Science",
+      "soc_codes": [
+        "15-1252",
+        "15-1251",
+        "15-1256"
+      ],
+      "primary_soc": "15-1252"
+    },
+    {
+      "cip_code": "1101",
+      "cip_title": "Computer and Information Sciences, General",
+      "soc_codes": [
+        "15-1211",
+        "15-1212",
+        "15-1245"
+      ],
+      "primary_soc": "15-1211"
+    },
+    {
+      "cip_code": "1104",
+      "cip_title": "Information Science/Studies",
+      "soc_codes": [
+        "15-1212",
+        "15-1299"
+      ],
+      "primary_soc": "15-1212"
+    },
+    {
+      "cip_code": "2701",
+      "cip_title": "Mathematics, General",
+      "soc_codes": [
+        "15-2051",
+        "15-2041"
+      ],
+      "primary_soc": "15-2051"
+    },
+    {
+      "cip_code": "3070",
+      "cip_title": "Data Science",
+      "soc_codes": [
+        "15-2051",
+        "15-2098"
+      ],
+      "primary_soc": "15-2051"
+    },
+    {
+      "cip_code": "5138",
+      "cip_title": "Registered Nursing",
+      "soc_codes": [
+        "29-1141"
+      ],
+      "primary_soc": "29-1141"
+    },
+    {
+      "cip_code": "5109",
+      "cip_title": "Allied Health / Physician Assistant",
+      "soc_codes": [
+        "29-1071",
+        "29-2061"
+      ],
+      "primary_soc": "29-1071"
+    },
+    {
+      "cip_code": "5104",
+      "cip_title": "Dentistry",
+      "soc_codes": [
+        "29-1021",
+        "29-1029"
+      ],
+      "primary_soc": "29-1021"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Pharmacy",
+      "soc_codes": [
+        "29-1051"
+      ],
+      "primary_soc": "29-1051"
+    },
+    {
+      "cip_code": "5203",
+      "cip_title": "Accounting",
+      "soc_codes": [
+        "13-2011",
+        "13-2082"
+      ],
+      "primary_soc": "13-2011"
+    },
+    {
+      "cip_code": "5208",
+      "cip_title": "Finance",
+      "soc_codes": [
+        "13-2051",
+        "13-2054"
+      ],
+      "primary_soc": "13-2051"
+    },
+    {
+      "cip_code": "5214",
+      "cip_title": "Marketing",
+      "soc_codes": [
+        "11-2021",
+        "11-2022"
+      ],
+      "primary_soc": "11-2021"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Human Resources / Financial Management",
+      "soc_codes": [
+        "11-3031",
+        "11-3111"
+      ],
+      "primary_soc": "11-3031"
+    },
+    {
+      "cip_code": "1409",
+      "cip_title": "Civil Engineering",
+      "soc_codes": [
+        "17-2051"
+      ],
+      "primary_soc": "17-2051"
+    },
+    {
+      "cip_code": "1410",
+      "cip_title": "Electrical Engineering",
+      "soc_codes": [
+        "17-2071",
+        "17-2072"
+      ],
+      "primary_soc": "17-2071"
+    },
+    {
+      "cip_code": "1419",
+      "cip_title": "Mechanical Engineering",
+      "soc_codes": [
+        "17-2141"
+      ],
+      "primary_soc": "17-2141"
+    },
+    {
+      "cip_code": "1312",
+      "cip_title": "Teacher Education, Elementary",
+      "soc_codes": [
+        "25-2021"
+      ],
+      "primary_soc": "25-2021"
+    },
+    {
+      "cip_code": "1313",
+      "cip_title": "Teacher Education, Secondary",
+      "soc_codes": [
+        "25-2031"
+      ],
+      "primary_soc": "25-2031"
+    },
+    {
+      "cip_code": "4702",
+      "cip_title": "HVAC and Refrigeration",
+      "soc_codes": [
+        "49-9021"
+      ],
+      "primary_soc": "49-9021"
+    },
+    {
+      "cip_code": "4601",
+      "cip_title": "Construction Trades / Electrician",
+      "soc_codes": [
+        "47-2111"
+      ],
+      "primary_soc": "47-2111"
+    },
+    {
+      "cip_code": "1106",
+      "cip_title": "Data Entry / Web Development",
+      "soc_codes": [
+        "15-1231",
+        "15-1257"
+      ],
+      "primary_soc": "15-1231"
+    },
+    {
+      "cip_code": "2201",
+      "cip_title": "Law",
+      "soc_codes": [
+        "23-1011",
+        "23-1012"
+      ],
+      "primary_soc": "23-1011"
+    },
+    {
+      "cip_code": "2203",
+      "cip_title": "Legal Support Services",
+      "soc_codes": [
+        "23-2011"
+      ],
+      "primary_soc": "23-2011"
+    },
+    {
+      "cip_code": "5010",
+      "cip_title": "Visual Arts / Graphic Design",
+      "soc_codes": [
+        "27-1024",
+        "27-1014"
+      ],
+      "primary_soc": "27-1024"
+    },
+    {
+      "cip_code": "0904",
+      "cip_title": "Journalism",
+      "soc_codes": [
+        "27-3023",
+        "27-3022"
+      ],
+      "primary_soc": "27-3023"
+    },
+    {
+      "cip_code": "0402",
+      "cip_title": "Architecture",
+      "soc_codes": [
+        "17-1011"
+      ],
+      "primary_soc": "17-1011"
+    },
+    {
+      "cip_code": "1405",
+      "cip_title": "Biomedical / Medical Engineering",
+      "soc_codes": [
+        "17-2031"
+      ],
+      "primary_soc": "17-2031"
+    },
+    {
+      "cip_code": "4407",
+      "cip_title": "Social Work",
+      "soc_codes": [
+        "21-1021",
+        "21-1022"
+      ],
+      "primary_soc": "21-1021"
+    },
+    {
+      "cip_code": "5115",
+      "cip_title": "Mental Health Counseling",
+      "soc_codes": [
+        "21-1018",
+        "21-1014"
+      ],
+      "primary_soc": "21-1018"
+    },
+    {
+      "cip_code": "1103",
+      "cip_title": "Information Technology / Database",
+      "soc_codes": [
+        "15-1242",
+        "15-1244"
+      ],
+      "primary_soc": "15-1242"
+    },
+    {
+      "cip_code": "4605",
+      "cip_title": "Plumbing Technology",
+      "soc_codes": [
+        "47-2152"
+      ],
+      "primary_soc": "47-2152"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Carpentry / Construction Trades",
+      "soc_codes": [
+        "47-2031"
+      ],
+      "primary_soc": "47-2031"
+    },
+    {
+      "cip_code": "1205",
+      "cip_title": "Culinary Arts / Food Service",
+      "soc_codes": [
+        "35-1011",
+        "35-1012"
+      ],
+      "primary_soc": "35-1011"
+    },
+    {
+      "cip_code": "5123",
+      "cip_title": "Rehabilitation / Physical Therapy",
+      "soc_codes": [
+        "29-1123",
+        "29-1122"
+      ],
+      "primary_soc": "29-1123"
+    },
+    {
+      "cip_code": "5118",
+      "cip_title": "Veterinary Medicine",
+      "soc_codes": [
+        "29-1131"
+      ],
+      "primary_soc": "29-1131"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Dental Hygiene",
+      "soc_codes": [
+        "29-1292"
+      ],
+      "primary_soc": "29-1292"
+    },
+    {
+      "cip_code": "5117",
+      "cip_title": "Medicine (M.D. / D.O.)",
+      "soc_codes": [
+        "29-1228",
+        "29-1211",
+        "29-1218"
+      ],
+      "primary_soc": "29-1228"
+    },
+    {
+      "cip_code": "0301",
+      "cip_title": "Environmental Science",
+      "soc_codes": [
+        "19-2041",
+        "19-2042"
+      ],
+      "primary_soc": "19-2041"
+    },
+    {
+      "cip_code": "4301",
+      "cip_title": "Criminal Justice / Forensic Science",
+      "soc_codes": [
+        "19-4092",
+        "33-3051"
+      ],
+      "primary_soc": "33-3051"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Business Administration / HR Management",
+      "soc_codes": [
+        "11-3121",
+        "11-1021"
+      ],
+      "primary_soc": "11-3121"
+    },
+    {
+      "cip_code": "5107",
+      "cip_title": "Health / Hospital Administration",
+      "soc_codes": [
+        "11-9111"
+      ],
+      "primary_soc": "11-9111"
+    },
+    {
+      "cip_code": "0902",
+      "cip_title": "Public Relations / Communications",
+      "soc_codes": [
+        "27-3031",
+        "27-3041"
+      ],
+      "primary_soc": "27-3031"
+    },
+    {
+      "cip_code": "3105",
+      "cip_title": "Kinesiology / Exercise Science",
+      "soc_codes": [
+        "39-9031"
+      ],
+      "primary_soc": "39-9031"
+    },
+    {
+      "cip_code": "4302",
+      "cip_title": "Fire Science / Firefighting",
+      "soc_codes": [
+        "33-2011"
+      ],
+      "primary_soc": "33-2011"
+    },
+    {
+      "cip_code": "4902",
+      "cip_title": "Aviation / Airline Pilot Training",
+      "soc_codes": [
+        "53-2011",
+        "53-2012"
+      ],
+      "primary_soc": "53-2011"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Administrative services managers",
+      "soc_codes": [
+        "11-3012"
+      ],
+      "primary_soc": "11-3012"
+    },
+    {
+      "cip_code": "1401",
+      "cip_title": "Architectural and engineering managers",
+      "soc_codes": [
+        "11-9041"
+      ],
+      "primary_soc": "11-9041"
+    },
+    {
+      "cip_code": "1101",
+      "cip_title": "Computer and information systems managers",
+      "soc_codes": [
+        "11-3021"
+      ],
+      "primary_soc": "11-3021"
+    },
+    {
+      "cip_code": "5220",
+      "cip_title": "Construction managers",
+      "soc_codes": [
+        "11-9021"
+      ],
+      "primary_soc": "11-9021"
+    },
+    {
+      "cip_code": "1305",
+      "cip_title": "Education administrators, kindergarten through secondary",
+      "soc_codes": [
+        "11-9032"
+      ],
+      "primary_soc": "11-9032"
+    },
+    {
+      "cip_code": "1103",
+      "cip_title": "Emergency management directors",
+      "soc_codes": [
+        "11-9161"
+      ],
+      "primary_soc": "11-9161"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Entertainment and recreation managers, except gambling",
+      "soc_codes": [
+        "11-9072"
+      ],
+      "primary_soc": "11-9072"
+    },
+    {
+      "cip_code": "0104",
+      "cip_title": "Farmers, ranchers, and other agricultural managers",
+      "soc_codes": [
+        "11-9013"
+      ],
+      "primary_soc": "11-9013"
+    },
+    {
+      "cip_code": "3105",
+      "cip_title": "Food service managers",
+      "soc_codes": [
+        "11-9051"
+      ],
+      "primary_soc": "11-9051"
+    },
+    {
+      "cip_code": "1519",
+      "cip_title": "Industrial production managers",
+      "soc_codes": [
+        "11-3051"
+      ],
+      "primary_soc": "11-3051"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Lodging managers",
+      "soc_codes": [
+        "11-9081"
+      ],
+      "primary_soc": "11-9081"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Natural sciences managers",
+      "soc_codes": [
+        "11-9121"
+      ],
+      "primary_soc": "11-9121"
+    },
+    {
+      "cip_code": "1304",
+      "cip_title": "Education administrators, postsecondary",
+      "soc_codes": [
+        "11-9033"
+      ],
+      "primary_soc": "11-9033"
+    },
+    {
+      "cip_code": "1901",
+      "cip_title": "Education and childcare administrators, preschool and daycare",
+      "soc_codes": [
+        "11-9031"
+      ],
+      "primary_soc": "11-9031"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Property, real estate, and community association managers",
+      "soc_codes": [
+        "11-9141"
+      ],
+      "primary_soc": "11-9141"
+    },
+    {
+      "cip_code": "5214",
+      "cip_title": "Public relations managers",
+      "soc_codes": [
+        "11-2032"
+      ],
+      "primary_soc": "11-2032"
+    },
+    {
+      "cip_code": "2109",
+      "cip_title": "Social and community service managers",
+      "soc_codes": [
+        "11-9151"
+      ],
+      "primary_soc": "11-9151"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Chief executives",
+      "soc_codes": [
+        "11-1011"
+      ],
+      "primary_soc": "11-1011"
+    },
+    {
+      "cip_code": "5216",
+      "cip_title": "Training and development managers",
+      "soc_codes": [
+        "11-3131"
+      ],
+      "primary_soc": "11-3131"
+    },
+    {
+      "cip_code": "5209",
+      "cip_title": "Transportation, storage, and distribution managers",
+      "soc_codes": [
+        "11-3071"
+      ],
+      "primary_soc": "11-3071"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Property appraisers and assessors",
+      "soc_codes": [
+        "13-2020"
+      ],
+      "primary_soc": "13-2020"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Budget analysts",
+      "soc_codes": [
+        "13-2031"
+      ],
+      "primary_soc": "13-2031"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Claims adjusters, examiners, and investigators",
+      "soc_codes": [
+        "13-1031"
+      ],
+      "primary_soc": "13-1031"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Compensation, benefits, and job analysis specialists",
+      "soc_codes": [
+        "13-1141"
+      ],
+      "primary_soc": "13-1141"
+    },
+    {
+      "cip_code": "5208",
+      "cip_title": "Compliance officers",
+      "soc_codes": [
+        "13-1041"
+      ],
+      "primary_soc": "13-1041"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Cost estimators",
+      "soc_codes": [
+        "13-1051"
+      ],
+      "primary_soc": "13-1051"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Credit counselors",
+      "soc_codes": [
+        "13-2071"
+      ],
+      "primary_soc": "13-2071"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Financial examiners",
+      "soc_codes": [
+        "13-2061"
+      ],
+      "primary_soc": "13-2061"
+    },
+    {
+      "cip_code": "5209",
+      "cip_title": "Fundraisers",
+      "soc_codes": [
+        "13-1131"
+      ],
+      "primary_soc": "13-1131"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Human resources specialists",
+      "soc_codes": [
+        "13-1071"
+      ],
+      "primary_soc": "13-1071"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Insurance underwriters",
+      "soc_codes": [
+        "13-2053"
+      ],
+      "primary_soc": "13-2053"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Labor relations specialists",
+      "soc_codes": [
+        "13-1075"
+      ],
+      "primary_soc": "13-1075"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Loan officers",
+      "soc_codes": [
+        "13-2072"
+      ],
+      "primary_soc": "13-2072"
+    },
+    {
+      "cip_code": "5201",
+      "cip_title": "Logisticians",
+      "soc_codes": [
+        "13-1081"
+      ],
+      "primary_soc": "13-1081"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Management analysts",
+      "soc_codes": [
+        "13-1111"
+      ],
+      "primary_soc": "13-1111"
+    },
+    {
+      "cip_code": "5208",
+      "cip_title": "Market research analysts and marketing specialists",
+      "soc_codes": [
+        "13-1161"
+      ],
+      "primary_soc": "13-1161"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Meeting, convention, and event planners",
+      "soc_codes": [
+        "13-1121"
+      ],
+      "primary_soc": "13-1121"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Personal financial advisors",
+      "soc_codes": [
+        "13-2052"
+      ],
+      "primary_soc": "13-2052"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Project management specialists",
+      "soc_codes": [
+        "13-1082"
+      ],
+      "primary_soc": "13-1082"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Buyers and purchasing agents",
+      "soc_codes": [
+        "13-1020"
+      ],
+      "primary_soc": "13-1020"
+    },
+    {
+      "cip_code": "5203",
+      "cip_title": "Tax examiners and collectors, and revenue agents",
+      "soc_codes": [
+        "13-2081"
+      ],
+      "primary_soc": "13-2081"
+    },
+    {
+      "cip_code": "5216",
+      "cip_title": "Training and development specialists",
+      "soc_codes": [
+        "13-1151"
+      ],
+      "primary_soc": "13-1151"
+    },
+    {
+      "cip_code": "1101",
+      "cip_title": "Computer and information research scientists",
+      "soc_codes": [
+        "15-1221"
+      ],
+      "primary_soc": "15-1221"
+    },
+    {
+      "cip_code": "1103",
+      "cip_title": "Computer network architects",
+      "soc_codes": [
+        "15-1241"
+      ],
+      "primary_soc": "15-1241"
+    },
+    {
+      "cip_code": "1101",
+      "cip_title": "Computer user support specialists",
+      "soc_codes": [
+        "15-1232"
+      ],
+      "primary_soc": "15-1232"
+    },
+    {
+      "cip_code": "1103",
+      "cip_title": "Web developers",
+      "soc_codes": [
+        "15-1254"
+      ],
+      "primary_soc": "15-1254"
+    },
+    {
+      "cip_code": "1402",
+      "cip_title": "Aerospace engineering and operations technologists and technicians",
+      "soc_codes": [
+        "17-3021"
+      ],
+      "primary_soc": "17-3021"
+    },
+    {
+      "cip_code": "1402",
+      "cip_title": "Aerospace engineers",
+      "soc_codes": [
+        "17-2011"
+      ],
+      "primary_soc": "17-2011"
+    },
+    {
+      "cip_code": "1407",
+      "cip_title": "Agricultural engineers",
+      "soc_codes": [
+        "17-2021"
+      ],
+      "primary_soc": "17-2021"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Cartographers and photogrammetrists",
+      "soc_codes": [
+        "17-1021"
+      ],
+      "primary_soc": "17-1021"
+    },
+    {
+      "cip_code": "1411",
+      "cip_title": "Chemical engineers",
+      "soc_codes": [
+        "17-2041"
+      ],
+      "primary_soc": "17-2041"
+    },
+    {
+      "cip_code": "1409",
+      "cip_title": "Civil engineering technologists and technicians",
+      "soc_codes": [
+        "17-3022"
+      ],
+      "primary_soc": "17-3022"
+    },
+    {
+      "cip_code": "1403",
+      "cip_title": "Computer hardware engineers",
+      "soc_codes": [
+        "17-2061"
+      ],
+      "primary_soc": "17-2061"
+    },
+    {
+      "cip_code": "1519",
+      "cip_title": "Architectural and civil drafters",
+      "soc_codes": [
+        "17-3011"
+      ],
+      "primary_soc": "17-3011"
+    },
+    {
+      "cip_code": "1410",
+      "cip_title": "Electrical and electronic engineering technologists and technicians",
+      "soc_codes": [
+        "17-3023"
+      ],
+      "primary_soc": "17-3023"
+    },
+    {
+      "cip_code": "1410",
+      "cip_title": "Electro-mechanical and mechatronics technologists and technicians",
+      "soc_codes": [
+        "17-3024"
+      ],
+      "primary_soc": "17-3024"
+    },
+    {
+      "cip_code": "1403",
+      "cip_title": "Environmental engineering technologists and technicians",
+      "soc_codes": [
+        "17-3025"
+      ],
+      "primary_soc": "17-3025"
+    },
+    {
+      "cip_code": "1418",
+      "cip_title": "Environmental engineers",
+      "soc_codes": [
+        "17-2081"
+      ],
+      "primary_soc": "17-2081"
+    },
+    {
+      "cip_code": "1435",
+      "cip_title": "Health and safety engineers, except mining safety engineers and inspectors",
+      "soc_codes": [
+        "17-2111"
+      ],
+      "primary_soc": "17-2111"
+    },
+    {
+      "cip_code": "1435",
+      "cip_title": "Industrial engineering technologists and technicians",
+      "soc_codes": [
+        "17-3026"
+      ],
+      "primary_soc": "17-3026"
+    },
+    {
+      "cip_code": "1419",
+      "cip_title": "Industrial engineers",
+      "soc_codes": [
+        "17-2112"
+      ],
+      "primary_soc": "17-2112"
+    },
+    {
+      "cip_code": "0401",
+      "cip_title": "Landscape architects",
+      "soc_codes": [
+        "17-1012"
+      ],
+      "primary_soc": "17-1012"
+    },
+    {
+      "cip_code": "1420",
+      "cip_title": "Marine engineers and naval architects",
+      "soc_codes": [
+        "17-2121"
+      ],
+      "primary_soc": "17-2121"
+    },
+    {
+      "cip_code": "1421",
+      "cip_title": "Materials engineers",
+      "soc_codes": [
+        "17-2131"
+      ],
+      "primary_soc": "17-2131"
+    },
+    {
+      "cip_code": "1419",
+      "cip_title": "Mechanical engineering technologists and technicians",
+      "soc_codes": [
+        "17-3027"
+      ],
+      "primary_soc": "17-3027"
+    },
+    {
+      "cip_code": "1422",
+      "cip_title": "Mining and geological engineers, including mining safety engineers",
+      "soc_codes": [
+        "17-2151"
+      ],
+      "primary_soc": "17-2151"
+    },
+    {
+      "cip_code": "1423",
+      "cip_title": "Nuclear engineers",
+      "soc_codes": [
+        "17-2161"
+      ],
+      "primary_soc": "17-2161"
+    },
+    {
+      "cip_code": "1424",
+      "cip_title": "Petroleum engineers",
+      "soc_codes": [
+        "17-2171"
+      ],
+      "primary_soc": "17-2171"
+    },
+    {
+      "cip_code": "1502",
+      "cip_title": "Surveying and mapping technicians",
+      "soc_codes": [
+        "17-3031"
+      ],
+      "primary_soc": "17-3031"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Surveyors",
+      "soc_codes": [
+        "17-1022"
+      ],
+      "primary_soc": "17-1022"
+    },
+    {
+      "cip_code": "4301",
+      "cip_title": "Food science technicians",
+      "soc_codes": [
+        "19-4013"
+      ],
+      "primary_soc": "19-4013"
+    },
+    {
+      "cip_code": "0106",
+      "cip_title": "Animal scientists",
+      "soc_codes": [
+        "19-1011"
+      ],
+      "primary_soc": "19-1011"
+    },
+    {
+      "cip_code": "4201",
+      "cip_title": "Anthropologists and archeologists",
+      "soc_codes": [
+        "19-3091"
+      ],
+      "primary_soc": "19-3091"
+    },
+    {
+      "cip_code": "4004",
+      "cip_title": "Atmospheric and space scientists",
+      "soc_codes": [
+        "19-2021"
+      ],
+      "primary_soc": "19-2021"
+    },
+    {
+      "cip_code": "2607",
+      "cip_title": "Biochemists and biophysicists",
+      "soc_codes": [
+        "19-1021"
+      ],
+      "primary_soc": "19-1021"
+    },
+    {
+      "cip_code": "2601",
+      "cip_title": "Biological technicians",
+      "soc_codes": [
+        "19-4021"
+      ],
+      "primary_soc": "19-4021"
+    },
+    {
+      "cip_code": "4002",
+      "cip_title": "Chemical technicians",
+      "soc_codes": [
+        "19-4031"
+      ],
+      "primary_soc": "19-4031"
+    },
+    {
+      "cip_code": "4003",
+      "cip_title": "Chemists",
+      "soc_codes": [
+        "19-2031"
+      ],
+      "primary_soc": "19-2031"
+    },
+    {
+      "cip_code": "0301",
+      "cip_title": "Conservation scientists",
+      "soc_codes": [
+        "19-1031"
+      ],
+      "primary_soc": "19-1031"
+    },
+    {
+      "cip_code": "4202",
+      "cip_title": "Economists",
+      "soc_codes": [
+        "19-3011"
+      ],
+      "primary_soc": "19-3011"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Environmental science and protection technicians, including health",
+      "soc_codes": [
+        "19-4042"
+      ],
+      "primary_soc": "19-4042"
+    },
+    {
+      "cip_code": "2605",
+      "cip_title": "Epidemiologists",
+      "soc_codes": [
+        "19-1041"
+      ],
+      "primary_soc": "19-1041"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Geographers",
+      "soc_codes": [
+        "19-3092"
+      ],
+      "primary_soc": "19-3092"
+    },
+    {
+      "cip_code": "4006",
+      "cip_title": "Geological technicians, except hydrologic technicians",
+      "soc_codes": [
+        "19-4043"
+      ],
+      "primary_soc": "19-4043"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Historians",
+      "soc_codes": [
+        "19-3093"
+      ],
+      "primary_soc": "19-3093"
+    },
+    {
+      "cip_code": "1903",
+      "cip_title": "Medical scientists, except epidemiologists",
+      "soc_codes": [
+        "19-1042"
+      ],
+      "primary_soc": "19-1042"
+    },
+    {
+      "cip_code": "2606",
+      "cip_title": "Microbiologists",
+      "soc_codes": [
+        "19-1022"
+      ],
+      "primary_soc": "19-1022"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Nuclear technicians",
+      "soc_codes": [
+        "19-4051"
+      ],
+      "primary_soc": "19-4051"
+    },
+    {
+      "cip_code": "2701",
+      "cip_title": "Astronomers",
+      "soc_codes": [
+        "19-2011"
+      ],
+      "primary_soc": "19-2011"
+    },
+    {
+      "cip_code": "4501",
+      "cip_title": "Political scientists",
+      "soc_codes": [
+        "19-3094"
+      ],
+      "primary_soc": "19-3094"
+    },
+    {
+      "cip_code": "4504",
+      "cip_title": "Sociologists",
+      "soc_codes": [
+        "19-3041"
+      ],
+      "primary_soc": "19-3041"
+    },
+    {
+      "cip_code": "4501",
+      "cip_title": "Survey researchers",
+      "soc_codes": [
+        "19-3022"
+      ],
+      "primary_soc": "19-3022"
+    },
+    {
+      "cip_code": "1903",
+      "cip_title": "Urban and regional planners",
+      "soc_codes": [
+        "19-3051"
+      ],
+      "primary_soc": "19-3051"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Zoologists and wildlife biologists",
+      "soc_codes": [
+        "19-1023"
+      ],
+      "primary_soc": "19-1023"
+    },
+    {
+      "cip_code": "5107",
+      "cip_title": "Community health workers",
+      "soc_codes": [
+        "21-1094"
+      ],
+      "primary_soc": "21-1094"
+    },
+    {
+      "cip_code": "5107",
+      "cip_title": "Health education specialists",
+      "soc_codes": [
+        "21-1091"
+      ],
+      "primary_soc": "21-1091"
+    },
+    {
+      "cip_code": "5115",
+      "cip_title": "Marriage and family therapists",
+      "soc_codes": [
+        "21-1013"
+      ],
+      "primary_soc": "21-1013"
+    },
+    {
+      "cip_code": "5115",
+      "cip_title": "Probation officers and correctional treatment specialists",
+      "soc_codes": [
+        "21-1092"
+      ],
+      "primary_soc": "21-1092"
+    },
+    {
+      "cip_code": "5115",
+      "cip_title": "Rehabilitation counselors",
+      "soc_codes": [
+        "21-1015"
+      ],
+      "primary_soc": "21-1015"
+    },
+    {
+      "cip_code": "1310",
+      "cip_title": "Educational, guidance, and career counselors and advisors",
+      "soc_codes": [
+        "21-1012"
+      ],
+      "primary_soc": "21-1012"
+    },
+    {
+      "cip_code": "5107",
+      "cip_title": "Social and human service assistants",
+      "soc_codes": [
+        "21-1093"
+      ],
+      "primary_soc": "21-1093"
+    },
+    {
+      "cip_code": "2201",
+      "cip_title": "Arbitrators, mediators, and conciliators",
+      "soc_codes": [
+        "23-1022"
+      ],
+      "primary_soc": "23-1022"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Court reporters and simultaneous captioners",
+      "soc_codes": [
+        "27-3092"
+      ],
+      "primary_soc": "27-3092"
+    },
+    {
+      "cip_code": "2201",
+      "cip_title": "Administrative law judges, adjudicators, and hearing officers",
+      "soc_codes": [
+        "23-1021"
+      ],
+      "primary_soc": "23-1021"
+    },
+    {
+      "cip_code": "1310",
+      "cip_title": "Adult basic education, adult secondary education, and english as a second language instructors",
+      "soc_codes": [
+        "25-3011"
+      ],
+      "primary_soc": "25-3011"
+    },
+    {
+      "cip_code": "1315",
+      "cip_title": "Career/technical education teachers, postsecondary",
+      "soc_codes": [
+        "25-1194"
+      ],
+      "primary_soc": "25-1194"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Curators",
+      "soc_codes": [
+        "25-4012"
+      ],
+      "primary_soc": "25-4012"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Instructional coordinators",
+      "soc_codes": [
+        "25-9031"
+      ],
+      "primary_soc": "25-9031"
+    },
+    {
+      "cip_code": "2501",
+      "cip_title": "Librarians and media collections specialists",
+      "soc_codes": [
+        "25-4022"
+      ],
+      "primary_soc": "25-4022"
+    },
+    {
+      "cip_code": "2501",
+      "cip_title": "Library technicians",
+      "soc_codes": [
+        "25-4031"
+      ],
+      "primary_soc": "25-4031"
+    },
+    {
+      "cip_code": "1313",
+      "cip_title": "Middle school teachers, except special and career/technical education",
+      "soc_codes": [
+        "25-2022"
+      ],
+      "primary_soc": "25-2022"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Postsecondary teachers, all other",
+      "soc_codes": [
+        "25-1199"
+      ],
+      "primary_soc": "25-1199"
+    },
+    {
+      "cip_code": "1312",
+      "cip_title": "Preschool teachers, except special education",
+      "soc_codes": [
+        "25-2011"
+      ],
+      "primary_soc": "25-2011"
+    },
+    {
+      "cip_code": "1310",
+      "cip_title": "Special education teachers, all other",
+      "soc_codes": [
+        "25-2059"
+      ],
+      "primary_soc": "25-2059"
+    },
+    {
+      "cip_code": "1310",
+      "cip_title": "Teaching assistants, except postsecondary",
+      "soc_codes": [
+        "25-9045"
+      ],
+      "primary_soc": "25-9045"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Tutors",
+      "soc_codes": [
+        "25-3041"
+      ],
+      "primary_soc": "25-3041"
+    },
+    {
+      "cip_code": "5010",
+      "cip_title": "Art directors",
+      "soc_codes": [
+        "27-1011"
+      ],
+      "primary_soc": "27-1011"
+    },
+    {
+      "cip_code": "5003",
+      "cip_title": "Craft artists",
+      "soc_codes": [
+        "27-1012"
+      ],
+      "primary_soc": "27-1012"
+    },
+    {
+      "cip_code": "5010",
+      "cip_title": "Fashion designers",
+      "soc_codes": [
+        "27-1022"
+      ],
+      "primary_soc": "27-1022"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Floral designers",
+      "soc_codes": [
+        "27-1023"
+      ],
+      "primary_soc": "27-1023"
+    },
+    {
+      "cip_code": "1930",
+      "cip_title": "Commercial and industrial designers",
+      "soc_codes": [
+        "27-1021"
+      ],
+      "primary_soc": "27-1021"
+    },
+    {
+      "cip_code": "5010",
+      "cip_title": "Interior designers",
+      "soc_codes": [
+        "27-1025"
+      ],
+      "primary_soc": "27-1025"
+    },
+    {
+      "cip_code": "5010",
+      "cip_title": "Set and exhibit designers",
+      "soc_codes": [
+        "27-1027"
+      ],
+      "primary_soc": "27-1027"
+    },
+    {
+      "cip_code": "0907",
+      "cip_title": "Broadcast announcers and radio disc jockeys",
+      "soc_codes": [
+        "27-3011"
+      ],
+      "primary_soc": "27-3011"
+    },
+    {
+      "cip_code": "5010",
+      "cip_title": "Sound engineering technicians",
+      "soc_codes": [
+        "27-4014"
+      ],
+      "primary_soc": "27-4014"
+    },
+    {
+      "cip_code": "1613",
+      "cip_title": "Interpreters and translators",
+      "soc_codes": [
+        "27-3091"
+      ],
+      "primary_soc": "27-3091"
+    },
+    {
+      "cip_code": "5010",
+      "cip_title": "Photographers",
+      "soc_codes": [
+        "27-4021"
+      ],
+      "primary_soc": "27-4021"
+    },
+    {
+      "cip_code": "0910",
+      "cip_title": "Technical writers",
+      "soc_codes": [
+        "27-3042"
+      ],
+      "primary_soc": "27-3042"
+    },
+    {
+      "cip_code": "0910",
+      "cip_title": "Writers and authors",
+      "soc_codes": [
+        "27-3043"
+      ],
+      "primary_soc": "27-3043"
+    },
+    {
+      "cip_code": "5107",
+      "cip_title": "Athletic trainers",
+      "soc_codes": [
+        "29-9091"
+      ],
+      "primary_soc": "29-9091"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Audiologists",
+      "soc_codes": [
+        "29-1181"
+      ],
+      "primary_soc": "29-1181"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Cardiovascular technologists and technicians",
+      "soc_codes": [
+        "29-2031"
+      ],
+      "primary_soc": "29-2031"
+    },
+    {
+      "cip_code": "5005",
+      "cip_title": "Actors",
+      "soc_codes": [
+        "27-2011"
+      ],
+      "primary_soc": "27-2011"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Clinical laboratory technologists and technicians",
+      "soc_codes": [
+        "29-2010"
+      ],
+      "primary_soc": "29-2010"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Dental assistants",
+      "soc_codes": [
+        "31-9091"
+      ],
+      "primary_soc": "31-9091"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Diagnostic medical sonographers",
+      "soc_codes": [
+        "29-2032"
+      ],
+      "primary_soc": "29-2032"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Dietitians and nutritionists",
+      "soc_codes": [
+        "29-1031"
+      ],
+      "primary_soc": "29-1031"
+    },
+    {
+      "cip_code": "5117",
+      "cip_title": "Paramedics",
+      "soc_codes": [
+        "29-2043"
+      ],
+      "primary_soc": "29-2043"
+    },
+    {
+      "cip_code": "5117",
+      "cip_title": "Exercise physiologists",
+      "soc_codes": [
+        "29-1128"
+      ],
+      "primary_soc": "29-1128"
+    },
+    {
+      "cip_code": "5107",
+      "cip_title": "Genetic counselors",
+      "soc_codes": [
+        "29-9092"
+      ],
+      "primary_soc": "29-9092"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Health information technologists and medical registrars",
+      "soc_codes": [
+        "29-9021"
+      ],
+      "primary_soc": "29-9021"
+    },
+    {
+      "cip_code": "5113",
+      "cip_title": "Home health and personal care aides",
+      "soc_codes": [
+        "31-1120"
+      ],
+      "primary_soc": "31-1120"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Massage therapists",
+      "soc_codes": [
+        "31-9011"
+      ],
+      "primary_soc": "31-9011"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Medical assistants",
+      "soc_codes": [
+        "31-9092"
+      ],
+      "primary_soc": "31-9092"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Medical dosimetrists",
+      "soc_codes": [
+        "29-2036"
+      ],
+      "primary_soc": "29-2036"
+    },
+    {
+      "cip_code": "5108",
+      "cip_title": "Medical records specialists",
+      "soc_codes": [
+        "29-2072"
+      ],
+      "primary_soc": "29-2072"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Medical transcriptionists",
+      "soc_codes": [
+        "31-9094"
+      ],
+      "primary_soc": "31-9094"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Nuclear medicine technologists",
+      "soc_codes": [
+        "29-2033"
+      ],
+      "primary_soc": "29-2033"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Nurse anesthetists",
+      "soc_codes": [
+        "29-1151"
+      ],
+      "primary_soc": "29-1151"
+    },
+    {
+      "cip_code": "5131",
+      "cip_title": "Nursing assistants",
+      "soc_codes": [
+        "31-1131"
+      ],
+      "primary_soc": "31-1131"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Occupational health and safety specialists",
+      "soc_codes": [
+        "19-5011"
+      ],
+      "primary_soc": "19-5011"
+    },
+    {
+      "cip_code": "5126",
+      "cip_title": "Occupational therapy assistants",
+      "soc_codes": [
+        "31-2011"
+      ],
+      "primary_soc": "31-2011"
+    },
+    {
+      "cip_code": "5109",
+      "cip_title": "Opticians, dispensing",
+      "soc_codes": [
+        "29-2081"
+      ],
+      "primary_soc": "29-2081"
+    },
+    {
+      "cip_code": "5111",
+      "cip_title": "Optometrists",
+      "soc_codes": [
+        "29-1041"
+      ],
+      "primary_soc": "29-1041"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Orthotists and prosthetists",
+      "soc_codes": [
+        "29-2091"
+      ],
+      "primary_soc": "29-2091"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Phlebotomists",
+      "soc_codes": [
+        "31-9097"
+      ],
+      "primary_soc": "31-9097"
+    },
+    {
+      "cip_code": "5123",
+      "cip_title": "Physical therapist assistants",
+      "soc_codes": [
+        "31-2021"
+      ],
+      "primary_soc": "31-2021"
+    },
+    {
+      "cip_code": "5111",
+      "cip_title": "Podiatrists",
+      "soc_codes": [
+        "29-1081"
+      ],
+      "primary_soc": "29-1081"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Psychiatric technicians",
+      "soc_codes": [
+        "29-2053"
+      ],
+      "primary_soc": "29-2053"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Radiation therapists",
+      "soc_codes": [
+        "29-1124"
+      ],
+      "primary_soc": "29-1124"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Radiologic technologists and technicians",
+      "soc_codes": [
+        "29-2034"
+      ],
+      "primary_soc": "29-2034"
+    },
+    {
+      "cip_code": "5104",
+      "cip_title": "Recreational therapists",
+      "soc_codes": [
+        "29-1125"
+      ],
+      "primary_soc": "29-1125"
+    },
+    {
+      "cip_code": "5117",
+      "cip_title": "Respiratory therapists",
+      "soc_codes": [
+        "29-1126"
+      ],
+      "primary_soc": "29-1126"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Speech-language pathologists",
+      "soc_codes": [
+        "29-1127"
+      ],
+      "primary_soc": "29-1127"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Surgical technologists",
+      "soc_codes": [
+        "29-2055"
+      ],
+      "primary_soc": "29-2055"
+    },
+    {
+      "cip_code": "0107",
+      "cip_title": "Animal caretakers",
+      "soc_codes": [
+        "39-2021"
+      ],
+      "primary_soc": "39-2021"
+    },
+    {
+      "cip_code": "5120",
+      "cip_title": "Veterinary technologists and technicians",
+      "soc_codes": [
+        "29-2056"
+      ],
+      "primary_soc": "29-2056"
+    },
+    {
+      "cip_code": "4301",
+      "cip_title": "Correctional officers and jailers",
+      "soc_codes": [
+        "33-3012"
+      ],
+      "primary_soc": "33-3012"
+    },
+    {
+      "cip_code": "4302",
+      "cip_title": "Fire inspectors and investigators",
+      "soc_codes": [
+        "33-2021"
+      ],
+      "primary_soc": "33-2021"
+    },
+    {
+      "cip_code": "4301",
+      "cip_title": "Private detectives and investigators",
+      "soc_codes": [
+        "33-9021"
+      ],
+      "primary_soc": "33-9021"
+    },
+    {
+      "cip_code": "4301",
+      "cip_title": "Security guards",
+      "soc_codes": [
+        "33-9032"
+      ],
+      "primary_soc": "33-9032"
+    },
+    {
+      "cip_code": "1205",
+      "cip_title": "Bartenders",
+      "soc_codes": [
+        "35-3011"
+      ],
+      "primary_soc": "35-3011"
+    },
+    {
+      "cip_code": "1205",
+      "cip_title": "Fast food and counter workers",
+      "soc_codes": [
+        "35-3023"
+      ],
+      "primary_soc": "35-3023"
+    },
+    {
+      "cip_code": "1203",
+      "cip_title": "Food preparation workers",
+      "soc_codes": [
+        "35-2021"
+      ],
+      "primary_soc": "35-2021"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Waiters and waitresses",
+      "soc_codes": [
+        "35-3031"
+      ],
+      "primary_soc": "35-3031"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Grounds maintenance workers, all other",
+      "soc_codes": [
+        "37-3019"
+      ],
+      "primary_soc": "37-3019"
+    },
+    {
+      "cip_code": "4606",
+      "cip_title": "Janitors and cleaners, except maids and housekeeping cleaners",
+      "soc_codes": [
+        "37-2011"
+      ],
+      "primary_soc": "37-2011"
+    },
+    {
+      "cip_code": "0106",
+      "cip_title": "Pest control workers",
+      "soc_codes": [
+        "37-2021"
+      ],
+      "primary_soc": "37-2021"
+    },
+    {
+      "cip_code": "0107",
+      "cip_title": "Animal trainers",
+      "soc_codes": [
+        "39-2011"
+      ],
+      "primary_soc": "39-2011"
+    },
+    {
+      "cip_code": "1204",
+      "cip_title": "Barbers",
+      "soc_codes": [
+        "39-5011"
+      ],
+      "primary_soc": "39-5011"
+    },
+    {
+      "cip_code": "3905",
+      "cip_title": "Childcare workers",
+      "soc_codes": [
+        "39-9011"
+      ],
+      "primary_soc": "39-9011"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Concierges",
+      "soc_codes": [
+        "39-6012"
+      ],
+      "primary_soc": "39-6012"
+    },
+    {
+      "cip_code": "1203",
+      "cip_title": "Funeral home managers",
+      "soc_codes": [
+        "11-9171"
+      ],
+      "primary_soc": "11-9171"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Gambling managers",
+      "soc_codes": [
+        "11-9071"
+      ],
+      "primary_soc": "11-9071"
+    },
+    {
+      "cip_code": "5108",
+      "cip_title": "Manicurists and pedicurists",
+      "soc_codes": [
+        "39-5092"
+      ],
+      "primary_soc": "39-5092"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "First-line supervisors of entertainment and recreation workers, except gambling services",
+      "soc_codes": [
+        "39-1014"
+      ],
+      "primary_soc": "39-1014"
+    },
+    {
+      "cip_code": "5108",
+      "cip_title": "Skincare specialists",
+      "soc_codes": [
+        "39-5094"
+      ],
+      "primary_soc": "39-5094"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Tour and travel guides",
+      "soc_codes": [
+        "39-7010"
+      ],
+      "primary_soc": "39-7010"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Advertising sales agents",
+      "soc_codes": [
+        "41-3011"
+      ],
+      "primary_soc": "41-3011"
+    },
+    {
+      "cip_code": "5218",
+      "cip_title": "Cashiers",
+      "soc_codes": [
+        "41-2011"
+      ],
+      "primary_soc": "41-2011"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Insurance sales agents",
+      "soc_codes": [
+        "41-3021"
+      ],
+      "primary_soc": "41-3021"
+    },
+    {
+      "cip_code": "5210",
+      "cip_title": "Models",
+      "soc_codes": [
+        "41-9012"
+      ],
+      "primary_soc": "41-9012"
+    },
+    {
+      "cip_code": "5218",
+      "cip_title": "Real estate brokers",
+      "soc_codes": [
+        "41-9021"
+      ],
+      "primary_soc": "41-9021"
+    },
+    {
+      "cip_code": "5218",
+      "cip_title": "First-line supervisors of non-retail sales workers",
+      "soc_codes": [
+        "41-1012"
+      ],
+      "primary_soc": "41-1012"
+    },
+    {
+      "cip_code": "1401",
+      "cip_title": "Sales engineers",
+      "soc_codes": [
+        "41-9031"
+      ],
+      "primary_soc": "41-9031"
+    },
+    {
+      "cip_code": "5208",
+      "cip_title": "Securities, commodities, and financial services sales agents",
+      "soc_codes": [
+        "41-3031"
+      ],
+      "primary_soc": "41-3031"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Travel agents",
+      "soc_codes": [
+        "41-3041"
+      ],
+      "primary_soc": "41-3041"
+    },
+    {
+      "cip_code": "5218",
+      "cip_title": "Sales representatives, wholesale and manufacturing, technical and scientific products",
+      "soc_codes": [
+        "41-4011"
+      ],
+      "primary_soc": "41-4011"
+    },
+    {
+      "cip_code": "5203",
+      "cip_title": "Bill and account collectors",
+      "soc_codes": [
+        "43-3011"
+      ],
+      "primary_soc": "43-3011"
+    },
+    {
+      "cip_code": "5203",
+      "cip_title": "Bookkeeping, accounting, and auditing clerks",
+      "soc_codes": [
+        "43-3031"
+      ],
+      "primary_soc": "43-3031"
+    },
+    {
+      "cip_code": "5218",
+      "cip_title": "Customer service representatives",
+      "soc_codes": [
+        "43-4051"
+      ],
+      "primary_soc": "43-4051"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Desktop publishers",
+      "soc_codes": [
+        "43-9031"
+      ],
+      "primary_soc": "43-9031"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Financial clerks, all other",
+      "soc_codes": [
+        "43-3099"
+      ],
+      "primary_soc": "43-3099"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Office clerks, general",
+      "soc_codes": [
+        "43-9061"
+      ],
+      "primary_soc": "43-9061"
+    },
+    {
+      "cip_code": "5218",
+      "cip_title": "Receptionists and information clerks",
+      "soc_codes": [
+        "43-4171"
+      ],
+      "primary_soc": "43-4171"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Production, planning, and expediting clerks",
+      "soc_codes": [
+        "43-5061"
+      ],
+      "primary_soc": "43-5061"
+    },
+    {
+      "cip_code": "4301",
+      "cip_title": "Public safety telecommunicators",
+      "soc_codes": [
+        "43-5031"
+      ],
+      "primary_soc": "43-5031"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Postal service clerks",
+      "soc_codes": [
+        "43-5051"
+      ],
+      "primary_soc": "43-5051"
+    },
+    {
+      "cip_code": "5218",
+      "cip_title": "Receptionists and information clerks",
+      "soc_codes": [
+        "43-4171"
+      ],
+      "primary_soc": "43-4171"
+    },
+    {
+      "cip_code": "5204",
+      "cip_title": "Legal secretaries and administrative assistants",
+      "soc_codes": [
+        "43-6012"
+      ],
+      "primary_soc": "43-6012"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Tellers",
+      "soc_codes": [
+        "43-3071"
+      ],
+      "primary_soc": "43-3071"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Agricultural workers, all other",
+      "soc_codes": [
+        "45-2099"
+      ],
+      "primary_soc": "45-2099"
+    },
+    {
+      "cip_code": "0309",
+      "cip_title": "Fishing and hunting workers",
+      "soc_codes": [
+        "45-3031"
+      ],
+      "primary_soc": "45-3031"
+    },
+    {
+      "cip_code": "0305",
+      "cip_title": "Forest and conservation workers",
+      "soc_codes": [
+        "45-4011"
+      ],
+      "primary_soc": "45-4011"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Logging workers, all other",
+      "soc_codes": [
+        "45-4029"
+      ],
+      "primary_soc": "45-4029"
+    },
+    {
+      "cip_code": "4601",
+      "cip_title": "Boilermakers",
+      "soc_codes": [
+        "47-2011"
+      ],
+      "primary_soc": "47-2011"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Stonemasons",
+      "soc_codes": [
+        "47-2022"
+      ],
+      "primary_soc": "47-2022"
+    },
+    {
+      "cip_code": "1502",
+      "cip_title": "Construction and building inspectors",
+      "soc_codes": [
+        "47-4011"
+      ],
+      "primary_soc": "47-4011"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Operating engineers and other construction equipment operators",
+      "soc_codes": [
+        "47-2073"
+      ],
+      "primary_soc": "47-2073"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Construction laborers",
+      "soc_codes": [
+        "47-2061"
+      ],
+      "primary_soc": "47-2061"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Drywall and ceiling tile installers",
+      "soc_codes": [
+        "47-2081"
+      ],
+      "primary_soc": "47-2081"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Elevator and escalator installers and repairers",
+      "soc_codes": [
+        "47-4021"
+      ],
+      "primary_soc": "47-4021"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Glaziers",
+      "soc_codes": [
+        "47-2121"
+      ],
+      "primary_soc": "47-2121"
+    },
+    {
+      "cip_code": "4301",
+      "cip_title": "Hazardous materials removal workers",
+      "soc_codes": [
+        "47-4041"
+      ],
+      "primary_soc": "47-4041"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Insulation workers, floor, ceiling, and wall",
+      "soc_codes": [
+        "47-2131"
+      ],
+      "primary_soc": "47-2131"
+    },
+    {
+      "cip_code": "1505",
+      "cip_title": "Derrick operators, oil and gas",
+      "soc_codes": [
+        "47-5011"
+      ],
+      "primary_soc": "47-5011"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Painters, construction and maintenance",
+      "soc_codes": [
+        "47-2141"
+      ],
+      "primary_soc": "47-2141"
+    },
+    {
+      "cip_code": "4601",
+      "cip_title": "Helpers--roofers",
+      "soc_codes": [
+        "47-3016"
+      ],
+      "primary_soc": "47-3016"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Sheet metal workers",
+      "soc_codes": [
+        "47-2211"
+      ],
+      "primary_soc": "47-2211"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Solar photovoltaic installers",
+      "soc_codes": [
+        "47-2231"
+      ],
+      "primary_soc": "47-2231"
+    },
+    {
+      "cip_code": "4602",
+      "cip_title": "Structural iron and steel workers",
+      "soc_codes": [
+        "47-2221"
+      ],
+      "primary_soc": "47-2221"
+    },
+    {
+      "cip_code": "4601",
+      "cip_title": "Helpers--brickmasons, blockmasons, stonemasons, and tile and marble setters",
+      "soc_codes": [
+        "47-3011"
+      ],
+      "primary_soc": "47-3011"
+    },
+    {
+      "cip_code": "4706",
+      "cip_title": "Avionics technicians",
+      "soc_codes": [
+        "49-2091"
+      ],
+      "primary_soc": "49-2091"
+    },
+    {
+      "cip_code": "4706",
+      "cip_title": "Automotive body and related repairers",
+      "soc_codes": [
+        "49-3021"
+      ],
+      "primary_soc": "49-3021"
+    },
+    {
+      "cip_code": "4706",
+      "cip_title": "Automotive service technicians and mechanics",
+      "soc_codes": [
+        "49-3023"
+      ],
+      "primary_soc": "49-3023"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Calibration technologists and technicians",
+      "soc_codes": [
+        "17-3028"
+      ],
+      "primary_soc": "17-3028"
+    },
+    {
+      "cip_code": "4706",
+      "cip_title": "Bus and truck mechanics and diesel engine specialists",
+      "soc_codes": [
+        "49-3031"
+      ],
+      "primary_soc": "49-3031"
+    },
+    {
+      "cip_code": "4701",
+      "cip_title": "Electrical and electronics installers and repairers, transportation equipment",
+      "soc_codes": [
+        "49-2093"
+      ],
+      "primary_soc": "49-2093"
+    },
+    {
+      "cip_code": "4601",
+      "cip_title": "Maintenance and repair workers, general",
+      "soc_codes": [
+        "49-9071"
+      ],
+      "primary_soc": "49-9071"
+    },
+    {
+      "cip_code": "4706",
+      "cip_title": "Farm equipment mechanics and service technicians",
+      "soc_codes": [
+        "49-3041"
+      ],
+      "primary_soc": "49-3041"
+    },
+    {
+      "cip_code": "4701",
+      "cip_title": "Industrial machinery mechanics",
+      "soc_codes": [
+        "49-9041"
+      ],
+      "primary_soc": "49-9041"
+    },
+    {
+      "cip_code": "4701",
+      "cip_title": "Electrical power-line installers and repairers",
+      "soc_codes": [
+        "49-9051"
+      ],
+      "primary_soc": "49-9051"
+    },
+    {
+      "cip_code": "4701",
+      "cip_title": "Medical equipment repairers",
+      "soc_codes": [
+        "49-9062"
+      ],
+      "primary_soc": "49-9062"
+    },
+    {
+      "cip_code": "4706",
+      "cip_title": "Outdoor power equipment and other small engine mechanics",
+      "soc_codes": [
+        "49-3053"
+      ],
+      "primary_soc": "49-3053"
+    },
+    {
+      "cip_code": "4701",
+      "cip_title": "Radio, cellular, and tower equipment installers and repairers",
+      "soc_codes": [
+        "49-2021"
+      ],
+      "primary_soc": "49-2021"
+    },
+    {
+      "cip_code": "4606",
+      "cip_title": "Wind turbine service technicians",
+      "soc_codes": [
+        "49-9081"
+      ],
+      "primary_soc": "49-9081"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Miscellaneous assemblers and fabricators",
+      "soc_codes": [
+        "51-2090"
+      ],
+      "primary_soc": "51-2090"
+    },
+    {
+      "cip_code": "1205",
+      "cip_title": "Bakers",
+      "soc_codes": [
+        "51-3011"
+      ],
+      "primary_soc": "51-3011"
+    },
+    {
+      "cip_code": "1205",
+      "cip_title": "Butchers and meat cutters",
+      "soc_codes": [
+        "51-3021"
+      ],
+      "primary_soc": "51-3021"
+    },
+    {
+      "cip_code": "5106",
+      "cip_title": "Medical appliance technicians",
+      "soc_codes": [
+        "51-9082"
+      ],
+      "primary_soc": "51-9082"
+    },
+    {
+      "cip_code": "1205",
+      "cip_title": "Food and tobacco roasting, baking, and drying machine operators and tenders",
+      "soc_codes": [
+        "51-3091"
+      ],
+      "primary_soc": "51-3091"
+    },
+    {
+      "cip_code": "5010",
+      "cip_title": "Jewelers and precious stone and metal workers",
+      "soc_codes": [
+        "51-9071"
+      ],
+      "primary_soc": "51-9071"
+    },
+    {
+      "cip_code": "4805",
+      "cip_title": "Machinists",
+      "soc_codes": [
+        "51-4041"
+      ],
+      "primary_soc": "51-4041"
+    },
+    {
+      "cip_code": "4805",
+      "cip_title": "Extruding and drawing machine setters, operators, and tenders, metal and plastic",
+      "soc_codes": [
+        "51-4021"
+      ],
+      "primary_soc": "51-4021"
+    },
+    {
+      "cip_code": "4805",
+      "cip_title": "Painting, coating, and decorating workers",
+      "soc_codes": [
+        "51-9123"
+      ],
+      "primary_soc": "51-9123"
+    },
+    {
+      "cip_code": "4702",
+      "cip_title": "Power plant operators",
+      "soc_codes": [
+        "51-8013"
+      ],
+      "primary_soc": "51-8013"
+    },
+    {
+      "cip_code": "4805",
+      "cip_title": "Inspectors, testers, sorters, samplers, and weighers",
+      "soc_codes": [
+        "51-9061"
+      ],
+      "primary_soc": "51-9061"
+    },
+    {
+      "cip_code": "1509",
+      "cip_title": "Semiconductor processing technicians",
+      "soc_codes": [
+        "51-9141"
+      ],
+      "primary_soc": "51-9141"
+    },
+    {
+      "cip_code": "4702",
+      "cip_title": "Stationary engineers and boiler operators",
+      "soc_codes": [
+        "51-8021"
+      ],
+      "primary_soc": "51-8021"
+    },
+    {
+      "cip_code": "4702",
+      "cip_title": "Water and wastewater treatment plant and system operators",
+      "soc_codes": [
+        "51-8031"
+      ],
+      "primary_soc": "51-8031"
+    },
+    {
+      "cip_code": "4805",
+      "cip_title": "Welders, cutters, solderers, and brazers",
+      "soc_codes": [
+        "51-4121"
+      ],
+      "primary_soc": "51-4121"
+    },
+    {
+      "cip_code": "5202",
+      "cip_title": "Woodworkers, all other",
+      "soc_codes": [
+        "51-7099"
+      ],
+      "primary_soc": "51-7099"
+    },
+    {
+      "cip_code": "4902",
+      "cip_title": "Air traffic controllers",
+      "soc_codes": [
+        "53-2021"
+      ],
+      "primary_soc": "53-2021"
+    },
+    {
+      "cip_code": "4901",
+      "cip_title": "Bus drivers, school",
+      "soc_codes": [
+        "53-3051"
+      ],
+      "primary_soc": "53-3051"
+    },
+    {
+      "cip_code": "4901",
+      "cip_title": "Driver/sales workers",
+      "soc_codes": [
+        "53-3031"
+      ],
+      "primary_soc": "53-3031"
+    },
+    {
+      "cip_code": "4902",
+      "cip_title": "Flight attendants",
+      "soc_codes": [
+        "53-2031"
+      ],
+      "primary_soc": "53-2031"
+    },
+    {
+      "cip_code": "4901",
+      "cip_title": "Cleaners of vehicles and equipment",
+      "soc_codes": [
+        "53-7061"
+      ],
+      "primary_soc": "53-7061"
+    },
+    {
+      "cip_code": "4901",
+      "cip_title": "Heavy and tractor-trailer truck drivers",
+      "soc_codes": [
+        "53-3032"
+      ],
+      "primary_soc": "53-3032"
+    },
+    {
+      "cip_code": "4901",
+      "cip_title": "Conveyor operators and tenders",
+      "soc_codes": [
+        "53-7011"
+      ],
+      "primary_soc": "53-7011"
+    },
+    {
+      "cip_code": "4901",
+      "cip_title": "Locomotive engineers",
+      "soc_codes": [
+        "53-4011"
+      ],
+      "primary_soc": "53-4011"
+    },
+    {
+      "cip_code": "4901",
+      "cip_title": "Taxi drivers",
+      "soc_codes": [
+        "53-3054"
+      ],
+      "primary_soc": "53-3054"
+    },
+    {
+      "cip_code": "4901",
+      "cip_title": "Sailors and marine oilers",
+      "soc_codes": [
+        "53-5011"
+      ],
+      "primary_soc": "53-5011"
+    }
   ]
 }
