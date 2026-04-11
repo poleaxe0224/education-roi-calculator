@@ -5,13 +5,15 @@
  * Monetary values are in nominal USD unless stated otherwise.
  */
 
+import { BASELINE_SALARIES, LOAN_RATES } from './mappings.js';
+
 /** Default assumptions */
 export const DEFAULTS = Object.freeze({
   discountRate: 0.04,        // 4% real discount rate
   salaryGrowthRate: 0.02,    // 2% annual real wage growth
   careerYears: 40,           // working years after education
   educationYears: 4,         // years of education (Bachelor's)
-  highSchoolBaseline: 35_000, // BLS median for HS diploma holders
+  highSchoolBaseline: BASELINE_SALARIES.highSchool, // CPS-driven, fallback to Education Pays 2024
   inflationRate: 0.025,      // 2.5% (used only if converting nominal)
   competitionK: 0.3,         // competition sensitivity factor
   maxPenalty: 0.25,          // max saturation penalty (25%)
@@ -241,7 +243,6 @@ export function calcMonthlyPayment(principal, annualRate, years) {
 export function calcFullROI(inputs) {
   const {
     discountRate = DEFAULTS.discountRate,
-    loanRate = 0.065,
     loanTermYears = 10,
     annualTuition,
     undergradTuition,
@@ -250,6 +251,10 @@ export function calcFullROI(inputs) {
     educationYears = DEFAULTS.educationYears,
   } = inputs;
 
+  // Graduate degree (split tuition) → higher default loan rate
+  const hasSplitTuition = undergradTuition != null && gradTuition != null && undergradYears != null;
+  const loanRate = inputs.loanRate ?? (hasSplitTuition ? LOAN_RATES.graduate : LOAN_RATES.undergraduate);
+
   const cashFlows = buildCashFlows(inputs);
   const npv = calcNPV(cashFlows, discountRate);
   const irr = calcIRR(cashFlows);
@@ -257,9 +262,6 @@ export function calcFullROI(inputs) {
   const breakevenDiscounted = calcBreakeven(cashFlows, discountRate);
   const lifetime = calcLifetimeROI(cashFlows);
   const discounted = calcDiscountedLifetimeROI(cashFlows, discountRate);
-
-  // Calculate total tuition — split or uniform
-  const hasSplitTuition = undergradTuition != null && gradTuition != null && undergradYears != null;
   const totalTuition = hasSplitTuition
     ? (undergradTuition * undergradYears) + (gradTuition * (educationYears - undergradYears))
     : annualTuition * educationYears;

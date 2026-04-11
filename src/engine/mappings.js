@@ -8,19 +8,35 @@
  * exploring education ROI. Full crosswalk: https://nces.ed.gov/ipeds/cipcode/
  */
 
+import cpsData from '../data/cps_earnings.json';
+
+// CPS dynamic values (primary source for HS and some-college baselines)
+const _cpsHighSchool = cpsData?.hsGraduatesNoCollege?.annualEstimate;
+const _cpsSomeCollege = cpsData?.someCollegeNoDegree?.annualEstimate;
+
 /**
- * Baseline salaries by education level (BLS 2024 median annual).
+ * Baseline salaries by education level.
+ * Primary: BLS CPS (Current Population Survey) for HS and some-college.
+ * Fallback: BLS 2024 "Education Pays" (25+ full-time, median weekly × 52).
  * Used as the "what if I don't get this degree" counterfactual.
  */
 export const BASELINE_SALARIES = Object.freeze({
-  noHighSchool:    31_590,
-  highSchool:      35_000,
-  someCollege:     38_640,
-  associates:      41_870,
-  bachelors:       59_600,
-  masters:         69_700,
-  doctoral:        82_000,
-  professional:    89_960,
+  noHighSchool:    38_376,                    // $738/wk × 52
+  highSchool:      _cpsHighSchool || 48_360,  // CPS primary, $930/wk fallback
+  someCollege:     _cpsSomeCollege || 53_040, // CPS primary, $1,020/wk fallback
+  associates:      55_640,                    // $1,070/wk × 52
+  bachelors:       80_236,                    // $1,543/wk × 52
+  masters:         95_680,                    // $1,840/wk × 52
+  doctoral:        118_456,                   // $2,278/wk × 52
+  professional:    122_876,                   // $2,363/wk × 52
+});
+
+/**
+ * Federal Direct Unsubsidized loan rates (2024-25 academic year).
+ */
+export const LOAN_RATES = Object.freeze({
+  undergraduate: 0.065,   // 6.50% Direct Unsubsidized (undergrad)
+  graduate:      0.0808,  // 8.08% Direct Unsubsidized (grad/professional)
 });
 
 /**
