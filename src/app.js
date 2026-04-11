@@ -153,11 +153,16 @@ function setupNavToggle() {
   function closeMenu() {
     menu.classList.remove('nav-menu--open');
     toggle.setAttribute('aria-expanded', 'false');
+    if (toolsDropdown) toolsDropdown.open = false;
   }
+
+  // Force Tools <details> open on mobile so flattened items are visible
+  const toolsDropdown = menu.querySelector('details.dropdown');
 
   toggle.addEventListener('click', () => {
     const isOpen = menu.classList.toggle('nav-menu--open');
     toggle.setAttribute('aria-expanded', String(isOpen));
+    if (toolsDropdown) toolsDropdown.open = isOpen;
   });
 
   // Close menu when a nav link is clicked

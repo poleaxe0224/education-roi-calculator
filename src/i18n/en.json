@@ -21,6 +21,8 @@
     "career_count": "{count} careers",
     "recommended_for_you": "Recommended for You",
     "recommended_desc": "Based on your quiz results — careers you haven't explored yet.",
+    "hero_cta": "Start Exploring",
+    "hero_quick": "Popular picks:",
     "onboarding_cta": "First time here? Start exploring!",
     "onboarding_desc": "Pick an interest above to discover careers that match you."
   },

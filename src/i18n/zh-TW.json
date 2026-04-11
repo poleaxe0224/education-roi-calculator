@@ -21,6 +21,8 @@
     "career_count": "{count} 個職業",
     "recommended_for_you": "為你推薦",
     "recommended_desc": "根據你的測驗結果，推薦你還沒看過的職業。",
+    "hero_cta": "開始探索",
+    "hero_quick": "熱門推薦：",
     "onboarding_cta": "第一次來？從這裡開始！",
     "onboarding_desc": "從上方選一個你有興趣的方向，探索適合你的職業。"
   },

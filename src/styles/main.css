@@ -156,7 +156,8 @@ header nav .brand {
   }
 
   .nav-menu .dropdown ul {
-    display: flex;
+    /* !important overrides <details> UA hide when not [open] */
+    display: flex !important;
     flex-direction: column;
     position: static;
     box-shadow: none;
@@ -200,6 +201,50 @@ header nav .brand {
   gap: var(--space-md);
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.hero-cta {
+  font-size: 1.15rem;
+  padding: var(--space-sm) var(--space-2xl);
+  border-radius: var(--radius-btn);
+  min-height: var(--touch-target-min);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hero-quick {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.hero-quick__label {
+  font-size: 0.85rem;
+  color: var(--pico-muted-color);
+  font-weight: 500;
+}
+
+.hero-pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-badge);
+  border: 1px solid var(--pico-muted-border-color);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.hero-pick:hover {
+  border-color: var(--brand-primary);
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--brand-primary);
 }
 
 /* ---- ROI colors ---- */

@@ -27,6 +27,9 @@ const QUIZ_QUESTIONS = [
 /** Hand-picked popular careers (diverse across interest groups) */
 const POPULAR_SOC = ['15-1252', '29-1141', '17-2141', '27-1024', '13-2051', '47-2111'];
 
+/** Subset for hero quick-entry (4 diverse picks) */
+const HERO_QUICK_SOC = ['15-1252', '29-1141', '17-2141', '27-1024'];
+
 function renderInterestCards() {
   return INTEREST_GROUPS.map((g) => {
     const count = CAREER_MAPPINGS.filter((c) => c.interests.includes(g.key)).length;
@@ -118,11 +121,27 @@ function renderQuizStart() {
   `;
 }
 
+function renderHeroQuickPicks() {
+  const isZh = getLocale() === 'zh-TW';
+  return HERO_QUICK_SOC
+    .map((soc) => CAREER_MAPPINGS.find((c) => c.soc === soc))
+    .filter(Boolean)
+    .map((c) => `<a href="#/profile/${c.soc}" class="hero-pick">${c.icon} ${isZh ? c.careerZh : c.career}</a>`)
+    .join('');
+}
+
 export function render() {
   return `
     <section class="hero">
       <h1 data-i18n="home.title">${t('home.title')}</h1>
       <p data-i18n="home.subtitle">${t('home.subtitle')}</p>
+      <div class="hero-actions">
+        <a href="#/search" role="button" class="hero-cta">${t('home.hero_cta')}</a>
+      </div>
+      <div class="hero-quick">
+        <span class="hero-quick__label">${t('home.hero_quick')}</span>
+        ${renderHeroQuickPicks()}
+      </div>
     </section>
 
     ${renderQuizStart()}
