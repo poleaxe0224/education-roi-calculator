@@ -114,7 +114,7 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 12. **Polish** ✓ — a11y (focus management, ARIA labels, skip link), responsive report view, CI verified
 13. **Impact & Completeness Upgrade** ✓ — US data disclaimer, glossary tooltips (CSS-only), onboarding quiz (4Q→interest routing), Search→Calculator quick ROI (auto-fetch), Detail breakeven chart (crossover), mobile compare cards (scroll-snap), Report share link (base64 URL)
 14. **Phase 4 Polish** ✓ — Dark mode (toggle + auto-detect + localStorage), Social card WebP, bilingual degree tooltips (en↔zh-TW)
-15. **Phase 15** (in progress) — Tech debt resolved (detail.js 4-module split), SEO dynamic meta + SSG share pages (50 career-specific OG pages), personalized recommendations (quiz→localStorage→home), PWA offline (build-time SW, 68-file pre-cache, CDN caching, offline banner)
+15. **Phase 15** (in progress) — Tech debt resolved (detail.js 4-module split), SEO dynamic meta + SSG share pages (50 career-specific OG pages), personalized recommendations (quiz→localStorage→home), PWA offline (build-time SW, 340+ file pre-cache, CDN caching, offline banner)
 16. **Phase 16** ✓ — Career database expansion (25→50 careers), 4 new categories (community, science, protective, transportation), BLS OOH-sourced profiles
 17. **Phase 17** ✓ — Full BLS OOH expansion (50→330 careers), 10 new categories (management, media, food_service, maintenance, personal_service, sales, office, agriculture, production, military), dynamic SOC/CIP loading in fetch scripts
 
