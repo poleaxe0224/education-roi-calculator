@@ -1,0 +1,37 @@
+{
+  "15-1212": {
+    "how_to_become": {
+      "training": "通常需要或偏好持有資安認證（如 CompTIA Security+、CISSP）。由於威脅不斷演變，持續培訓至關重要。"
+    }
+  },
+  "29-1141": {
+    "how_to_become": {
+      "education": "護理學學士（BSN）或護理副學士學位（ADN）。必須通過 NCLEX-RN 考試。"
+    }
+  },
+  "27-1024": {
+    "how_to_become": {
+      "training": "設計師必須持續掌握設計軟體（如 Adobe Creative Suite）、UX/UI 趨勢及新興技術。"
+    }
+  },
+  "27-1014": {
+    "how_to_become": {
+      "training": "持續學習新的動畫軟體（如 Maya、Blender、After Effects）及動作捕捉等新興技法。"
+    }
+  },
+  "15-1242": {
+    "how_to_become": {
+      "training": "資料庫認證（如 Oracle、Microsoft SQL Server、AWS）具價值。需持續學習雲端資料庫與資料安全相關知識。"
+    }
+  },
+  "39-9031": {
+    "how_to_become": {
+      "training": "通常要求持有全國公認組織（如 ACE、NASM、ACSM）的認證。也需要 CPR/AED 認證。"
+    }
+  },
+  "11-3121": {
+    "how_to_become": {
+      "training": "專業認證（如 PHR、SPHR、SHRM-CP）具價值。持續掌握勞動法規的最新動態至關重要。"
+    }
+  }
+}
