@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/generate-freshness-badge.mjs && vite build && node scripts/generate-share-pages.mjs && node scripts/generate-sw.mjs",
+    "build": "node scripts/generate-freshness-badge.mjs && python scripts/fix-wof.py public/data-freshness.json && vite build && node scripts/generate-share-pages.mjs && python scripts/fix-wof.py dist/share && node scripts/generate-sw.mjs && python scripts/fix-wof.py dist/sw.js",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
