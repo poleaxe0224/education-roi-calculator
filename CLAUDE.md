@@ -145,6 +145,7 @@ Home (interest cards) → Search (filter chips + keyword) → Profile (#/profile
 - **BLS API key**: Free at https://www.bls.gov/developers/. Set `BLS_API_KEY` in `.env`. Without key: ~11 req/day; with key: 500 req/day (50 series/req → 46 batches for 327 careers)
 - **SOC proxy mapping**: BLS revises SOC codes periodically (last major: 2018). When a SOC in our profiles has no OES data, `SOC_PROXIES` in `fetch-bls-wages.mjs` maps it to the nearest equivalent. After refresh, check for zero-data SOCs and update the map
 - **Node.js libuv file-write bug**: On this Windows system, ALL Node.js versions (v22/v24) writeFileSync produces 0x887d-compressed files unreadable by other programs (Python, esbuild, .NET). Root cause unknown (not version-specific, not drive-specific). Workarounds in place:
-  - `npm run refresh-data` auto-runs `python scripts/fix-wof.py` as the last step to rewrite data JSON
-  - `vite.config.js` sets `esbuild: false` so the Go-based esbuild binary never reads Node-written temp files
+  - `npm run refresh-data` auto-runs `python scripts/fix-wof.py` as the last step to rewrite `src/data/*.json`
+  - `vite.config.js` uses `build.target: 'esnext'` to skip the esbuild-transpile Rollup pass (previous workaround `esbuild: false` broke dev-mode JSON imports — vite's json plugin needs esbuild enabled)
+  - Files written by ad-hoc Node scripts (e.g. `generate-freshness-badge.mjs` → `public/data-freshness.json`) still regress; fix manually by reading via `node -e` and rewriting via Python with `newline='\n'`
   - CI builds on Linux are unaffected
