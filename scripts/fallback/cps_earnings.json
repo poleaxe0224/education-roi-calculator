@@ -1,26 +1,26 @@
 {
   "_meta": {
-    "fetchedAt": "2026-04-13T08:07:20.500Z",
+    "fetchedAt": "2026-04-20T08:11:24.633Z",
     "source": "BLS CPS Usual Weekly Earnings (LEU series)",
     "seriesIds": [
       "LEU0252917300",
       "LEU0252916800"
     ],
-    "quarter": "3rd Quarter 2025",
+    "quarter": "1st Quarter 2026",
     "note": "someCollegeNoDegree is estimated via interpolation: hsOnly + (someCollegeOrAssoc - hsOnly) × 0.6"
   },
   "hsGraduatesNoCollege": {
     "seriesId": "LEU0252917300",
-    "weeklyMedian": 980,
-    "annualEstimate": 50960
+    "weeklyMedian": 977,
+    "annualEstimate": 50804
   },
   "someCollegeOrAssociate": {
     "seriesId": "LEU0252916800",
-    "weeklyMedian": 1009,
-    "annualEstimate": 52468
+    "weeklyMedian": 1004,
+    "annualEstimate": 52208
   },
   "someCollegeNoDegree": {
-    "annualEstimate": 51865,
+    "annualEstimate": 51646,
     "method": "interpolation",
     "interpolationFactor": 0.6
   }
